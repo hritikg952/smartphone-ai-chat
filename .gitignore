@@ -1,0 +1,51 @@
+# AGENTS.md references this project's auto-detected gitignore patterns.
+# -- Kotlin / Android --
+*.class
+*.jar
+*.apk
+*.aab
+*.dex
+*.ap_
+*.aab_
+*.klib
+*.kythe
+*.kotlin_builtins
+*.kotlin_module
+local.properties
+
+# -- Gradle --
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# -- IDE --
+.idea/
+*.iml
+*.ipr
+*.iws
+.DS_Store
+
+# -- OS --
+.DS_Store
+Thumbs.db
+
+# -- Kotlin Native --
+.kotlin/
+
+# -- OpenCode / agent metadata --
+.opencode/
+
+# -- graphify (knowledge graph builds) --
+graphify-out/
+
+# -- Project-specific --
+documents/
+tickets/
+
+# -- Misc --
+.cxx/
+*.log
+*.tmp
+*.swp
+*.swo
+*~
