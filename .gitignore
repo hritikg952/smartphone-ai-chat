@@ -35,9 +35,6 @@ Thumbs.db
 # -- OpenCode / agent metadata --
 .opencode/
 
-# -- graphify (knowledge graph builds) --
-graphify-out/
-
 # -- Project-specific --
 documents/
 tickets/

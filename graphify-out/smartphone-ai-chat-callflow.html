@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>smartphone-ai-chat — Complete Call Flow &amp; Architecture Documentation</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --bg: #0f172a; --surface: #1e293b; --border: #334155;
+  --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8;
+  --warn: #fbbf24; --err: #f87171; --ok: #34d399;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 2.4rem; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+h2 { font-size: 1.7rem; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+h3 { font-size: 1.25rem; margin: 32px 0 12px; color: var(--accent); }
+h4 { font-size: 1.05rem; margin: 20px 0 8px; color: var(--warn); }
+p { margin: 8px 0; color: var(--muted); }
+.subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 32px; }
+.mermaid { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 20px 0; overflow-x: auto; position: relative; }
+.mermaid.is-enhanced { padding: 0; overflow: hidden; min-height: 260px; }
+.mermaid-viewport { padding: 54px 24px 24px; overflow: hidden; cursor: grab; touch-action: none; min-height: 260px; }
+.mermaid-viewport.is-dragging { cursor: grabbing; }
+.mermaid-viewport svg { max-width: none !important; height: auto; transform-origin: 0 0; transition: transform 120ms ease; }
+.mermaid-toolbar { position: absolute; top: 10px; right: 10px; z-index: 3; display: flex; align-items: center; gap: 6px; padding: 6px; background: rgba(15,23,42,0.92); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.28); }
+.mermaid-toolbar button, .mermaid-toolbar .zoom-level { height: 28px; min-width: 32px; border: 1px solid var(--border); border-radius: 6px; background: #1e293b; color: var(--text); font: 600 0.78rem system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; }
+.mermaid-toolbar button { cursor: pointer; }
+.mermaid-toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+.mermaid-toolbar .zoom-level { min-width: 52px; color: var(--muted); background: transparent; }
+.call-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+.call-table th { background: #1a2744; color: var(--accent); text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+.call-table td { padding: 8px 14px; border: 1px solid var(--border); vertical-align: top; }
+.call-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+.tag-async { background: #7c3aed33; color: #a78bfa; }
+.tag-class { background: #05966933; color: var(--ok); }
+.tag-func { background: #2563eb33; color: var(--accent); }
+.tag-cmd { background: #d9770633; color: var(--warn); }
+.tag-endpoint { background: #dc262633; color: var(--err); }
+.tag-hook { background: #db277733; color: #f472b6; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 16px 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin: 16px 0; }
+.arrow-chain { font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--accent); padding: 10px; background: rgba(56,189,248,0.06); border-radius: 6px; }
+code { font-family: 'Fira Code', 'Cascadia Code', monospace; background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 3px; font-size: 0.88em; }
+ul, ol { margin: 8px 0 8px 24px; color: var(--muted); }
+li { margin: 4px 0; }
+a { color: var(--accent); }
+hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+.nav { position: sticky; top: 0; background: var(--bg); z-index: 10; padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.9rem; }
+.nav a { text-decoration: none; }
+.nav a:hover { text-decoration: underline; }
+@media (max-width: 768px) { .container { padding: 16px; } h1 { font-size: 1.8rem; } }
+
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>smartphone-ai-chat — Complete Call Flow &amp; Architecture Documentation</h1>
+<p class="subtitle">Generated from graphify knowledge graph: 398 nodes, 603 edges, 24 communities. Commit: unknown</p>
+
+<div class="nav">
+    <a href="#overview">Architecture Overview</a>
+    <a href="#extract-pipeline">Extraction Pipeline</a>
+    <a href="#build-graph">Graph Build</a>
+    <a href="#cli-skills">CLI &amp; Skill Installers</a>
+    <a href="#ingest-cache-update">Ingestion &amp; Updates</a>
+    <a href="#tests-fixtures">Tests &amp; Fixtures</a>
+    <a href="#project-docs-ci-cd">Project Docs &amp; CI/CD</a>
+    <a href="#color-theme">Color Theme</a>
+    <a href="#typography">Typography</a>
+    <a href="#settings-config">Settings Config</a>
+</div>
+
+<!-- ====== Architecture Overview ====== -->
+<h2 id="overview">1. Architecture Overview</h2>
+
+<div class="mermaid">
+
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    EXTRACT_PIPELINE_5F350230("Extraction Pipeline<br/><small>303 nodes</small>")
+    class EXTRACT_PIPELINE_5F350230 module;
+    BUILD_GRAPH_321CBB04("Graph Build<br/><small>2 nodes</small>")
+    class BUILD_GRAPH_321CBB04 module;
+    CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>3 nodes</small>")
+    class CLI_SKILLS_9964CBB8 module;
+    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>34 nodes</small>")
+    class INGEST_CACHE_UPDATE_FF457338 module;
+    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>37 nodes</small>")
+    class TESTS_FIXTURES_B84B1DCC module;
+    PROJECT_DOCS_CI_CD_59CBEB3C("Project Docs &amp; CI/CD<br/><small>16 nodes</small>")
+    class PROJECT_DOCS_CI_CD_59CBEB3C module;
+    COLOR_THEME_6B4EFCFF("Color Theme<br/><small>1 nodes</small>")
+    class COLOR_THEME_6B4EFCFF module;
+    TYPOGRAPHY_D102FA38("Typography<br/><small>1 nodes</small>")
+    class TYPOGRAPHY_D102FA38 module;
+    SETTINGS_CONFIG_F6262C22("Settings Config<br/><small>1 nodes</small>")
+    class SETTINGS_CONFIG_F6262C22 module;
+    EXTRACT_PIPELINE_5F350230 -->|references x2| TESTS_FIXTURES_B84B1DCC
+    PROJECT_DOCS_CI_CD_59CBEB3C -->|references| INGEST_CACHE_UPDATE_FF457338
+    INGEST_CACHE_UPDATE_FF457338 -->|references| PROJECT_DOCS_CI_CD_59CBEB3C
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<div class="grid">
+  <div class="card">
+    <h4>Architecture Layers</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
+      <tr><td>Extraction Pipeline</td><td>303</td><td><code>0, 1, 3, 4, 5, 6, 7, 8, 9, 13, 14, 17</code></td></tr><tr><td>Graph Build</td><td>2</td><td><code>19, 22</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>3</td><td><code>18</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>34</td><td><code>2</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>37</td><td><code>11, 12, 15, 16</code></td></tr><tr><td>Project Docs &amp; CI/CD</td><td>16</td><td><code>10</code></td></tr><tr><td>Color Theme</td><td>1</td><td><code>20</code></td></tr><tr><td>Typography</td><td>1</td><td><code>21</code></td></tr><tr><td>Settings Config</td><td>1</td><td><code>23</code></td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Core Flow</h4>
+    <div class="arrow-chain">Extraction Pipeline -&gt; Tests &amp; Fixtures -&gt; Graph Build -&gt; CLI &amp; Skill Installers -&gt; Ingestion &amp; Updates -&gt; Project Docs &amp; CI/CD -&gt; Color Theme</div>
+  </div>
+</div>
+<div class="grid">
+  <div class="card">
+    <h4>Graph Report Highlights</h4>
+    <ul>
+      <li>398 nodes · 603 edges · 24 communities (17 shown, 7 thin omitted)</li>
+      <li>Extraction: 81% EXTRACTED · 19% INFERRED · 0% AMBIGUOUS · INFERRED: 115 edges (avg confidence: 0.8)</li>
+      <li>Token cost: 0 input · 0 output</li>
+      <li>1. `MessageText` - 45 edges</li>
+      <li>2. `ChatViewModel` - 30 edges</li>
+      <li>3. `Message` - 20 edges</li>
+    </ul>
+  </div>
+</div>
+<hr>
+<!-- ====== 2. Extraction Pipeline ====== -->
+<h2 id="extract-pipeline">2. Extraction Pipeline</h2>
+<p>Extraction Pipeline groups implementation around app, com, smartphoneaichat, domain, mostly in presentation/viewmodel/ChatViewModel.kt, domain/model/ConversationTest.kt, model/value/ValueObjectTest.kt. This section covers 303 nodes and 493 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Extraction Pipeline (303 nodes, 493 edges)
+    subgraph extract_pipeline_data_conversation_InMemoryConve_1a24e49f["data/conversation/InMemoryConversationRepository.kt"]
+        app_src_main_java_com_smartphoneaichat_data_conv_d73b8552("InMemoryConversationRepository<br/><small>data/conversation/InMemoryConversationRepository.kt</small>")
+        app_src_main_java_com_smartphoneaichat_data_conv_2744057d("delete()<br/><small>data/conversation/InMemoryConversationRepository.kt</small>")
+        app_src_main_java_com_smartphoneaichat_data_conv_daeb429c("getAll()<br/><small>data/conversation/InMemoryConversationRepository.kt</small>")
+        app_src_main_java_com_smartphoneaichat_data_conv_1abe63ef("getById()<br/><small>data/conversation/InMemoryConversationRepository.kt</small>")
+        app_src_main_java_com_smartphoneaichat_data_conv_227538a9("save()<br/><small>data/conversation/InMemoryConversationRepository.kt</small>")
+    end
+    subgraph extract_pipeline_data_engine_LiteRtInferenceEngi_89995524["data/engine/LiteRtInferenceEngine.kt"]
+        app_src_main_java_com_smartphoneaichat_data_engi_e71b01ed("LiteRtInferenceEngine<br/><small>data/engine/LiteRtInferenceEngine.kt</small>")
+        app_src_main_java_com_smartphoneaichat_data_engi_5a856842("sendMessage()<br/><small>data/engine/LiteRtInferenceEngine.kt</small>")
+        app_src_main_java_com_smartphoneaichat_data_engi_bbe54e54("stopGeneration()<br/><small>data/engine/LiteRtInferenceEngine.kt</small>")
+    end
+    subgraph extract_pipeline_com_smartphoneaichat_MainActivi_aafe07cc["com/smartphoneaichat/MainActivity.kt"]
+        app_src_main_java_com_smartphoneaichat_mainactiv_8d4e6c16("MainActivity<br/><small>com/smartphoneaichat/MainActivity.kt</small>")
+        app_src_main_java_com_smartphoneaichat_mainactiv_f2fbc8d1("onCreate()<br/><small>com/smartphoneaichat/MainActivity.kt</small>")
+    end
+    subgraph extract_pipeline_data_id_UuidIdGenerator_kt_86ec75d5["data/id/UuidIdGenerator.kt"]
+        app_src_main_java_com_smartphoneaichat_data_id_u_c02b1122("UuidIdGenerator<br/><small>data/id/UuidIdGenerator.kt</small>")
+        app_src_main_java_com_smartphoneaichat_data_id_u_cd2c6d09("generateConversationId()<br/><small>data/id/UuidIdGenerator.kt</small>")
+    end
+    subgraph extract_pipeline_presentation_viewmodel_ChatView_c0c5b03d["presentation/viewmodel/ChatViewModelTest.kt"]
+        app_src_test_java_com_smartphoneaichat_presentat_a920b549("ChatViewModelTest<br/><small>presentation/viewmodel/ChatViewModelTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_presentat_ced1ab56("createViewModel()<br/><small>presentation/viewmodel/ChatViewModelTest.kt</small>")
+    end
+    app_src_main_java_com_smartphoneaichat_data_mode_0d723290("HuggingFaceModelFileManager<br/><small>data/model/HuggingFaceModelFileManager.kt</small>")
+    app_src_test_java_com_smartphoneaichat_domain_mo_0398d104("ConversationTest<br/><small>domain/model/ConversationTest.kt</small>")
+    app_src_test_java_com_smartphoneaichat_domain_us_6cf6bb5b("SendMessageUseCaseTest<br/><small>domain/usecase/SendMessageUseCaseTest.kt</small>")
+    app_src_main_java_com_smartphoneaichat_presentat_a8b9360e("ChatViewModel<br/><small>presentation/viewmodel/ChatViewModel.kt</small>")
+    app_src_main_java_com_smartphoneaichat_mainactiv_8d4e6c16 -->|method| app_src_main_java_com_smartphoneaichat_mainactiv_f2fbc8d1
+    app_src_main_java_com_smartphoneaichat_data_conv_d73b8552 -->|method| app_src_main_java_com_smartphoneaichat_data_conv_2744057d
+    app_src_main_java_com_smartphoneaichat_data_conv_d73b8552 -->|method| app_src_main_java_com_smartphoneaichat_data_conv_daeb429c
+    app_src_main_java_com_smartphoneaichat_data_conv_d73b8552 -->|method| app_src_main_java_com_smartphoneaichat_data_conv_1abe63ef
+    app_src_main_java_com_smartphoneaichat_data_conv_d73b8552 -->|method| app_src_main_java_com_smartphoneaichat_data_conv_227538a9
+    app_src_main_java_com_smartphoneaichat_data_engi_e71b01ed -->|method| app_src_main_java_com_smartphoneaichat_data_engi_5a856842
+    app_src_main_java_com_smartphoneaichat_data_engi_e71b01ed -->|method| app_src_main_java_com_smartphoneaichat_data_engi_bbe54e54
+    app_src_main_java_com_smartphoneaichat_data_id_u_c02b1122 -->|method| app_src_main_java_com_smartphoneaichat_data_id_u_cd2c6d09
+    app_src_test_java_com_smartphoneaichat_presentat_a920b549 -->|method| app_src_test_java_com_smartphoneaichat_presentat_ced1ab56
+    %% Omitted for readability: 285 nodes, 0 edges
+    class app_src_main_java_com_smartphoneaichat_data_conv_d73b8552 klass;
+    class app_src_main_java_com_smartphoneaichat_data_conv_2744057d function;
+    class app_src_main_java_com_smartphoneaichat_data_conv_daeb429c function;
+    class app_src_main_java_com_smartphoneaichat_data_conv_1abe63ef function;
+    class app_src_main_java_com_smartphoneaichat_data_conv_227538a9 function;
+    class app_src_main_java_com_smartphoneaichat_data_engi_e71b01ed klass;
+    class app_src_main_java_com_smartphoneaichat_data_engi_5a856842 function;
+    class app_src_main_java_com_smartphoneaichat_data_engi_bbe54e54 function;
+    class app_src_main_java_com_smartphoneaichat_mainactiv_8d4e6c16 klass;
+    class app_src_main_java_com_smartphoneaichat_mainactiv_f2fbc8d1 function;
+    class app_src_main_java_com_smartphoneaichat_data_id_u_c02b1122 klass;
+    class app_src_main_java_com_smartphoneaichat_data_id_u_cd2c6d09 function;
+    class app_src_test_java_com_smartphoneaichat_presentat_a920b549 test;
+    class app_src_test_java_com_smartphoneaichat_presentat_ced1ab56 test;
+    class app_src_main_java_com_smartphoneaichat_data_mode_0d723290 klass;
+    class app_src_test_java_com_smartphoneaichat_domain_mo_0398d104 test;
+    class app_src_test_java_com_smartphoneaichat_domain_us_6cf6bb5b test;
+    class app_src_main_java_com_smartphoneaichat_presentat_a8b9360e klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>MessageText.kt</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>MessageText.kt node in model/value/MessageText.kt.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>MessageText</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>accumulatesTokensInAiMessageText()</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCaseTest.kt</small><br><code>addMessage_appendsMessage()</code><br><small style="color:var(--muted)">domain/model/ConversationTest.kt</small><br><code>addMessage_doesNotMutateOriginal()</code><br><small style="color:var(--muted)">domain/model/ConversationTest.kt</small><br>+38 more</td>
+  <td>MessageText node in model/value/MessageText.kt.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>SendMessageUseCase.kt</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCase.kt</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>SendMessageUseCase.kt node in domain/usecase/SendMessageUseCase.kt.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>SendMessageUseCase</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCase.kt</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>accumulatesTokensInAiMessageText()</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCaseTest.kt</small><br><code>createViewModel()</code><br><small style="color:var(--muted)">presentation/viewmodel/ChatViewModelTest.kt</small><br><code>finalEmissionHasAllTokensAccumulated()</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCaseTest.kt</small><br>+4 more</td>
+  <td>SendMessageUseCase node in domain/usecase/SendMessageUseCase.kt.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.invoke()</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCase.kt</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>Message</code><br><small style="color:var(--muted)">domain/model/Message.kt</small><br><code>SendMessageUseCase</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCase.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.invoke() node in domain/usecase/SendMessageUseCase.kt.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>Flow</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Flow node in project.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>FakeInferenceEngine.kt</code><br><small style="color:var(--muted)">data/engine/FakeInferenceEngine.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>FakeInferenceEngine.kt node in data/engine/FakeInferenceEngine.kt.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>FakeInferenceEngine</code><br><small style="color:var(--muted)">data/engine/FakeInferenceEngine.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>accumulatesTokensInAiMessageText()</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCaseTest.kt</small><br><code>finalEmissionHasAllTokensAccumulated()</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCaseTest.kt</small><br><code>finalEmissionMarksAiMessageNotStreaming()</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCaseTest.kt</small><br>+4 more</td>
+  <td>FakeInferenceEngine node in data/engine/FakeInferenceEngine.kt.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>.sendMessage()</code><br><small style="color:var(--muted)">data/engine/FakeInferenceEngine.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>FakeInferenceEngine</code><br><small style="color:var(--muted)">data/engine/FakeInferenceEngine.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.sendMessage() node in data/engine/FakeInferenceEngine.kt.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>String</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>String node in project.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>Flow</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Flow node in project.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>.stopGeneration()</code><br><small style="color:var(--muted)">data/engine/FakeInferenceEngine.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>FakeInferenceEngine</code><br><small style="color:var(--muted)">data/engine/FakeInferenceEngine.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.stopGeneration() node in data/engine/FakeInferenceEngine.kt.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>ValueObjectTest.kt</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>MessageTextTest</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>createWithTextExactly4096Chars_succeeds()</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small><br><code>createWithTextExactly4097Chars_throwsIllegalArgumentException()</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small><br><code>createWithTextOf10000Chars_throwsIllegalArgumentException()</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small><br>+2 more</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>.createWithTextUnder4096Chars_succeeds()</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>MessageText</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small><br><code>MessageTextTest</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.createWithTextUnder4096Chars_succeeds() node in model/value/ValueObjectTest.kt.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>.createWithTextExactly4096Chars_succeeds()</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>MessageText</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small><br><code>MessageTextTest</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.createWithTextExactly4096Chars_succeeds() node in model/value/ValueObjectTest.kt.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>.createWithTextExactly4097Chars_throwsIllegalArgumentException()</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>MessageText</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small><br><code>MessageTextTest</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.createWithTextExactly4097Chars_throwsIllegalArgumentException() node in model/value/ValueObjectTest.kt.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>.createWithTextOf10000Chars_throwsIllegalArgumentException()</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>MessageText</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small><br><code>MessageTextTest</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.createWithTextOf10000Chars_throwsIllegalArgumentException() node in model/value/ValueObjectTest.kt.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>.emptyStringIsValid()</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>MessageText</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small><br><code>MessageTextTest</code><br><small style="color:var(--muted)">model/value/ValueObjectTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.emptyStringIsValid() node in model/value/ValueObjectTest.kt.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>ConversationTitleServiceTest.kt</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>emptyString_returnsEmptyString()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small><br><code>exactly40Chars_returnedVerbatim()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small><br><code>exceeds40Chars_truncatedWithEllipsis()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small><br>+4 more</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>.shortTitle_returnedVerbatim()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small><br><code>MessageText</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.shortTitle_returnedVerbatim() node in domain/service/ConversationTitleServiceTest.kt.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>.exactly40Chars_returnedVerbatim()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small><br><code>MessageText</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.exactly40Chars_returnedVerbatim() node in domain/service/ConversationTitleServiceTest.kt.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>.exceeds40Chars_truncatedWithEllipsis()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small><br><code>MessageText</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.exceeds40Chars_truncatedWithEllipsis() node in domain/service/ConversationTitleServiceTest.kt.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>.emptyString_returnsEmptyString()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small><br><code>MessageText</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.emptyString_returnsEmptyString() node in domain/service/ConversationTitleServiceTest.kt.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>.whitespaceOnly_trimsToEmptyAndReturnsEmptyString()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small><br><code>MessageText</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.whitespaceOnly_trimsToEmptyAndReturnsEmptyString() node in domain/service/ConversationTitleServiceTest.kt.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>.leadingAndTrailingWhitespace_trimmed()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small><br><code>MessageText</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.leadingAndTrailingWhitespace_trimmed() node in domain/service/ConversationTitleServiceTest.kt.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>.unicodeAtBoundary_truncatedAtCharBoundary()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small><br><code>MessageText</code><br><small style="color:var(--muted)">model/value/MessageText.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.unicodeAtBoundary_truncatedAtCharBoundary() node in domain/service/ConversationTitleServiceTest.kt.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>SendMessageUseCaseTest.kt</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCaseTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>SendMessageUseCaseTest</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCaseTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>accumulatesTokensInAiMessageText()</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCaseTest.kt</small><br><code>aiMessageHasNoAttachment()</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCaseTest.kt</small><br><code>autoTitle_truncatesLongFirstMessage()</code><br><small style="color:var(--muted)">domain/usecase/SendMessageUseCaseTest.kt</small><br>+13 more</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>presentation/viewmodel/ChatViewModel.kt</code></td><td>24 nodes</td></tr>
+<tr><td><code>domain/model/ConversationTest.kt</code></td><td>20 nodes</td></tr>
+<tr><td><code>model/value/ValueObjectTest.kt</code></td><td>19 nodes</td></tr>
+<tr><td><code>presentation/viewmodel/ChatViewModelTest.kt</code></td><td>19 nodes</td></tr>
+<tr><td><code>domain/usecase/SendMessageUseCaseTest.kt</code></td><td>18 nodes</td></tr>
+<tr><td><code>data/model/HuggingFaceModelFileManager.kt</code></td><td>11 nodes</td></tr>
+<tr><td><code>domain/repository/ModelFileManager.kt</code></td><td>9 nodes</td></tr>
+<tr><td><code>domain/service/ConversationTitleServiceTest.kt</code></td><td>9 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x143, references x142, contains x53, calls x35. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 3. Graph Build ====== -->
+<h2 id="build-graph">3. Graph Build</h2>
+<p>Graph Build groups implementation around buildgradlekts, app, mostly in app/build.gradle.kts, build.gradle.kts. This section covers 2 nodes and 0 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Graph Build (2 nodes, 0 edges)
+    app_build_gradle_d5080885("build.gradle.kts")
+    build_gradle_877734b9("build.gradle.kts")
+    class app_build_gradle_d5080885 function;
+    class build_gradle_877734b9 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>build.gradle.kts</code><br><small style="color:var(--muted)">app/build.gradle.kts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>build.gradle.kts node in app/build.gradle.kts.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>build.gradle.kts</code><br><small style="color:var(--muted)">build.gradle.kts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>build.gradle.kts node in build.gradle.kts.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>app/build.gradle.kts</code></td><td>1 nodes</td></tr>
+<tr><td><code>build.gradle.kts</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: No high-confidence call edges detected. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 4. CLI & Skill Installers ====== -->
+<h2 id="cli-skills">4. CLI &amp; Skill Installers</h2>
+<p>CLI &amp; Skill Installers groups implementation around packagejson, opencode, dependencies, plugin, mostly in .opencode/package.json. This section covers 3 nodes and 2 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: CLI &amp; Skill Installers (3 nodes, 2 edges)
+    opencode_package_0b420dd1("package.json")
+    opencode_package_dependencies_0e830325("dependencies<br/><small>.opencode/package.json</small>")
+    opencode_package_dependencies_opencode_ai_plugin_4e3da3ad("@opencode-ai/plugin<br/><small>.opencode/package.json</small>")
+    opencode_package_0b420dd1 -->|contains| opencode_package_dependencies_0e830325
+    opencode_package_dependencies_0e830325 -->|contains| opencode_package_dependencies_opencode_ai_plugin_4e3da3ad
+    class opencode_package_0b420dd1 function;
+    class opencode_package_dependencies_0e830325 function;
+    class opencode_package_dependencies_opencode_ai_plugin_4e3da3ad function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>package.json</code><br><small style="color:var(--muted)">.opencode/package.json</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>package.json node in .opencode/package.json.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>dependencies</code><br><small style="color:var(--muted)">.opencode/package.json</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>dependencies node in .opencode/package.json.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>@opencode-ai/plugin</code><br><small style="color:var(--muted)">.opencode/package.json</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>@opencode-ai/plugin node in .opencode/package.json.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>.opencode/package.json</code></td><td>3 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 5. Ingestion & Updates ====== -->
+<h2 id="ingest-cache-update">5. Ingestion &amp; Updates</h2>
+<p>Ingestion &amp; Updates groups implementation around architecturemd, phase, phases, workdone, mostly in ARCHITECTURE.md, Phases-workdone/phase-1-package-structure-interfaces.md, Phases-workdone/phase-0-id-generator-value-objects.md. This section covers 34 nodes and 51 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Ingestion &amp; Updates (34 nodes, 51 edges)
+    subgraph ingest_cache_update_ARCHITECTURE_md_47e7db1e["ARCHITECTURE.md"]
+        architecture_md_102c846f("Architecture Markdown Document<br/><small>ARCHITECTURE.md</small>")
+        idgenerator_9298e9e7("IdGenerator Factory Interface<br/><small>ARCHITECTURE.md</small>")
+        conversation_repository_d1283fee("ConversationRepository Interface<br/><small>ARCHITECTURE.md</small>")
+        inference_engine_d46d0a9d("InferenceEngine Interface<br/><small>ARCHITECTURE.md</small>")
+        model_file_manager_cf9f4379("ModelFileManager Interface<br/><small>ARCHITECTURE.md</small>")
+        conversation_title_service_938c2007("ConversationTitleService Pure Domain Se...<br/><small>ARCHITECTURE.md</small>")
+        download_model_use_case_c11b90c0("DownloadModelUseCase<br/><small>ARCHITECTURE.md</small>")
+        load_model_use_case_b68136c9("LoadModelUseCase<br/><small>ARCHITECTURE.md</small>")
+        send_message_use_case_9251bb3f("SendMessageUseCase<br/><small>ARCHITECTURE.md</small>")
+    end
+    subgraph ingest_cache_update_Phases_workdone_phase_1_pack_5437c970["Phases-workdone/phase-1-package-structure-interfaces.md"]
+        phase1_package_structure_interfaces_b2bb237e("Phase 1: Package Structure + Interfaces<br/><small>Phases-workdone/phase-1-package-structure-interfaces.md</small>")
+        huggingface_model_file_manager_d4d41e73("HuggingFaceModelFileManager (Data Layer)<br/><small>Phases-workdone/phase-1-package-structure-interfaces.md</small>")
+        litert_inference_engine_7684649e("LiteRtInferenceEngine (Data Layer)<br/><small>Phases-workdone/phase-1-package-structure-interfaces.md</small>")
+    end
+    subgraph ingest_cache_update_Phases_workdone_phase_0_id_g_65b42990["Phases-workdone/phase-0-id-generator-value-objects.md"]
+        phase0_id_generator_value_objects_7cfd90ae("Phase 0: IdGenerator + Value Objects<br/><small>Phases-workdone/phase-0-id-generator-value-objects.md</small>")
+        uuid_id_generator_7f17f841("UuidIdGenerator (Data Layer)<br/><small>Phases-workdone/phase-0-id-generator-value-objects.md</small>")
+    end
+    huggingface_model_download_85feb4ba("HuggingFace Model Download Pipeline<br/><small>AGENTS.md</small>")
+    phase2_conversation_encapsulation_ad73548e("Phase 2: Conversation Encapsulation<br/><small>Phases-workdone/phase-2-conversation-encapsulation.md</small>")
+    phase3_use_cases_eb2e3ac5("Phase 3: Use Cases<br/><small>Phases-workdone/phase-3-use-cases.md</small>")
+    phase4_dependency_injection_9e79cfbf("Phase 4: Dependency Injection<br/><small>Phases-workdone/phase-4-dependency-injection.md</small>")
+    architecture_md_102c846f -->|references| huggingface_model_download_85feb4ba
+    architecture_md_102c846f -->|cites| phase0_id_generator_value_objects_7cfd90ae
+    architecture_md_102c846f -->|cites| phase1_package_structure_interfaces_b2bb237e
+    architecture_md_102c846f -->|cites| phase2_conversation_encapsulation_ad73548e
+    architecture_md_102c846f -->|cites| phase3_use_cases_eb2e3ac5
+    architecture_md_102c846f -->|cites| phase4_dependency_injection_9e79cfbf
+    phase0_id_generator_value_objects_7cfd90ae -->|references| idgenerator_9298e9e7
+    phase0_id_generator_value_objects_7cfd90ae -->|references| uuid_id_generator_7f17f841
+    phase1_package_structure_interfaces_b2bb237e -->|references| conversation_repository_d1283fee
+    phase1_package_structure_interfaces_b2bb237e -->|references| huggingface_model_file_manager_d4d41e73
+    phase1_package_structure_interfaces_b2bb237e -->|references| inference_engine_d46d0a9d
+    phase1_package_structure_interfaces_b2bb237e -->|references| litert_inference_engine_7684649e
+    phase1_package_structure_interfaces_b2bb237e -->|references| model_file_manager_cf9f4379
+    phase2_conversation_encapsulation_ad73548e -->|references| conversation_title_service_938c2007
+    phase3_use_cases_eb2e3ac5 -->|references| download_model_use_case_c11b90c0
+    phase3_use_cases_eb2e3ac5 -->|references| load_model_use_case_b68136c9
+    phase3_use_cases_eb2e3ac5 -->|references| send_message_use_case_9251bb3f
+    idgenerator_9298e9e7 -->|references| uuid_id_generator_7f17f841
+    inference_engine_d46d0a9d -->|references| litert_inference_engine_7684649e
+    model_file_manager_cf9f4379 -->|references| huggingface_model_file_manager_d4d41e73
+    %% Omitted for readability: 16 nodes, 0 edges
+    class architecture_md_102c846f concept;
+    class idgenerator_9298e9e7 klass;
+    class conversation_repository_d1283fee klass;
+    class inference_engine_d46d0a9d klass;
+    class model_file_manager_cf9f4379 klass;
+    class conversation_title_service_938c2007 klass;
+    class download_model_use_case_c11b90c0 klass;
+    class load_model_use_case_b68136c9 klass;
+    class send_message_use_case_9251bb3f klass;
+    class phase1_package_structure_interfaces_b2bb237e concept;
+    class huggingface_model_file_manager_d4d41e73 klass;
+    class litert_inference_engine_7684649e klass;
+    class phase0_id_generator_value_objects_7cfd90ae concept;
+    class uuid_id_generator_7f17f841 klass;
+    class huggingface_model_download_85feb4ba klass;
+    class phase2_conversation_encapsulation_ad73548e concept;
+    class phase3_use_cases_eb2e3ac5 concept;
+    class phase4_dependency_injection_9e79cfbf concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>Architecture HTML Document</code><br><small style="color:var(--muted)">ARCHITECTURE.html</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Architecture HTML Document.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Architecture Markdown Document</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Architecture Markdown Document.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Phase 0: IdGenerator + Value Objects</code><br><small style="color:var(--muted)">Phases-workdone/phase-0-id-generator-value-objects.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Phase 0: IdGenerator + Value Objects.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>Phase 1: Package Structure + Interfaces</code><br><small style="color:var(--muted)">Phases-workdone/phase-1-package-structure-interfaces.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Phase 1: Package Structure + Interfaces.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>Phase 2: Conversation Encapsulation</code><br><small style="color:var(--muted)">Phases-workdone/phase-2-conversation-encapsulation.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Phase 2: Conversation Encapsulation.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>Phase 3: Use Cases</code><br><small style="color:var(--muted)">Phases-workdone/phase-3-use-cases.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Phase 3: Use Cases.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>Phase 3.5: Remediation</code><br><small style="color:var(--muted)">Phases-workdone/phase-3.5-remediation.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Phase 3.5: Remediation.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>Phase 4: Dependency Injection</code><br><small style="color:var(--muted)">Phases-workdone/phase-4-dependency-injection.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Phase 4: Dependency Injection.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>Phase 5: Conversation Repository</code><br><small style="color:var(--muted)">Phases-workdone/phase-5-conversation-repository.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Phase 5: Conversation Repository.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>Clean Architecture Refactoring</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Clean Architecture Refactoring.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>Value Objects (MessageId, ConversationId, MessageText)</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Value Objects (MessageId, ConversationId, MessageText).</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>MessageId Inline Value Class</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>MessageId Inline Value Class node in ARCHITECTURE.md.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>ConversationId Inline Value Class</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ConversationId Inline Value Class node in ARCHITECTURE.md.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>MessageText Inline Value Class</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>MessageText Inline Value Class node in ARCHITECTURE.md.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>IdGenerator Factory Interface</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>IdGenerator Factory Interface node in ARCHITECTURE.md.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>ISP-Compliant Repository Interfaces</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for ISP-Compliant Repository Interfaces.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>InferenceEngine Interface</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>InferenceEngine Interface node in ARCHITECTURE.md.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>ModelFileManager Interface</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ModelFileManager Interface node in ARCHITECTURE.md.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>ConversationRepository Interface</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ConversationRepository Interface node in ARCHITECTURE.md.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Conversation Aggregate Root</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Conversation Aggregate Root.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>ConversationTitleService Pure Domain Service</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ConversationTitleService Pure Domain Service node in ARCHITECTURE.md.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>SendMessageUseCase</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>SendMessageUseCase node in ARCHITECTURE.md.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>DownloadModelUseCase</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>DownloadModelUseCase node in ARCHITECTURE.md.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>LoadModelUseCase</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>LoadModelUseCase node in ARCHITECTURE.md.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>AppContainer Manual DI</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for AppContainer Manual DI.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>6-Phase Migration Roadmap</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for 6-Phase Migration Roadmap.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>Test Strategy (JUnit5+MockK+Turbine, Fakes over Mocks)</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Test Strategy (JUnit5+MockK+Turbine, Fakes over Mocks).</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>HuggingFace Model Download Pipeline</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>HuggingFace Model Download Pipeline node in AGENTS.md.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>LiteRtInferenceEngine (Data Layer)</code><br><small style="color:var(--muted)">Phases-workdone/phase-1-package-structure-interfaces.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>LiteRtInferenceEngine (Data Layer) node in Phases-workdone/phase-1-package-structure-interfaces.md.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>HuggingFaceModelFileManager (Data Layer)</code><br><small style="color:var(--muted)">Phases-workdone/phase-1-package-structure-interfaces.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>HuggingFaceModelFileManager (Data Layer) node in Phases-workdone/phase-1-package-structure-interfaces.md.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>ARCHITECTURE.md</code></td><td>20 nodes</td></tr>
+<tr><td><code>Phases-workdone/phase-1-package-structure-interfaces.md</code></td><td>3 nodes</td></tr>
+<tr><td><code>Phases-workdone/phase-0-id-generator-value-objects.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>Phases-workdone/phase-4-dependency-injection.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>Phases-workdone/phase-5-conversation-repository.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>AGENTS.md</code></td><td>1 nodes</td></tr>
+<tr><td><code>ARCHITECTURE.html</code></td><td>1 nodes</td></tr>
+<tr><td><code>Phases-workdone/phase-2-conversation-encapsulation.md</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: references x42, cites x7, semantically similar to x1, relates x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 6. Tests & Fixtures ====== -->
+<h2 id="tests-fixtures">6. Tests &amp; Fixtures</h2>
+<p>Tests &amp; Fixtures groups implementation around app, test, com, smartphoneaichat, mostly in data/conversation/InMemoryConversationRepositoryTest.kt, data/id/UuidIdGeneratorTest.kt, domain/usecase/LoadModelUseCaseTest.kt. This section covers 37 nodes and 33 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Tests &amp; Fixtures (37 nodes, 33 edges)
+    subgraph tests_fixtures_data_conversation_InMemoryConvers_cd1830ff["data/conversation/InMemoryConversationRepositoryTest.kt"]
+        app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e("InMemoryConversationRepositoryTest<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_conv_15981b87("delete_nonexistent_doesNotThrow()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_conv_747097e4("delete_removesConversation()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_conv_30b4cea3("delete_removesFromGetAll()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_conv_2b485229("getAll_returnsEmptyListWhenNoConversations()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_conv_bc4a3d5a("getById_returnsNoneWhenNoConversations()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_conv_ef75b777("getById_returnsNullForNonExistentId()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_conv_36ba4d82("save_overwritesExistingConversation()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_conv_eb38cae0("saveAndDeleteMultiple_getAllReturnsOnlyRemaining()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_conv_086c3bb9("saveMultiple_getAllReturnsAllInInsertionOrder()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_conv_6e40475b("saveThenGetAll_returnsSavedConversation()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_conv_93c74b4c("saveThenGetById_returnsConversation()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+    end
+    subgraph tests_fixtures_data_id_UuidIdGeneratorTest_kt_a03a3a47["data/id/UuidIdGeneratorTest.kt"]
+        app_src_test_java_com_smartphoneaichat_data_id_u_c0432fad("FakeIdGeneratorTest<br/><small>data/id/UuidIdGeneratorTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_id_u_6174c25b("UuidIdGeneratorTest<br/><small>data/id/UuidIdGeneratorTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_id_u_1340fd21("generateConversationId_returnsNonNull()<br/><small>data/id/UuidIdGeneratorTest.kt</small>")
+        app_src_test_java_com_smartphoneaichat_data_id_u_85ab0bdb("generateConversationId_returnsUniqueIdsOnSuccessiveCalls()<br/><small>data/id/UuidIdGeneratorTest.kt</small>")
+    end
+    app_src_test_java_com_smartphoneaichat_domain_us_8371df22("DownloadModelUseCaseTest<br/><small>domain/usecase/DownloadModelUseCaseTest.kt</small>")
+    app_src_test_java_com_smartphoneaichat_domain_us_0668295e("LoadModelUseCaseTest<br/><small>domain/usecase/LoadModelUseCaseTest.kt</small>")
+    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_15981b87
+    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_747097e4
+    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_30b4cea3
+    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_2b485229
+    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_bc4a3d5a
+    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_ef75b777
+    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_36ba4d82
+    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_eb38cae0
+    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_086c3bb9
+    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_6e40475b
+    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_93c74b4c
+    app_src_test_java_com_smartphoneaichat_data_id_u_c0432fad -->|method| app_src_test_java_com_smartphoneaichat_data_id_u_1340fd21
+    app_src_test_java_com_smartphoneaichat_data_id_u_c0432fad -->|method| app_src_test_java_com_smartphoneaichat_data_id_u_85ab0bdb
+    %% Omitted for readability: 19 nodes, 0 edges
+    class app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e test;
+    class app_src_test_java_com_smartphoneaichat_data_conv_15981b87 test;
+    class app_src_test_java_com_smartphoneaichat_data_conv_747097e4 test;
+    class app_src_test_java_com_smartphoneaichat_data_conv_30b4cea3 test;
+    class app_src_test_java_com_smartphoneaichat_data_conv_2b485229 test;
+    class app_src_test_java_com_smartphoneaichat_data_conv_bc4a3d5a test;
+    class app_src_test_java_com_smartphoneaichat_data_conv_ef75b777 test;
+    class app_src_test_java_com_smartphoneaichat_data_conv_36ba4d82 test;
+    class app_src_test_java_com_smartphoneaichat_data_conv_eb38cae0 test;
+    class app_src_test_java_com_smartphoneaichat_data_conv_086c3bb9 test;
+    class app_src_test_java_com_smartphoneaichat_data_conv_6e40475b test;
+    class app_src_test_java_com_smartphoneaichat_data_conv_93c74b4c test;
+    class app_src_test_java_com_smartphoneaichat_data_id_u_c0432fad test;
+    class app_src_test_java_com_smartphoneaichat_data_id_u_6174c25b test;
+    class app_src_test_java_com_smartphoneaichat_data_id_u_1340fd21 test;
+    class app_src_test_java_com_smartphoneaichat_data_id_u_85ab0bdb test;
+    class app_src_test_java_com_smartphoneaichat_domain_us_8371df22 test;
+    class app_src_test_java_com_smartphoneaichat_domain_us_0668295e test;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>InMemoryConversationRepositoryTest.kt</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>delete_nonexistent_doesNotThrow()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small><br><code>delete_removesConversation()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small><br><code>delete_removesFromGetAll()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small><br>+8 more</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.getAll_returnsEmptyListWhenNoConversations()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.getAll_returnsEmptyListWhenNoConversations() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.getById_returnsNoneWhenNoConversations()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.getById_returnsNoneWhenNoConversations() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.saveThenGetAll_returnsSavedConversation()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.saveThenGetAll_returnsSavedConversation() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.saveThenGetById_returnsConversation()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.saveThenGetById_returnsConversation() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>.getById_returnsNullForNonExistentId()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.getById_returnsNullForNonExistentId() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.save_overwritesExistingConversation()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.save_overwritesExistingConversation() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>.delete_removesConversation()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.delete_removesConversation() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>.delete_removesFromGetAll()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.delete_removesFromGetAll() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>.delete_nonexistent_doesNotThrow()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.delete_nonexistent_doesNotThrow() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>.saveMultiple_getAllReturnsAllInInsertionOrder()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.saveMultiple_getAllReturnsAllInInsertionOrder() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>.saveAndDeleteMultiple_getAllReturnsOnlyRemaining()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.saveAndDeleteMultiple_getAllReturnsOnlyRemaining() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>UuidIdGeneratorTest.kt</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>FakeIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>generateConversationId_returnsNonNull()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small><br><code>generateConversationId_returnsUniqueIdsOnSuccessiveCalls()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small><br><code>generateMessageId_returnsNonNull()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small><br>+1 more</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>.generateMessageId_returnsNonNull()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>FakeIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.generateMessageId_returnsNonNull() node in data/id/UuidIdGeneratorTest.kt.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>.generateMessageId_returnsUniqueIdsOnSuccessiveCalls()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>FakeIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.generateMessageId_returnsUniqueIdsOnSuccessiveCalls() node in data/id/UuidIdGeneratorTest.kt.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>.generateConversationId_returnsNonNull()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>FakeIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.generateConversationId_returnsNonNull() node in data/id/UuidIdGeneratorTest.kt.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>.generateConversationId_returnsUniqueIdsOnSuccessiveCalls()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>FakeIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.generateConversationId_returnsUniqueIdsOnSuccessiveCalls() node in data/id/UuidIdGeneratorTest.kt.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>UuidIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>generateConversationId_returnsNonNull()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small><br><code>generateConversationId_returnsUniqueIdsOnSuccessiveCalls()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small><br><code>generateMessageId_returnsNonNull()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small><br>+1 more</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>.generateMessageId_returnsNonNull()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>UuidIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.generateMessageId_returnsNonNull() node in data/id/UuidIdGeneratorTest.kt.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>.generateMessageId_returnsUniqueIdsOnSuccessiveCalls()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>UuidIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.generateMessageId_returnsUniqueIdsOnSuccessiveCalls() node in data/id/UuidIdGeneratorTest.kt.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>.generateConversationId_returnsNonNull()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>UuidIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.generateConversationId_returnsNonNull() node in data/id/UuidIdGeneratorTest.kt.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>.generateConversationId_returnsUniqueIdsOnSuccessiveCalls()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>UuidIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.generateConversationId_returnsUniqueIdsOnSuccessiveCalls() node in data/id/UuidIdGeneratorTest.kt.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>LoadModelUseCaseTest.kt</code><br><small style="color:var(--muted)">domain/usecase/LoadModelUseCaseTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>LoadModelUseCaseTest</code><br><small style="color:var(--muted)">domain/usecase/LoadModelUseCaseTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>forwardsProgressCallback()</code><br><small style="color:var(--muted)">domain/usecase/LoadModelUseCaseTest.kt</small><br><code>propagatesLoadFailure()</code><br><small style="color:var(--muted)">domain/usecase/LoadModelUseCaseTest.kt</small><br><code>success_callsLoadModelAfterUnload()</code><br><small style="color:var(--muted)">domain/usecase/LoadModelUseCaseTest.kt</small><br>+2 more</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>.success_unloadsPreviousModelFirst()</code><br><small style="color:var(--muted)">domain/usecase/LoadModelUseCaseTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>LoadModelUseCaseTest</code><br><small style="color:var(--muted)">domain/usecase/LoadModelUseCaseTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.success_unloadsPreviousModelFirst() node in domain/usecase/LoadModelUseCaseTest.kt.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>.success_callsLoadModelAfterUnload()</code><br><small style="color:var(--muted)">domain/usecase/LoadModelUseCaseTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>LoadModelUseCaseTest</code><br><small style="color:var(--muted)">domain/usecase/LoadModelUseCaseTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.success_callsLoadModelAfterUnload() node in domain/usecase/LoadModelUseCaseTest.kt.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>.unknownModel_returnsFailure()</code><br><small style="color:var(--muted)">domain/usecase/LoadModelUseCaseTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>LoadModelUseCaseTest</code><br><small style="color:var(--muted)">domain/usecase/LoadModelUseCaseTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.unknownModel_returnsFailure() node in domain/usecase/LoadModelUseCaseTest.kt.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>.forwardsProgressCallback()</code><br><small style="color:var(--muted)">domain/usecase/LoadModelUseCaseTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>LoadModelUseCaseTest</code><br><small style="color:var(--muted)">domain/usecase/LoadModelUseCaseTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.forwardsProgressCallback() node in domain/usecase/LoadModelUseCaseTest.kt.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>data/conversation/InMemoryConversationRepositoryTest.kt</code></td><td>13 nodes</td></tr>
+<tr><td><code>data/id/UuidIdGeneratorTest.kt</code></td><td>11 nodes</td></tr>
+<tr><td><code>domain/usecase/LoadModelUseCaseTest.kt</code></td><td>7 nodes</td></tr>
+<tr><td><code>domain/usecase/DownloadModelUseCaseTest.kt</code></td><td>6 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x28, contains x5. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 7. Project Docs & CI/CD ====== -->
+<h2 id="project-docs-ci-cd">7. Project Docs &amp; CI/CD</h2>
+<p>Project Docs &amp; CI/CD groups implementation around agentsmd, code, guide, future, mostly in AGENTS.md, CODE_REVIEW.md, Future_Plans.md. This section covers 16 nodes and 18 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Project Docs &amp; CI/CD (16 nodes, 18 edges)
+    subgraph project_docs_ci_cd_AGENTS_md_7759434a["AGENTS.md"]
+        agents_md_1f169a2a("Agent Guide<br/><small>AGENTS.md</small>")
+        chat_viewmodel_9ae1caec("ChatViewModel God Class<br/><small>AGENTS.md</small>")
+        chatui_state_f46671e9("ChatUiState Data Class<br/><small>AGENTS.md</small>")
+        litertlm_backend_0a8917b6("LiteRT-LM On-Device LLM Runtime<br/><small>AGENTS.md</small>")
+        notification_system_1d045dd4("SharedFlow-based AppNotificationManager<br/><small>AGENTS.md</small>")
+        mvvm_pattern_d2862b3a("MVVM with ChatViewModel and ChatUiState<br/><small>AGENTS.md</small>")
+        statemanagement_stateflow_ac855f8d("StateFlow/MutableStateFlow State Manage...<br/><small>AGENTS.md</small>")
+    end
+    subgraph project_docs_ci_cd_CODE_REVIEW_md_df7de10a["CODE_REVIEW.md"]
+        code_review_md_c6f80f9a("Code Review Report<br/><small>CODE_REVIEW.md</small>")
+        code_issues_5f0120cd("Code Review Issues<br/><small>CODE_REVIEW.md</small>")
+    end
+    subgraph project_docs_ci_cd_Future_Plans_md_12209f13["Future_Plans.md"]
+        future_plans_md_3aade952("Future Plans<br/><small>Future_Plans.md</small>")
+        future_plans_concept_ca3f9002("Medicine Scanning and Prescription Anal...<br/><small>Future_Plans.md</small>")
+    end
+    github_workflows_release_aca1fcb8("CI/CD Release Pipeline<br/><small>.github/workflows/release.yml</small>")
+    ten_architectural_violations_bdfe57f7("10 Architectural Violations<br/><small>ARCHITECTURE.md</small>")
+    key_setup_md_5d7f7dba("API Key Setup Guide<br/><small>KEY_SETUP.md</small>")
+    resource_management_md_be67cf4a("Resource Management Guide<br/><small>RESOURCE_MANAGEMENT.md</small>")
+    threading_md_aab0b37f("Threading Model Document<br/><small>THREADING.md</small>")
+    github_workflows_release_aca1fcb8 -->|references| agents_md_1f169a2a
+    agents_md_1f169a2a -->|references| chat_viewmodel_9ae1caec
+    agents_md_1f169a2a -->|references| chatui_state_f46671e9
+    agents_md_1f169a2a -->|references| litertlm_backend_0a8917b6
+    agents_md_1f169a2a -->|references| mvvm_pattern_d2862b3a
+    agents_md_1f169a2a -->|references| notification_system_1d045dd4
+    agents_md_1f169a2a -->|references| statemanagement_stateflow_ac855f8d
+    code_review_md_c6f80f9a -->|references| code_issues_5f0120cd
+    code_review_md_c6f80f9a -->|references| future_plans_md_3aade952
+    code_review_md_c6f80f9a -->|references| key_setup_md_5d7f7dba
+    code_review_md_c6f80f9a -->|references| resource_management_md_be67cf4a
+    code_review_md_c6f80f9a -->|references| threading_md_aab0b37f
+    future_plans_md_3aade952 -->|references| future_plans_concept_ca3f9002
+    resource_management_md_be67cf4a -->|references| chat_viewmodel_9ae1caec
+    resource_management_md_be67cf4a -->|references| litertlm_backend_0a8917b6
+    threading_md_aab0b37f -->|references| chat_viewmodel_9ae1caec
+    chat_viewmodel_9ae1caec -->|relates| ten_architectural_violations_bdfe57f7
+    class agents_md_1f169a2a concept;
+    class chat_viewmodel_9ae1caec klass;
+    class chatui_state_f46671e9 klass;
+    class litertlm_backend_0a8917b6 klass;
+    class notification_system_1d045dd4 klass;
+    class mvvm_pattern_d2862b3a concept;
+    class statemanagement_stateflow_ac855f8d concept;
+    class code_review_md_c6f80f9a concept;
+    class code_issues_5f0120cd concept;
+    class future_plans_md_3aade952 concept;
+    class future_plans_concept_ca3f9002 klass;
+    class github_workflows_release_aca1fcb8 klass;
+    class ten_architectural_violations_bdfe57f7 concept;
+    class key_setup_md_5d7f7dba concept;
+    class resource_management_md_be67cf4a concept;
+    class threading_md_aab0b37f concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>CI/CD Release Pipeline</code><br><small style="color:var(--muted)">.github/workflows/release.yml</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>CI/CD Release Pipeline node in .github/workflows/release.yml.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Agent Guide</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Agent Guide.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Code Review Report</code><br><small style="color:var(--muted)">CODE_REVIEW.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Code Review Report.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>Future Plans</code><br><small style="color:var(--muted)">Future_Plans.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Future Plans.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>API Key Setup Guide</code><br><small style="color:var(--muted)">KEY_SETUP.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing API Key Setup Guide.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>Resource Management Guide</code><br><small style="color:var(--muted)">RESOURCE_MANAGEMENT.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Resource Management Guide.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>Threading Model Document</code><br><small style="color:var(--muted)">THREADING.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Threading Model Document.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>MVVM with ChatViewModel and ChatUiState</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for MVVM with ChatViewModel and ChatUiState.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>LiteRT-LM On-Device LLM Runtime</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>LiteRT-LM On-Device LLM Runtime node in AGENTS.md.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>StateFlow/MutableStateFlow State Management</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for StateFlow/MutableStateFlow State Management.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>ChatUiState Data Class</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>ChatViewModel God Class</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>10 Architectural Violations</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for 10 Architectural Violations.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>SharedFlow-based AppNotificationManager</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>SharedFlow-based AppNotificationManager node in AGENTS.md.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>Code Review Issues</code><br><small style="color:var(--muted)">CODE_REVIEW.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Code Review Issues.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>Medicine Scanning and Prescription Analysis</code><br><small style="color:var(--muted)">Future_Plans.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Starts scanning or handles scan status.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>AGENTS.md</code></td><td>7 nodes</td></tr>
+<tr><td><code>CODE_REVIEW.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>Future_Plans.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>.github/workflows/release.yml</code></td><td>1 nodes</td></tr>
+<tr><td><code>ARCHITECTURE.md</code></td><td>1 nodes</td></tr>
+<tr><td><code>KEY_SETUP.md</code></td><td>1 nodes</td></tr>
+<tr><td><code>RESOURCE_MANAGEMENT.md</code></td><td>1 nodes</td></tr>
+<tr><td><code>THREADING.md</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: references x16, relates x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 8. Color Theme ====== -->
+<h2 id="color-theme">8. Color Theme</h2>
+<p>Color Theme groups implementation around colorkt, app, com, smartphoneaichat, mostly in ui/theme/Color.kt. This section covers 1 nodes and 0 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Color Theme (1 nodes, 0 edges)
+    app_src_main_java_com_smartphoneaichat_ui_theme_3c15ba4a("Color.kt")
+    class app_src_main_java_com_smartphoneaichat_ui_theme_3c15ba4a klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>Color.kt</code><br><small style="color:var(--muted)">ui/theme/Color.kt</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Color.kt node in ui/theme/Color.kt.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>ui/theme/Color.kt</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: No high-confidence call edges detected. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 9. Typography ====== -->
+<h2 id="typography">9. Typography</h2>
+<p>Typography groups implementation around typekt, app, com, smartphoneaichat, mostly in ui/theme/Type.kt. This section covers 1 nodes and 0 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Typography (1 nodes, 0 edges)
+    app_src_main_java_com_smartphoneaichat_ui_theme_7de4140d("Type.kt")
+    class app_src_main_java_com_smartphoneaichat_ui_theme_7de4140d klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>Type.kt</code><br><small style="color:var(--muted)">ui/theme/Type.kt</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Type.kt node in ui/theme/Type.kt.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>ui/theme/Type.kt</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: No high-confidence call edges detected. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 10. Settings Config ====== -->
+<h2 id="settings-config">10. Settings Config</h2>
+<p>Settings Config groups implementation around settingsgradlekts, mostly in settings.gradle.kts. This section covers 1 nodes and 0 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Settings Config (1 nodes, 0 edges)
+    settings_gradle_6d67144b("settings.gradle.kts")
+    class settings_gradle_6d67144b function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>settings.gradle.kts</code><br><small style="color:var(--muted)">settings.gradle.kts</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>settings.gradle.kts node in settings.gradle.kts.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>settings.gradle.kts</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: No high-confidence call edges detected. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<h2 id="hyperedges">Group Relationships (Hyperedges)</h2>
+<div class="grid">
+
+  <div class="card">
+    <h4>Clean Architecture Layer Dependencies</h4>
+    <p><code>participate_in</code> — 4 participants</p>
+    <ul>
+      <li><code>chatui_state</code></li>
+      <li><code>chat_viewmodel</code></li>
+      <li><code>isp_interfaces</code></li>
+      <li><code>litert_inference_engine</code></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Six Migration Phases from Monolith to Clean Architecture</h4>
+    <p><code>participate_in</code> — 6 participants</p>
+    <ul>
+      <li><code>phase0_id_generator_value_objects</code></li>
+      <li><code>phase1_package_structure_interfaces</code></li>
+      <li><code>phase2_conversation_encapsulation</code></li>
+      <li><code>phase3_use_cases</code></li>
+      <li><code>phase4_dependency_injection</code></li>
+      <li>... and 1 more</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>ISP Interface Triad (InferenceEngine, ModelFileManager, ConversationRepository)</h4>
+    <p><code>participate_in</code> — 3 participants</p>
+    <ul>
+      <li><code>inference_engine</code></li>
+      <li><code>model_file_manager</code></li>
+      <li><code>conversation_repository</code></li>
+    </ul>
+  </div>
+</div>
+<hr>
+<h2 id="stats">Project Statistics</h2>
+
+<div class="grid">
+  <div class="card">
+    <h4>Graph</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>Nodes</td><td>398</td></tr>
+      <tr><td>Edges</td><td>603</td></tr>
+      <tr><td>Hyperedges</td><td>3</td></tr>
+      <tr><td>Communities</td><td>24</td></tr>
+      <tr><td>Documented Sections</td><td>9</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Edge Confidence</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>EXTRACTED</td><td>488</td></tr>
+      <tr><td>INFERRED</td><td>115</td></tr>
+      <tr><td>AMBIGUOUS</td><td>0</td></tr>
+    </table>
+  </div>
+</div>
+
+<div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
+  <p>smartphone-ai-chat — Architecture Documentation</p>
+  <p>Generated: 2026-07-04 16:50 UTC · graphify callflow-html</p>
+</div>
+
+</div><!-- .container -->
+
+<script>
+(function () {
+  const mermaidConfig = {
+    startOnLoad: false,
+    theme: 'dark',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, useMaxWidth: true },
+    themeVariables: {
+      primaryColor: '#1e293b',
+      primaryTextColor: '#e2e8f0',
+      primaryBorderColor: '#38bdf8',
+      secondaryColor: '#0f172a',
+      tertiaryColor: '#334155',
+      lineColor: '#64748b',
+      textColor: '#e2e8f0',
+    }
+  };
+
+  mermaid.initialize(mermaidConfig);
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function enhanceMermaidDiagrams() {
+    document.querySelectorAll('.mermaid').forEach((container) => {
+      if (container.dataset.zoomReady === 'true') return;
+      const svg = container.querySelector('svg');
+      if (!svg) return;
+
+      container.dataset.zoomReady = 'true';
+      container.classList.add('is-enhanced');
+
+      const viewport = document.createElement('div');
+      viewport.className = 'mermaid-viewport';
+      svg.parentNode.insertBefore(viewport, svg);
+      viewport.appendChild(svg);
+
+      const toolbar = document.createElement('div');
+      toolbar.className = 'mermaid-toolbar';
+      toolbar.innerHTML = [
+        '<button type="button" data-action="zoom-out" title="Zoom out">-</button>',
+        '<span class="zoom-level" data-role="level">100%</span>',
+        '<button type="button" data-action="zoom-in" title="Zoom in">+</button>',
+        '<button type="button" data-action="fit" title="Fit width">Fit</button>',
+        '<button type="button" data-action="reset" title="Reset view">Reset</button>'
+      ].join('');
+      container.insertBefore(toolbar, viewport);
+
+      const state = { scale: 1, x: 0, y: 0, dragging: false, startX: 0, startY: 0, originX: 0, originY: 0 };
+      const level = toolbar.querySelector('[data-role="level"]');
+
+      function applyTransform() {
+        svg.style.transform = `translate(${state.x}px, ${state.y}px) scale(${state.scale})`;
+        level.textContent = `${Math.round(state.scale * 100)}%`;
+      }
+
+      function zoomBy(delta) {
+        state.scale = clamp(state.scale + delta, 0.25, 3);
+        applyTransform();
+      }
+
+      function reset() {
+        state.scale = 1;
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      function fitWidth() {
+        const rawWidth = svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.width
+          ? svg.viewBox.baseVal.width
+          : svg.getBoundingClientRect().width / state.scale;
+        if (!rawWidth) {
+          reset();
+          return;
+        }
+        state.scale = clamp((viewport.clientWidth - 48) / rawWidth, 0.25, 1.4);
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      toolbar.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-action]');
+        if (!button) return;
+        const action = button.dataset.action;
+        if (action === 'zoom-in') zoomBy(0.15);
+        if (action === 'zoom-out') zoomBy(-0.15);
+        if (action === 'fit') fitWidth();
+        if (action === 'reset') reset();
+      });
+
+      viewport.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return;
+        event.preventDefault();
+        zoomBy(event.deltaY < 0 ? 0.1 : -0.1);
+      }, { passive: false });
+
+      viewport.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return;
+        state.dragging = true;
+        state.startX = event.clientX;
+        state.startY = event.clientY;
+        state.originX = state.x;
+        state.originY = state.y;
+        viewport.classList.add('is-dragging');
+        viewport.setPointerCapture(event.pointerId);
+      });
+
+      viewport.addEventListener('pointermove', (event) => {
+        if (!state.dragging) return;
+        state.x = state.originX + event.clientX - state.startX;
+        state.y = state.originY + event.clientY - state.startY;
+        applyTransform();
+      });
+
+      function endDrag(event) {
+        if (!state.dragging) return;
+        state.dragging = false;
+        viewport.classList.remove('is-dragging');
+        if (viewport.hasPointerCapture(event.pointerId)) {
+          viewport.releasePointerCapture(event.pointerId);
+        }
+      }
+
+      viewport.addEventListener('pointerup', endDrag);
+      viewport.addEventListener('pointercancel', endDrag);
+      applyTransform();
+    });
+  }
+
+  function renderMermaid() {
+    const result = mermaid.run
+      ? mermaid.run({ querySelector: '.mermaid' })
+      : Promise.resolve();
+    Promise.resolve(result)
+      .then(enhanceMermaidDiagrams)
+      .catch((error) => {
+        console.error('Mermaid render failed:', error);
+        enhanceMermaidDiagrams();
+      });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderMermaid);
+  } else {
+    renderMermaid();
+  }
+})();
+</script>
+
+</body>
+</html>

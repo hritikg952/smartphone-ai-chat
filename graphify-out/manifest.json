@@ -1,0 +1,342 @@
+{
+  ".opencode/package.json": {
+    "mtime": 1783178935.9149628,
+    "ast_hash": "2bffcf9dc5701114d97f5dc5e7c50482",
+    "semantic_hash": "2bffcf9dc5701114d97f5dc5e7c50482"
+  },
+  "app/build.gradle.kts": {
+    "mtime": 1783009838.0096035,
+    "ast_hash": "c1d0a4747e38dc72f7c23f6b9764e915",
+    "semantic_hash": "c1d0a4747e38dc72f7c23f6b9764e915"
+  },
+  "app/src/main/java/com/smartphoneaichat/MainActivity.kt": {
+    "mtime": 1783153245.8288178,
+    "ast_hash": "6841e025d87490520833ebfa9e02f2c4",
+    "semantic_hash": "6841e025d87490520833ebfa9e02f2c4"
+  },
+  "app/src/main/java/com/smartphoneaichat/data/conversation/InMemoryConversationRepository.kt": {
+    "mtime": 1783159278.367162,
+    "ast_hash": "4aae711e09f4b49f8edbd53bd162d60c",
+    "semantic_hash": "4aae711e09f4b49f8edbd53bd162d60c"
+  },
+  "app/src/main/java/com/smartphoneaichat/data/engine/LiteRtInferenceEngine.kt": {
+    "mtime": 1783016385.4185927,
+    "ast_hash": "7f55f1b1deb81748964faa14cdb5b399",
+    "semantic_hash": "7f55f1b1deb81748964faa14cdb5b399"
+  },
+  "app/src/main/java/com/smartphoneaichat/data/id/UuidIdGenerator.kt": {
+    "mtime": 1783009992.0334764,
+    "ast_hash": "bed6f0dd7f29be24acc68b9e324db9e9",
+    "semantic_hash": "bed6f0dd7f29be24acc68b9e324db9e9"
+  },
+  "app/src/main/java/com/smartphoneaichat/data/model/HuggingFaceModelFileManager.kt": {
+    "mtime": 1783016382.4912126,
+    "ast_hash": "7a4a11beece991ed0d0286f5ad03c71f",
+    "semantic_hash": "7a4a11beece991ed0d0286f5ad03c71f"
+  },
+  "app/src/main/java/com/smartphoneaichat/di/AppContainer.kt": {
+    "mtime": 1783179121.8519645,
+    "ast_hash": "c95bbc52ef2e0256be07a7d704dc21d5",
+    "semantic_hash": "c95bbc52ef2e0256be07a7d704dc21d5"
+  },
+  "app/src/main/java/com/smartphoneaichat/di/ChatViewModelFactory.kt": {
+    "mtime": 1783179158.679272,
+    "ast_hash": "aed68d764d512db3cf042822c7033220",
+    "semantic_hash": "aed68d764d512db3cf042822c7033220"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/model/Conversation.kt": {
+    "mtime": 1783017441.5372255,
+    "ast_hash": "5ec90c7eef542d92c73b0c5ed751336e",
+    "semantic_hash": "5ec90c7eef542d92c73b0c5ed751336e"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/model/Message.kt": {
+    "mtime": 1783016280.0020688,
+    "ast_hash": "fd8a3f3625bbea9a320c1afbf4b0c069",
+    "semantic_hash": "fd8a3f3625bbea9a320c1afbf4b0c069"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/model/ModelInfo.kt": {
+    "mtime": 1783016283.2835433,
+    "ast_hash": "0a2eb5a13223d9201fa81a3739c8c3f9",
+    "semantic_hash": "0a2eb5a13223d9201fa81a3739c8c3f9"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/model/value/ConversationId.kt": {
+    "mtime": 1783009935.0666955,
+    "ast_hash": "adc53a259a59d8651e05cc442b2e58ad",
+    "semantic_hash": "adc53a259a59d8651e05cc442b2e58ad"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/model/value/MessageId.kt": {
+    "mtime": 1783009934.143677,
+    "ast_hash": "3da46e674fe0ab06c3719181be751dcc",
+    "semantic_hash": "3da46e674fe0ab06c3719181be751dcc"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/model/value/MessageText.kt": {
+    "mtime": 1783009935.795621,
+    "ast_hash": "d4a9c8ec682074f4d0c9537cd6294747",
+    "semantic_hash": "d4a9c8ec682074f4d0c9537cd6294747"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/repository/ConversationRepository.kt": {
+    "mtime": 1783016258.0116746,
+    "ast_hash": "1c1d14df085e27fa58de5ea17d9437bc",
+    "semantic_hash": "1c1d14df085e27fa58de5ea17d9437bc"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/repository/IdGenerator.kt": {
+    "mtime": 1783009990.6808612,
+    "ast_hash": "315beebf232971cda86fc6f9d9599163",
+    "semantic_hash": "315beebf232971cda86fc6f9d9599163"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/repository/InferenceEngine.kt": {
+    "mtime": 1783016253.2128658,
+    "ast_hash": "59c59eab013016f2f573e057043f888f",
+    "semantic_hash": "59c59eab013016f2f573e057043f888f"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/repository/ModelFileManager.kt": {
+    "mtime": 1783016255.6819148,
+    "ast_hash": "354c9dd619eb31338e3f758301f92812",
+    "semantic_hash": "354c9dd619eb31338e3f758301f92812"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/service/ConversationTitleService.kt": {
+    "mtime": 1783017442.3432314,
+    "ast_hash": "3f7e2d16ae62028923ced42abc77971e",
+    "semantic_hash": "3f7e2d16ae62028923ced42abc77971e"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/usecase/DownloadModelUseCase.kt": {
+    "mtime": 1783150170.4373474,
+    "ast_hash": "cde2062ea7c803c5f6fca024cf52917d",
+    "semantic_hash": "cde2062ea7c803c5f6fca024cf52917d"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/usecase/LoadModelUseCase.kt": {
+    "mtime": 1783150227.2250822,
+    "ast_hash": "734ddb07eb22a0bfbda31d9e9c2d73bb",
+    "semantic_hash": "734ddb07eb22a0bfbda31d9e9c2d73bb"
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/usecase/SendMessageUseCase.kt": {
+    "mtime": 1783149956.196811,
+    "ast_hash": "edac7b1e0e793ddd3ef607625efdec94",
+    "semantic_hash": "edac7b1e0e793ddd3ef607625efdec94"
+  },
+  "app/src/main/java/com/smartphoneaichat/presentation/notification/AppNotificationManager.kt": {
+    "mtime": 1783016302.114211,
+    "ast_hash": "93cc603cac296d0e14406f806848c913",
+    "semantic_hash": "93cc603cac296d0e14406f806848c913"
+  },
+  "app/src/main/java/com/smartphoneaichat/presentation/state/ChatUiState.kt": {
+    "mtime": 1783151413.8579965,
+    "ast_hash": "c8589fd5b202752579a361e249e9dafb",
+    "semantic_hash": "c8589fd5b202752579a361e249e9dafb"
+  },
+  "app/src/main/java/com/smartphoneaichat/presentation/viewmodel/ChatViewModel.kt": {
+    "mtime": 1783179475.1221766,
+    "ast_hash": "cce0626e877712a46c6aef69b649dbce",
+    "semantic_hash": "cce0626e877712a46c6aef69b649dbce"
+  },
+  "app/src/main/java/com/smartphoneaichat/ui/components/ChatBubble.kt": {
+    "mtime": 1783016462.9590242,
+    "ast_hash": "8d5cb58c6d079db9bf36cd16e26f13e0",
+    "semantic_hash": "8d5cb58c6d079db9bf36cd16e26f13e0"
+  },
+  "app/src/main/java/com/smartphoneaichat/ui/components/ChatInput.kt": {
+    "mtime": 1783016465.1470852,
+    "ast_hash": "697bf8eec503f00aa86f25030aba3a4e",
+    "semantic_hash": "697bf8eec503f00aa86f25030aba3a4e"
+  },
+  "app/src/main/java/com/smartphoneaichat/ui/components/ModelLoaderDialog.kt": {
+    "mtime": 1782636590.2268846,
+    "ast_hash": "ef7a2a2feff06cb9b57173fe0a3be8c1",
+    "semantic_hash": "ef7a2a2feff06cb9b57173fe0a3be8c1"
+  },
+  "app/src/main/java/com/smartphoneaichat/ui/components/ModelSelectorDialog.kt": {
+    "mtime": 1783016465.9444776,
+    "ast_hash": "657de4296033e229c14f7e8d175b501a",
+    "semantic_hash": "657de4296033e229c14f7e8d175b501a"
+  },
+  "app/src/main/java/com/smartphoneaichat/ui/components/NotificationHost.kt": {
+    "mtime": 1783016466.6323695,
+    "ast_hash": "499dc4f17a2ac889378094bc5140c91a",
+    "semantic_hash": "499dc4f17a2ac889378094bc5140c91a"
+  },
+  "app/src/main/java/com/smartphoneaichat/ui/components/Sidebar.kt": {
+    "mtime": 1783151424.404388,
+    "ast_hash": "1874886d1af90a03bd567c95856cb149",
+    "semantic_hash": "1874886d1af90a03bd567c95856cb149"
+  },
+  "app/src/main/java/com/smartphoneaichat/ui/components/ThinkingSection.kt": {
+    "mtime": 1782636586.2535539,
+    "ast_hash": "016c1667442b900a07e3a7fffcd5d57e",
+    "semantic_hash": "016c1667442b900a07e3a7fffcd5d57e"
+  },
+  "app/src/main/java/com/smartphoneaichat/ui/screens/ChatScreen.kt": {
+    "mtime": 1783016484.2922301,
+    "ast_hash": "210ae157624bc7a74b5bc10ad49a1a55",
+    "semantic_hash": "210ae157624bc7a74b5bc10ad49a1a55"
+  },
+  "app/src/main/java/com/smartphoneaichat/ui/theme/Color.kt": {
+    "mtime": 1782548504.7741573,
+    "ast_hash": "892edbdf644eab134c1867f6d569999e",
+    "semantic_hash": "892edbdf644eab134c1867f6d569999e"
+  },
+  "app/src/main/java/com/smartphoneaichat/ui/theme/Theme.kt": {
+    "mtime": 1782548513.2001283,
+    "ast_hash": "38bcdcea51561d16e62e73d4a01d2804",
+    "semantic_hash": "38bcdcea51561d16e62e73d4a01d2804"
+  },
+  "app/src/main/java/com/smartphoneaichat/ui/theme/Type.kt": {
+    "mtime": 1782548507.9985385,
+    "ast_hash": "aebe32accc4643216ddfa4ca695cf8f8",
+    "semantic_hash": "aebe32accc4643216ddfa4ca695cf8f8"
+  },
+  "app/src/test/java/com/smartphoneaichat/data/conversation/InMemoryConversationRepositoryTest.kt": {
+    "mtime": 1783178998.605087,
+    "ast_hash": "e34a6dc6d88ece6a2bb8de70571ae941",
+    "semantic_hash": "e34a6dc6d88ece6a2bb8de70571ae941"
+  },
+  "app/src/test/java/com/smartphoneaichat/data/engine/FakeInferenceEngine.kt": {
+    "mtime": 1783149609.6530704,
+    "ast_hash": "2ac98192c54917a455c2f1b31ba80df5",
+    "semantic_hash": "2ac98192c54917a455c2f1b31ba80df5"
+  },
+  "app/src/test/java/com/smartphoneaichat/data/id/FakeIdGenerator.kt": {
+    "mtime": 1783010007.3826432,
+    "ast_hash": "70520ff3f515b63ac29dc6e931da6a06",
+    "semantic_hash": "70520ff3f515b63ac29dc6e931da6a06"
+  },
+  "app/src/test/java/com/smartphoneaichat/data/id/UuidIdGeneratorTest.kt": {
+    "mtime": 1783009971.2269073,
+    "ast_hash": "5d25e5aba8082712d0754439a50c8da1",
+    "semantic_hash": "5d25e5aba8082712d0754439a50c8da1"
+  },
+  "app/src/test/java/com/smartphoneaichat/domain/model/ConversationTest.kt": {
+    "mtime": 1783017378.666896,
+    "ast_hash": "e14788f7b74a6191409c59e9cecc69b7",
+    "semantic_hash": "e14788f7b74a6191409c59e9cecc69b7"
+  },
+  "app/src/test/java/com/smartphoneaichat/domain/model/value/ValueObjectTest.kt": {
+    "mtime": 1783009894.8760588,
+    "ast_hash": "88740214eabed18bf131e9eb66c13d93",
+    "semantic_hash": "88740214eabed18bf131e9eb66c13d93"
+  },
+  "app/src/test/java/com/smartphoneaichat/domain/service/ConversationTitleServiceTest.kt": {
+    "mtime": 1783017386.81274,
+    "ast_hash": "61c9d8ca98e0861cc60f8f31b5d5042e",
+    "semantic_hash": "61c9d8ca98e0861cc60f8f31b5d5042e"
+  },
+  "app/src/test/java/com/smartphoneaichat/domain/usecase/DownloadModelUseCaseTest.kt": {
+    "mtime": 1783150144.7903748,
+    "ast_hash": "9fa1e47f84a037930cd08783102ccb54",
+    "semantic_hash": "9fa1e47f84a037930cd08783102ccb54"
+  },
+  "app/src/test/java/com/smartphoneaichat/domain/usecase/LoadModelUseCaseTest.kt": {
+    "mtime": 1783150207.2227342,
+    "ast_hash": "3066d12d310598b8e112ad2772da0cd2",
+    "semantic_hash": "3066d12d310598b8e112ad2772da0cd2"
+  },
+  "app/src/test/java/com/smartphoneaichat/domain/usecase/SendMessageUseCaseTest.kt": {
+    "mtime": 1783150098.4167674,
+    "ast_hash": "e46d7b6f19f9e7f82a7e27fc9e2c0017",
+    "semantic_hash": "e46d7b6f19f9e7f82a7e27fc9e2c0017"
+  },
+  "app/src/test/java/com/smartphoneaichat/presentation/state/ChatUiStateTest.kt": {
+    "mtime": 1783179532.2784288,
+    "ast_hash": "924009ed220d9b7961d1aa1b56096d6b",
+    "semantic_hash": "924009ed220d9b7961d1aa1b56096d6b"
+  },
+  "app/src/test/java/com/smartphoneaichat/presentation/viewmodel/ChatViewModelTest.kt": {
+    "mtime": 1783179659.8646333,
+    "ast_hash": "eae32a301777f65a6f3427e1a62ca28b",
+    "semantic_hash": "eae32a301777f65a6f3427e1a62ca28b"
+  },
+  "build.gradle.kts": {
+    "mtime": 1782564708.413397,
+    "ast_hash": "8a2bf779cee038bff993e2d83b5d88e7",
+    "semantic_hash": "8a2bf779cee038bff993e2d83b5d88e7"
+  },
+  "gradlew": {
+    "mtime": 1782637420.749183,
+    "ast_hash": "a43be8432bac3ffd05b3769aa42fe996",
+    "semantic_hash": "a43be8432bac3ffd05b3769aa42fe996"
+  },
+  "settings.gradle.kts": {
+    "mtime": 1782548452.7562575,
+    "ast_hash": "40674b97a6fbcf2c30e0868b624305c0",
+    "semantic_hash": "40674b97a6fbcf2c30e0868b624305c0"
+  },
+  ".github/workflows/release.yml": {
+    "mtime": 1782548632.2121143,
+    "ast_hash": "f6281c8ff1660b4aa92d8b0e402bdba5",
+    "semantic_hash": "f6281c8ff1660b4aa92d8b0e402bdba5"
+  },
+  "AGENTS.md": {
+    "mtime": 1782926883.544882,
+    "ast_hash": "99fca7f776eb5c3778b728eb7c33c104",
+    "semantic_hash": "99fca7f776eb5c3778b728eb7c33c104"
+  },
+  "ARCHITECTURE.html": {
+    "mtime": 1783003897.1603115,
+    "ast_hash": "371abf472c505009ea8c7f9fa3772bc7",
+    "semantic_hash": "371abf472c505009ea8c7f9fa3772bc7"
+  },
+  "ARCHITECTURE.md": {
+    "mtime": 1783003655.4867985,
+    "ast_hash": "e82def4980a09e933c66180531d54c43",
+    "semantic_hash": "e82def4980a09e933c66180531d54c43"
+  },
+  "CODE_REVIEW.md": {
+    "mtime": 1782637651.8638515,
+    "ast_hash": "ae32034669fd32283957a3141e0d2f4e",
+    "semantic_hash": "ae32034669fd32283957a3141e0d2f4e"
+  },
+  "Future_Plans.md": {
+    "mtime": 1783180459.1725798,
+    "ast_hash": "6a4daf4b3059e9a4a4194ec4e5d260e6",
+    "semantic_hash": "6a4daf4b3059e9a4a4194ec4e5d260e6"
+  },
+  "KEY_SETUP.md": {
+    "mtime": 1782636602.3908782,
+    "ast_hash": "659ed7358801d766300645227babaec1",
+    "semantic_hash": "659ed7358801d766300645227babaec1"
+  },
+  "Phases-workdone/phase-0-id-generator-value-objects.md": {
+    "mtime": 1783009684.3826668,
+    "ast_hash": "e10be7822ca85009e57f8fa48eeca01c",
+    "semantic_hash": "e10be7822ca85009e57f8fa48eeca01c"
+  },
+  "Phases-workdone/phase-1-package-structure-interfaces.md": {
+    "mtime": 1783016058.277726,
+    "ast_hash": "c71d36a85dc10142850cba09dcd3d1ab",
+    "semantic_hash": "c71d36a85dc10142850cba09dcd3d1ab"
+  },
+  "Phases-workdone/phase-2-conversation-encapsulation.md": {
+    "mtime": 1783017188.500743,
+    "ast_hash": "aabb000fcc45bdd2044f42665454554e",
+    "semantic_hash": "aabb000fcc45bdd2044f42665454554e"
+  },
+  "Phases-workdone/phase-3-use-cases.md": {
+    "mtime": 1783148873.466649,
+    "ast_hash": "359f931619c26aa6524e8f05af6cac4f",
+    "semantic_hash": "359f931619c26aa6524e8f05af6cac4f"
+  },
+  "Phases-workdone/phase-3.5-remediation.md": {
+    "mtime": 1783151113.022731,
+    "ast_hash": "bf0c7463d1a2f41678f7d04c331ec352",
+    "semantic_hash": "bf0c7463d1a2f41678f7d04c331ec352"
+  },
+  "Phases-workdone/phase-4-dependency-injection.md": {
+    "mtime": 1783151911.1989968,
+    "ast_hash": "284c27bfcd9ba88ef76985b40904ee21",
+    "semantic_hash": "284c27bfcd9ba88ef76985b40904ee21"
+  },
+  "Phases-workdone/phase-5-conversation-repository.md": {
+    "mtime": 1783158435.5942128,
+    "ast_hash": "a0e3eaced7d3a4eedadf474baed93c4c",
+    "semantic_hash": "a0e3eaced7d3a4eedadf474baed93c4c"
+  },
+  "RESOURCE_MANAGEMENT.md": {
+    "mtime": 1782636818.9777284,
+    "ast_hash": "4eaa6ff007133eb460db754c2d276cfd",
+    "semantic_hash": "4eaa6ff007133eb460db754c2d276cfd"
+  },
+  "THREADING.md": {
+    "mtime": 1782636811.2179713,
+    "ast_hash": "5e19978e1d8f6e68d1689478f42f7759",
+    "semantic_hash": "5e19978e1d8f6e68d1689478f42f7759"
+  }
+}
