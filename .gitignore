@@ -46,3 +46,6 @@ tickets/
 *.swp
 *.swo
 *~
+
+# -- Graphify --
+graphify-out/

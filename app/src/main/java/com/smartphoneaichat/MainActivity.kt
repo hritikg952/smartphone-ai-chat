@@ -1,27 +1,40 @@
 package com.smartphoneaichat
 
-import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.smartphoneaichat.di.AppContainer
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.smartphoneaichat.di.ChatViewModelFactory
-import com.smartphoneaichat.ui.screens.ChatScreen
-import com.smartphoneaichat.ui.theme.SmartphoneAIChatTheme
 import com.smartphoneaichat.presentation.viewmodel.ChatViewModel
+import com.smartphoneaichat.ui.components.BottomNavigationBar
+import com.smartphoneaichat.ui.navigation.Screen
+import com.smartphoneaichat.ui.screens.ChatScreen
+import com.smartphoneaichat.ui.theme.DarkBackground
+import com.smartphoneaichat.ui.theme.SmartphoneAIChatTheme
+import com.smartphoneaichat.ui.theme.TextSecondary
 
 /**
  * Single entry point for the application.
  *
  * This is the only Activity in the app. All screens are managed within
- * Compose navigation (currently a single screen [ChatScreen]).
+ * Compose navigation via [NavHost] with a bottom navigation bar.
  *
  * ===========================
  * LITERT-LM INTEGRATION
@@ -58,14 +71,63 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             SmartphoneAIChatTheme {
-                Surface(modifier = Modifier.fillMaxSize()) {
-                    val context = LocalContext.current
-                    val appContainer = remember { AppContainer(context.applicationContext as Application) }
-                    val factory = remember { ChatViewModelFactory(appContainer, context.applicationContext as Application) }
-                    val viewModel: ChatViewModel = viewModel(factory = factory)
-                    ChatScreen(viewModel = viewModel)
+                val context = LocalContext.current
+                val app = context.applicationContext as App
+                val factory = remember { ChatViewModelFactory(app.appContainer, app) }
+                val viewModel: ChatViewModel = viewModel(factory = factory)
+                val navController = rememberNavController()
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
+                val showBottomBar = currentRoute in Screen.all.map { it.route }
+
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    containerColor = DarkBackground,
+                    bottomBar = {
+                        if (showBottomBar) {
+                            BottomNavigationBar(navController = navController)
+                        }
+                    },
+                ) { innerPadding ->
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.Chat.route,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding),
+                    ) {
+                        composable(Screen.Chat.route) {
+                            ChatScreen(viewModel = viewModel)
+                        }
+                        composable(Screen.Scanner.route) {
+                            PlaceholderScreen(label = "Scanner")
+                        }
+                        composable(Screen.MedicineData.route) {
+                            PlaceholderScreen(label = "Medicine Data")
+                        }
+                    }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun PlaceholderScreen(label: String) {
+    Scaffold(
+        containerColor = DarkBackground,
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = "$label — Coming Soon",
+                style = MaterialTheme.typography.headlineSmall,
+                color = TextSecondary,
+            )
         }
     }
 }

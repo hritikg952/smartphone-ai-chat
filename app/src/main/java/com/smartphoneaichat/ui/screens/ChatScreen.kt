@@ -241,7 +241,7 @@ fun ChatScreen(viewModel: ChatViewModel) {
                                     .fillMaxWidth(),
                                 contentPadding = PaddingValues(vertical = 8.dp)
                             ) {
-                                items(messages, key = { it.id }) { message ->
+                                items(messages, key = { it.id.value }) { message ->
                                     ChatBubble(
                                         message = message,
                                         isThinkingExpanded = state.thinkingExpandedIds.contains(message.id),

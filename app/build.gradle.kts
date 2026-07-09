@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
+    id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
 android {
@@ -70,6 +71,9 @@ dependencies {
 
     // Core KTX
     implementation("androidx.core:core-ktx:1.13.1")
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.7.7")
 
     // Debug tooling
     debugImplementation("androidx.compose.ui:ui-tooling")

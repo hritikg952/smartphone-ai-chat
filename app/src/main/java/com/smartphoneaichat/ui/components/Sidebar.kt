@@ -127,7 +127,7 @@ fun SidebarContent(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
-                items(conversations, key = { it.id }) { conversation ->
+                items(conversations, key = { it.id.value }) { conversation ->
                     ConversationItem(
                         conversation = conversation,
                         isActive = conversation.id == activeConversationId,
