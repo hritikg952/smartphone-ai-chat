@@ -42,8 +42,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.smartphoneaichat.presentation.state.CaptureStatus
 import com.smartphoneaichat.presentation.viewmodel.ScannerViewModel
 import com.smartphoneaichat.ui.theme.AccentBlue
+import com.smartphoneaichat.ui.theme.AccentRed
 import com.smartphoneaichat.ui.theme.DarkBackground
 import com.smartphoneaichat.ui.theme.DarkSurfaceVariant
 import com.smartphoneaichat.ui.theme.TextPrimary
@@ -53,6 +55,7 @@ import java.util.concurrent.Executors
 @Composable
 fun ScannerScreen(
     viewModel: ScannerViewModel,
+    onImageCaptured: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -174,6 +177,9 @@ fun ScannerScreen(
                                         val bitmap = imageProxyToBitmap(image)
                                         image.close()
                                         viewModel.onBitmapCaptured(bitmap)
+                                        viewModel.saveCapturedBitmap { path ->
+                                            onImageCaptured(path)
+                                        }
                                     }
 
                                     override fun onError(exception: ImageCaptureException) {
@@ -182,7 +188,7 @@ fun ScannerScreen(
                                 },
                             )
                         },
-                        enabled = !state.isAnalyzing,
+                        enabled = !state.isAnalyzing && state.captureStatus != CaptureStatus.Saving,
                         colors = ButtonDefaults.buttonColors(containerColor = AccentBlue),
                         modifier = Modifier.fillMaxWidth(0.5f),
                     ) {
@@ -194,12 +200,15 @@ fun ScannerScreen(
 
                     Text(
                         text = when {
+                            state.captureStatus == CaptureStatus.Saving -> "Saving image..."
+                            state.captureStatus == CaptureStatus.Saved -> "Captured!"
+                            state.captureStatus == CaptureStatus.Error -> state.captureError ?: "Capture failed"
                             state.isAnalyzing -> "Capturing..."
-                            state.capturedBitmap != null -> "Captured!"
+                            state.capturedBitmap != null -> "Image captured"
                             else -> "Point camera at text"
                         },
                         style = MaterialTheme.typography.bodyMedium,
-                        color = TextSecondary,
+                        color = if (state.captureStatus == CaptureStatus.Error) AccentRed else TextSecondary,
                     )
                 }
             }
