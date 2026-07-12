@@ -99,13 +99,24 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                             .padding(innerPadding),
                     ) {
-                        composable(Screen.Chat.route) {
-                            ChatScreen(viewModel = viewModel)
+                        composable(Screen.Chat.route) { entry ->
+                            ChatScreen(
+                                viewModel = viewModel,
+                                savedStateHandle = entry.savedStateHandle,
+                            )
                         }
                         composable(Screen.Scanner.route) {
                             val scannerFactory = remember { ScannerViewModelFactory(app) }
                             val scannerViewModel: ScannerViewModel = viewModel(factory = scannerFactory)
-                            ScannerScreen(viewModel = scannerViewModel)
+                            ScannerScreen(
+                                viewModel = scannerViewModel,
+                                onImageCaptured = { path ->
+                                    navController.previousBackStackEntry
+                                        ?.savedStateHandle
+                                        ?.set("captured_image_path", path)
+                                    navController.popBackStack()
+                                }
+                            )
                         }
                         composable(Screen.MedicineData.route) {
                             PlaceholderScreen(label = "Medicine Data")

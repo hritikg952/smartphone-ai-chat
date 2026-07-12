@@ -54,6 +54,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.SavedStateHandle
 import com.smartphoneaichat.domain.model.AVAILABLE_MODELS
 import com.smartphoneaichat.domain.model.ChatRole
 import com.smartphoneaichat.ui.components.ChatBubble
@@ -74,7 +75,10 @@ import com.smartphoneaichat.presentation.viewmodel.ChatViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChatScreen(viewModel: ChatViewModel) {
+fun ChatScreen(
+    viewModel: ChatViewModel,
+    savedStateHandle: SavedStateHandle,
+) {
     val state by viewModel.state.collectAsState()
 
     val activeConversation = state.activeConversation
@@ -83,6 +87,13 @@ fun ChatScreen(viewModel: ChatViewModel) {
 
     val listState = rememberLazyListState()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
+
+    LaunchedEffect(Unit) {
+        savedStateHandle.get<String>("captured_image_path")?.let { path ->
+            viewModel.receiveCapturedImage(path)
+            savedStateHandle.remove<String>("captured_image_path")
+        }
+    }
 
     LaunchedEffect(messages.size) {
         if (messages.isNotEmpty()) {
