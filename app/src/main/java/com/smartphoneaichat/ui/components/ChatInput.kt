@@ -1,5 +1,6 @@
 package com.smartphoneaichat.ui.components
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -35,8 +36,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -49,6 +52,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.File
 import com.smartphoneaichat.domain.model.Attachment
 import com.smartphoneaichat.ui.theme.AccentBlue
@@ -99,22 +104,31 @@ fun ChatInput(
                         .padding(horizontal = 12.dp, vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    if (att.imageUri != null && File(att.imageUri).exists()) {
-                        val bitmap = remember(att.imageUri) {
-                            BitmapFactory.decodeFile(att.imageUri)
+                    val imageUri = att.imageUri
+                    val bitmap by produceState<Bitmap?>(null, imageUri) {
+                        if (imageUri != null) {
+                            value = withContext(Dispatchers.IO) {
+                                val file = File(imageUri)
+                                if (file.exists()) {
+                                    BitmapFactory.decodeFile(imageUri)
+                                } else {
+                                    null
+                                }
+                            }
                         }
-                        if (bitmap != null) {
-                            Image(
-                                bitmap = bitmap.asImageBitmap(),
-                                contentDescription = "Captured image",
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .clip(RoundedCornerShape(8.dp)),
-                                contentScale = ContentScale.Crop,
-                            )
-                        } else {
-                            ThumbnailPlaceholder()
-                        }
+                    }
+                    DisposableEffect(bitmap) {
+                        onDispose { bitmap?.recycle() }
+                    }
+                    if (bitmap != null) {
+                        Image(
+                            bitmap = bitmap!!.asImageBitmap(),
+                            contentDescription = "Captured image",
+                            modifier = Modifier
+                                .size(40.dp)
+                                .clip(RoundedCornerShape(8.dp)),
+                            contentScale = ContentScale.Crop,
+                        )
                     } else {
                         ThumbnailPlaceholder()
                     }

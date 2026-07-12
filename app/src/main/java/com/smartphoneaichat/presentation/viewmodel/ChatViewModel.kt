@@ -200,6 +200,9 @@ class ChatViewModel(
         val updatedConv = conv.addMessage(pendingMessage)
 
         _state.update { replaceConversation(updatedConv) }
+        viewModelScope.launch {
+            conversationRepository.save(updatedConv)
+        }
         notifications.show(AppNotificationEvent.Success("Image captured: $filename"))
     }
 

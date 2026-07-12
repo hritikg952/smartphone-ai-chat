@@ -184,6 +184,7 @@ fun ScannerScreen(
 
                                     override fun onError(exception: ImageCaptureException) {
                                         viewModel.setAnalyzing(false)
+                                        viewModel.setCaptureError(exception.message ?: "Capture failed")
                                     }
                                 },
                             )

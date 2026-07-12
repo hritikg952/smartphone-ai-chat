@@ -47,6 +47,8 @@ class ScannerViewModel(application: Application) : AndroidViewModel(application)
                     val capturesDir = File(getApplication<Application>().filesDir, "captures")
                     if (!capturesDir.exists()) capturesDir.mkdirs()
 
+                    cleanupOldCaptures(capturesDir)
+
                     val filename = "capture_${System.currentTimeMillis()}.jpg"
                     val file = File(capturesDir, filename)
                     FileOutputStream(file).use { fos ->
@@ -60,7 +62,9 @@ class ScannerViewModel(application: Application) : AndroidViewModel(application)
                         captureStatus = CaptureStatus.Saved,
                     )
                 }
-                onSaved(path)
+                if (isActive) {
+                    onSaved(path)
+                }
             } catch (e: Exception) {
                 _state.update {
                     it.copy(
@@ -80,6 +84,24 @@ class ScannerViewModel(application: Application) : AndroidViewModel(application)
                 captureStatus = CaptureStatus.Idle,
                 captureError = null,
             )
+        }
+    }
+
+    fun setCaptureError(message: String) {
+        _state.update {
+            it.copy(
+                captureStatus = CaptureStatus.Error,
+                captureError = message,
+            )
+        }
+    }
+
+    private fun cleanupOldCaptures(dir: File) {
+        val cutoff = System.currentTimeMillis() - 3600_000
+        dir.listFiles()?.forEach { file ->
+            if (file.isFile && file.lastModified() < cutoff) {
+                file.delete()
+            }
         }
     }
 
