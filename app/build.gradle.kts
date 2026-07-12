@@ -81,6 +81,12 @@ dependencies {
     // LiteRT-LM
     implementation("com.google.ai.edge.litertlm:litertlm-android:latest.release")
 
+    // CameraX
+    val cameraxVersion = "1.3.4"
+    implementation("androidx.camera:camera-camera2:$cameraxVersion")
+    implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
+    implementation("androidx.camera:camera-view:$cameraxVersion")
+
     // Test dependencies
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.3")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.3")

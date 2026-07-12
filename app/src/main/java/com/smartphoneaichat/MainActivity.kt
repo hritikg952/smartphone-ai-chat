@@ -22,10 +22,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.smartphoneaichat.di.ChatViewModelFactory
+import com.smartphoneaichat.di.ScannerViewModelFactory
 import com.smartphoneaichat.presentation.viewmodel.ChatViewModel
+import com.smartphoneaichat.presentation.viewmodel.ScannerViewModel
 import com.smartphoneaichat.ui.components.BottomNavigationBar
 import com.smartphoneaichat.ui.navigation.Screen
 import com.smartphoneaichat.ui.screens.ChatScreen
+import com.smartphoneaichat.ui.screens.ScannerScreen
 import com.smartphoneaichat.ui.theme.DarkBackground
 import com.smartphoneaichat.ui.theme.SmartphoneAIChatTheme
 import com.smartphoneaichat.ui.theme.TextSecondary
@@ -100,7 +103,9 @@ class MainActivity : ComponentActivity() {
                             ChatScreen(viewModel = viewModel)
                         }
                         composable(Screen.Scanner.route) {
-                            PlaceholderScreen(label = "Scanner")
+                            val scannerFactory = remember { ScannerViewModelFactory(app) }
+                            val scannerViewModel: ScannerViewModel = viewModel(factory = scannerFactory)
+                            ScannerScreen(viewModel = scannerViewModel)
                         }
                         composable(Screen.MedicineData.route) {
                             PlaceholderScreen(label = "Medicine Data")
