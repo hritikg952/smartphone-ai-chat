@@ -1,10 +1,12 @@
 package com.smartphoneaichat.ui.components
 
+import android.graphics.BitmapFactory
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,9 +44,12 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import java.io.File
 import com.smartphoneaichat.domain.model.Attachment
 import com.smartphoneaichat.ui.theme.AccentBlue
 import com.smartphoneaichat.ui.theme.AiBubbleBorder
@@ -94,20 +99,24 @@ fun ChatInput(
                         .padding(horizontal = 12.dp, vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Thumbnail placeholder
-                    Box(
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(DarkSurfaceVariant),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Image,
-                            contentDescription = null,
-                            tint = AccentBlue,
-                            modifier = Modifier.size(22.dp)
-                        )
+                    if (att.imageUri != null && File(att.imageUri).exists()) {
+                        val bitmap = remember(att.imageUri) {
+                            BitmapFactory.decodeFile(att.imageUri)
+                        }
+                        if (bitmap != null) {
+                            Image(
+                                bitmap = bitmap.asImageBitmap(),
+                                contentDescription = "Captured image",
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .clip(RoundedCornerShape(8.dp)),
+                                contentScale = ContentScale.Crop,
+                            )
+                        } else {
+                            ThumbnailPlaceholder()
+                        }
+                    } else {
+                        ThumbnailPlaceholder()
                     }
 
                     Spacer(Modifier.width(10.dp))
@@ -224,5 +233,23 @@ fun ChatInput(
                     .padding(end = 16.dp, bottom = 4.dp)
             )
         }
+    }
+}
+
+@Composable
+private fun ThumbnailPlaceholder() {
+    Box(
+        modifier = Modifier
+            .size(40.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(DarkSurfaceVariant),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            imageVector = Icons.Default.Image,
+            contentDescription = null,
+            tint = AccentBlue,
+            modifier = Modifier.size(22.dp)
+        )
     }
 }
