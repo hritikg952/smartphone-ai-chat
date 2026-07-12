@@ -178,6 +178,31 @@ class ChatViewModel(
         }
     }
 
+    fun receiveCapturedImage(path: String) {
+        val stateSnapshot = _state.value
+        val conv = stateSnapshot.activeConversation ?: return
+
+        val filename = path.substringAfterLast("/")
+
+        val attachment = Attachment(
+            fileName = filename,
+            mimeType = "image/jpeg",
+            imageUri = path
+        )
+
+        val pendingMessage = Message(
+            id = idGenerator.generateMessageId(),
+            role = ChatRole.USER,
+            text = MessageText(""),
+            attachment = attachment
+        )
+
+        val updatedConv = conv.addMessage(pendingMessage)
+
+        _state.update { replaceConversation(updatedConv) }
+        notifications.show(AppNotificationEvent.Success("Image captured: $filename"))
+    }
+
     // ── Model Download ───────────────────────────────────────────
 
     fun downloadModel(modelId: String) {
