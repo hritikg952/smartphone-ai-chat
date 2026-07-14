@@ -117,9 +117,6 @@ fun ChatInput(
                             }
                         }
                     }
-                    DisposableEffect(bitmap) {
-                        onDispose { bitmap?.recycle() }
-                    }
                     if (bitmap != null) {
                         Image(
                             bitmap = bitmap!!.asImageBitmap(),
