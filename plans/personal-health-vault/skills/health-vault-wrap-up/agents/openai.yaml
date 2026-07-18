@@ -1,0 +1,4 @@
+interface:
+  display_name: "Health Vault Wrap-Up"
+  short_description: "Refresh plan status and prepare a reviewed commit."
+  default_prompt: "Use $health-vault-wrap-up to review progress and refresh the Personal Health Vault dashboard."

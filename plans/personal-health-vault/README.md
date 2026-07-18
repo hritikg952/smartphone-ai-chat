@@ -22,7 +22,7 @@ This folder is the source of truth for the future implementation. It deliberatel
 | Wave | Mini-goals | Outcome |
 |---|---|---|
 | 0 — Definition | MG-01 | Intended use, safety, privacy, and jurisdiction decisions are signed off. |
-| 1 — Foundation | MG-02 to MG-06, MG-19 | Modular shell, security boundary, encrypted persistence, profiles, navigation, and a future-service boundary exist. |
+| 1 — Foundation | MG-02 to MG-06, MG-19, MG-20 | Modular shell, security boundary, encrypted persistence, profiles, navigation, future-service boundary, and emulator test lane exist. |
 | 2 — Safe MVP | MG-07, MG-08, MG-10 | Emergency card, medication/provider records, and core vitals/allergy/immunization records work offline. |
 | 3 — Full vault | MG-09, MG-11, MG-13, MG-14 | Documents/OCR, daily logs, insurance, and search are usable. |
 | 4 — Ecosystem | MG-12, MG-15 | Health Connect ingestion and granular exports/sharing are controlled and auditable. |
@@ -63,6 +63,7 @@ Do not begin a wave while a required exit gate from an earlier wave is open. Wit
 - [Prototype fast track and its explicit boundaries](PROTOTYPE_FAST_TRACK.md)
 - [Copy-ready dark UI design prompt](UI_DESIGN_PROMPT.md)
 - [Figma design context and implementation alignment](FIGMA_DESIGN_CONTEXT.md)
+- [Interactive plan and progress dashboard](personal-health-vault-dashboard.html) — refreshed only through the manual [`/health-vault-wrap-up`](skills/health-vault-wrap-up/SKILL.md) workflow after a progress review.
 - [Requirement traceability matrix](TRACEABILITY.md)
 - [Decision register](DECISIONS.md)
 - [Official reference baseline](REFERENCES.md)

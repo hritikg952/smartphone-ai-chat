@@ -104,6 +104,10 @@ Available models are declared in `domain/model/ModelInfo.kt`:
 
 For every feature, bug fix, or behavior change, use the `/tdd` skill and follow its red → green loop. Before writing a test, state the public seam(s) to be tested and confirm them with the user. Work in vertical slices: write one failing behavior-focused test, implement only enough to make it pass, then continue to the next slice. Do not write implementation-coupled or tautological tests, and keep refactoring separate from the red → green loop.
 
+### Personal Health Vault wrap-up
+
+When the user explicitly invokes `/health-vault-wrap-up` or `$health-vault-wrap-up`, read and follow [`plans/personal-health-vault/skills/health-vault-wrap-up/SKILL.md`](plans/personal-health-vault/skills/health-vault-wrap-up/SKILL.md). Do not update the Personal Health Vault dashboard automatically outside that manual workflow.
+
 Unit tests live in `app/src/test/java/com/smartphoneaichat/` and use JUnit 5, MockK, `kotlinx-coroutines-test`, and Turbine.
 
 Coverage currently includes:
