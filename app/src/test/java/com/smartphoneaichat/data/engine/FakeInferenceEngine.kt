@@ -12,9 +12,24 @@ class FakeInferenceEngine(
     override val activeModelId: String? = "gemma3-1b",
 ) : InferenceEngine {
 
+    var lastImageBytes: ByteArray? = null
+        private set
+
     private var emittedCount = 0
 
     override fun sendMessage(text: String): Flow<String> = flow {
+        emittedCount = 0
+        for (token in tokens) {
+            if (shouldThrow && emittedCount >= throwAfterTokens) {
+                throw RuntimeException("Simulated inference failure")
+            }
+            emit(token)
+            emittedCount++
+        }
+    }
+
+    override fun sendMultimodalMessage(text: String, imageBytes: ByteArray): Flow<String> = flow {
+        lastImageBytes = imageBytes
         emittedCount = 0
         for (token in tokens) {
             if (shouldThrow && emittedCount >= throwAfterTokens) {

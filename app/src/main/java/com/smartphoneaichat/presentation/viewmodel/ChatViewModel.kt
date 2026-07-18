@@ -123,13 +123,16 @@ class ChatViewModel(
         streamingJob?.cancel()
 
         val currentConv = _state.value.activeConversation ?: return
+        val imageUri = _state.value.pendingAttachmentUri
 
         streamingJob = viewModelScope.launch {
             try {
-                sendMessageUseCase(currentConv, MessageText(trimmedInput))
+                sendMessageUseCase(currentConv, MessageText(trimmedInput), imageUri)
                     .flowOn(Dispatchers.IO)
                     .collect { updatedConversation ->
-                        _state.update { replaceConversation(updatedConversation) }
+                        _state.update {
+                            replaceConversation(updatedConversation).copy(pendingAttachmentUri = null)
+                        }
                         conversationRepository.save(updatedConversation)
                     }
             } catch (e: Exception) {

@@ -1,5 +1,6 @@
 package com.smartphoneaichat.domain.usecase
 
+import com.smartphoneaichat.domain.model.Attachment
 import com.smartphoneaichat.domain.model.ChatRole
 import com.smartphoneaichat.domain.model.Conversation
 import com.smartphoneaichat.domain.model.Message
@@ -10,17 +11,30 @@ import com.smartphoneaichat.domain.service.ConversationTitleService
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.io.File
 
 class SendMessageUseCase(
     private val inferenceEngine: InferenceEngine,
     private val idGenerator: IdGenerator,
     private val titleService: ConversationTitleService = ConversationTitleService,
 ) {
-    operator fun invoke(conversation: Conversation, text: MessageText): Flow<Conversation> = flow {
+    operator fun invoke(
+        conversation: Conversation,
+        text: MessageText,
+        attachmentUri: String? = null,
+    ): Flow<Conversation> = flow {
+        val attachment = attachmentUri?.let { uri ->
+            Attachment(
+                fileName = File(uri).name,
+                mimeType = "image/jpeg",
+                imageUri = uri,
+            )
+        }
         val userMessage = Message(
             id = idGenerator.generateMessageId(),
             role = ChatRole.USER,
-            text = text
+            text = text,
+            attachment = attachment,
         )
         val aiMessageId = idGenerator.generateMessageId()
         val aiMessage = Message(
@@ -45,7 +59,13 @@ class SendMessageUseCase(
         emit(currentConv)
 
         try {
-            inferenceEngine.sendMessage(text.value).collect { token ->
+            val tokenFlow = if (attachmentUri != null) {
+                val imageBytes = File(attachmentUri).readBytes()
+                inferenceEngine.sendMultimodalMessage(text.value, imageBytes)
+            } else {
+                inferenceEngine.sendMessage(text.value)
+            }
+            tokenFlow.collect { token ->
                 currentConv = currentConv.updateMessage(aiMessageId) { msg ->
                     msg.copy(text = MessageText(msg.text.value + token))
                 }

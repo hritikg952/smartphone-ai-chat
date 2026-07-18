@@ -20,7 +20,8 @@ data class ChatUiState(
     val showDeleteConfirmation: Boolean = false,
     val deleteTargetModelId: String? = null,
     val showModelSelector: Boolean = false,
-    val modelSelectorModels: List<ModelInfo> = emptyList()
+    val modelSelectorModels: List<ModelInfo> = emptyList(),
+    val pendingAttachmentUri: String? = null,
 ) {
     val activeConversation: Conversation?
         get() = conversations.find { it.id == activeConversationId }

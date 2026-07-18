@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface InferenceEngine {
     fun sendMessage(text: String): Flow<String>
+    fun sendMultimodalMessage(text: String, imageBytes: ByteArray): Flow<String>
     fun stopGeneration()
     val isReady: Boolean
     val activeModelId: String?

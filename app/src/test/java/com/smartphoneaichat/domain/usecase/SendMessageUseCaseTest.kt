@@ -10,12 +10,30 @@ import kotlinx.coroutines.test.runTest
 import app.cash.turbine.test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.AfterEach
+import java.io.File
 
 class SendMessageUseCaseTest {
 
     private val idGen = FakeIdGenerator()
     private val fakeEngine = FakeInferenceEngine()
     private val useCase = SendMessageUseCase(fakeEngine, idGen)
+
+    private lateinit var tempImageFile: File
+
+    @BeforeEach
+    fun setUp() {
+        tempImageFile = File.createTempFile("test-image", ".jpg")
+        tempImageFile.writeBytes(byteArrayOf(0xFF.toByte(), 0xD8.toByte(), 0xFF.toByte(), 0xE0.toByte()))
+    }
+
+    @AfterEach
+    fun tearDown() {
+        if (::tempImageFile.isInitialized) {
+            tempImageFile.delete()
+        }
+    }
 
     @Test
     fun emitsInitialStateWithUserAndAiMessages() = runTest {
@@ -250,5 +268,53 @@ class SendMessageUseCaseTest {
         val aiMsg = finalConv!!.messages.last()
         assertEquals("A", aiMsg.text.value)
         assertFalse(aiMsg.isStreaming)
+    }
+
+    @Test
+    fun userMessageHasAttachmentWhenImageUriProvided() = runTest {
+        val conv = Conversation.create(idGen.generateConversationId())
+        val results = mutableListOf<Conversation>()
+        useCase(conv, MessageText("Describe this"), tempImageFile.absolutePath)
+            .collect { results.add(it) }
+
+        val userMessage = results.first().messages.first { it.role == ChatRole.USER }
+        val attachment = userMessage.attachment
+        assertNotNull(attachment)
+        assertEquals(tempImageFile.name, attachment!!.fileName)
+        assertEquals("image/jpeg", attachment.mimeType)
+        assertEquals(tempImageFile.absolutePath, attachment.imageUri)
+    }
+
+    @Test
+    fun callsSendMultimodalMessageWhenImageUriProvided() = runTest {
+        val conv = Conversation.create(idGen.generateConversationId())
+        useCase(conv, MessageText("Describe this"), tempImageFile.absolutePath).collect()
+
+        assertNotNull(fakeEngine.lastImageBytes)
+    }
+
+    @Test
+    fun doesNotCallSendMultimodalMessageWhenNoImageUri() = runTest {
+        val conv = Conversation.create(idGen.generateConversationId())
+        useCase(conv, MessageText("Hello")).collect()
+
+        assertNull(fakeEngine.lastImageBytes)
+    }
+
+    @Test
+    fun accumulatesTokensInMultimodalMode() = runTest {
+        val engine = FakeInferenceEngine(tokens = listOf("A", "B", "C"))
+        val useCase = SendMessageUseCase(engine, idGen)
+        val conv = Conversation.create(idGen.generateConversationId())
+
+        useCase(conv, MessageText("Describe this"), tempImageFile.absolutePath).test {
+            awaitItem()
+            assertEquals("A", awaitItem().messages.last().text.value)
+            assertEquals("AB", awaitItem().messages.last().text.value)
+            assertEquals("ABC", awaitItem().messages.last().text.value)
+            val final = awaitItem()
+            assertFalse(final.messages.last().isStreaming)
+            awaitComplete()
+        }
     }
 }
