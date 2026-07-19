@@ -1,8 +1,8 @@
-# Smartphone AI Chat — Agent Guide
+# Personal Health Vault — Agent Guide
 
 ## Overview
 
-Single-activity Android chat app built with Kotlin and Jetpack Compose. It has a Gemini-inspired, strictly dark UI and runs supported Gemma models locally through LiteRT-LM. Models are downloaded from Hugging Face to app-private storage at runtime.
+Single-activity Android app built with Kotlin and Jetpack Compose. The active product direction is a strictly dark, local-first Personal Health Vault. Startup now enters a health-vault onboarding flow; the former local Gemma chat implementation remains in the repository as legacy code pending isolation and migration work.
 
 The app uses Clean Architecture with MVVM and small repository interfaces:
 
@@ -12,7 +12,7 @@ UI → Presentation → Domain ← Data
 
 Package: `com.smartphoneaichat`. Production sources are under `app/src/main/java/com/smartphoneaichat/`.
 
-Conversations are kept in memory through `InMemoryConversationRepository`; they do not survive an app-process restart.
+The current health-vault shell has an in-memory session/navigation seam and no health-record persistence yet. Legacy conversations remain in memory through `InMemoryConversationRepository`; they do not survive an app-process restart.
 
 ## Project Setup
 
@@ -37,7 +37,10 @@ Build commands:
 
 | Area | Responsibility |
 |---|---|
-| `MainActivity.kt` | Enables edge-to-edge UI, creates the manual `AppContainer`, creates `ChatViewModel` through its factory, and renders `ChatScreen`. |
+| `MainActivity.kt` | Enables edge-to-edge UI, creates the initial app session and `OnboardingViewModel`, and renders `PersonalHealthVaultApp`. |
+| `ui/app/PersonalHealthVaultApp.kt` | Resolves the session destination and renders the current onboarding step. Unlock and home destinations are intentionally pending. |
+| `presentation/session/` | Defines startup session state and the pure onboarding/unlock/home destination resolver. |
+| `presentation/onboarding/` | Owns the welcome-to-credentials onboarding transition. |
 | `di/AppContainer.kt` | Composes concrete repositories, the LiteRT engine, title service, and use cases. |
 | `presentation/viewmodel/ChatViewModel.kt` | Owns UI state, coordinates conversations, model actions, notifications, and use cases. |
 | `presentation/state/ChatUiState.kt` | Flat immutable state consumed by Compose; exposes the computed `activeConversation`. |
@@ -46,7 +49,7 @@ Build commands:
 | `domain/repository/` | ISP contracts for inference, model files, conversations, and ID generation. |
 | `domain/usecase/` | Message streaming, model download, and model loading orchestration. |
 | `data/` | LiteRT engine adapter, Hugging Face file manager, in-memory conversations, and UUID IDs. |
-| `ui/` | Root chat screen, reusable Compose components, and dark Material 3 theme. |
+| `ui/` | Health-vault app root and onboarding screens plus the retained legacy chat screen/components and dark Material 3 theme. |
 
 Use domain interfaces from presentation/domain code. Keep LiteRT-LM, HTTP, Android file I/O, and concrete storage details in `data`.
 
@@ -90,10 +93,10 @@ Available models are declared in `domain/model/ModelInfo.kt`:
 
 ## UI and Compose Conventions
 
-`ChatScreen` owns Compose-only state such as drawer/list/snackbar state and wires the sidebar, message list, `ChatInput`, model menu, dialogs, and notification host to `ChatViewModel` actions.
+`PersonalHealthVaultApp` is the application root. It consumes session state plus `OnboardingUiState` and keeps navigation decisions outside individual screens. The retained `ChatScreen` still owns its legacy Compose-only state but is no longer the startup destination.
 
 - Keep the UI strictly dark through `SmartphoneAIChatTheme`, colors in `ui/theme/Color.kt`, and typography in `ui/theme/Type.kt`.
-- Public reusable composables accept a `Modifier` parameter when they expose layout customization; `ChatScreen` is the root exception because it fills the app surface.
+- Public reusable composables accept a `Modifier` parameter when they expose layout customization; application-root composables that fill the surface are exceptions.
 - Prefer `remember` for Compose-local state. `ChatInput` intentionally uses `rememberSaveable` for draft text across configuration changes.
 - Keep UI components declarative; state mutations and side effects belong in `ChatViewModel` or use cases.
 - Production code contains explanatory KDoc and integration notes where useful; keep comments accurate and concise.

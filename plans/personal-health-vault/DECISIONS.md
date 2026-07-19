@@ -4,7 +4,7 @@ Resolve decisions before the mini-goal that lists them as prerequisites. Accepte
 
 | ID | Decision | Default planning assumption | Required by | Status |
 |---|---|---|---|---|
-| D-001 | Intended use and launch jurisdictions | Personal record organization only; no diagnosis/treatment claims; India; private prototype | MG-01 | Accepted — 2026-07-18 |
+| D-001 | Intended use, users, language, and launch jurisdictions | Personal record organization only; no diagnosis/treatment claims; private local-only prototype; self-profile; no enforced minimum age; English only. Launch jurisdiction and legal constraints are deferred until distribution or real-world use. | MG-01 | Revised for development — 2026-07-19 |
 | D-002 | Android application/package rename | Product name is Personal Health Vault; “Health Vault” is allowed only as a compact app-bar label; package-identity decision deferred | MG-02 | Partially accepted |
 | D-003 | Single module vs staged multi-module | Introduce core/feature boundaries incrementally, not in one rewrite | MG-02 | Open |
 | D-004 | Local-only MVP vs account/sync | Local-only prototype; interfaces remain ready for future integrations | MG-03/04 | Accepted — 2026-07-18 |
@@ -24,6 +24,7 @@ Resolve decisions before the mini-goal that lists them as prerequisites. Accepte
 | D-018 | Existing chats/model files | Archive/preserve current chat and model code for later work | MG-18 | Accepted — 2026-07-18 |
 | D-019 | Future service provider and sync model | Local database is authoritative. Any cloud service, including Supabase, is optional and must only receive explicitly approved encrypted backup/sync payloads until a separate security decision approves more. | MG-19 | Accepted for prototype — 2026-07-19 |
 | D-020 | Android device-test lane | Establish a reproducible emulator/connected-test lane before feature implementation; exact AVD/device matrix remains open. | MG-20 | Open |
+| D-021 | Drug-interaction alerts in prototype/v1 | Excluded. Any later implementation requires an authoritative licensed source, deterministic behavior, clinical fixtures, and separate product/clinical/regulatory approval; an LLM is not an interaction source. | MG-01/08/16 | Accepted for prototype — 2026-07-19 |
 
 ## Decision record template
 

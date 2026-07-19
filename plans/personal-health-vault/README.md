@@ -1,10 +1,19 @@
 # Personal Health Vault — Master Implementation Planning Set
 
-**Status:** Planning set finalized; MG-01 in progress (draft complete, approvals open)
+**Status:** Private prototype development active; MG-01 deferred, MG-02 and MG-20 in progress
 **Created:** 2026-07-18  
 **Product direction:** Pivot the current Android local-AI chat prototype into an Android-first, local-first personal health vault.
 
-This folder is the source of truth for the future implementation. It deliberately makes no production-code changes. Every mini-goal has an independent plan, an exit gate, and explicit dependencies so work can later be converted into tickets without rediscovering architecture or safety constraints.
+This folder is the source of truth for the implementation. Every mini-goal has an independent plan, an exit gate, and explicit dependencies so work can be delivered incrementally without rediscovering architecture or safety constraints.
+
+## Current implementation status — 2026-07-19
+
+| Status | Mini-goals | Evidence summary |
+|---|---|---|
+| Deferred | MG-01 | Private-prototype assumptions are recorded; legal, jurisdiction, and named-reviewer work is intentionally postponed. |
+| In progress | MG-02 | The health-vault root owns startup, a pure session resolver selects onboarding/unlock/home, and the welcome screen advances to the credentials step. Unlock, home, and durable session state remain pending. |
+| In progress | MG-20 | JVM and connected Compose tests pass on a Pixel_10 Android 17 AVD; the AVD contract, reusable scripts, retained screenshots, and release matrix remain pending. |
+| Planned | MG-03–MG-19 except the goals above | No exit gate is complete. |
 
 ## Non-negotiable product principles
 
@@ -21,7 +30,7 @@ This folder is the source of truth for the future implementation. It deliberatel
 
 | Wave | Mini-goals | Outcome |
 |---|---|---|
-| 0 — Definition | MG-01 | Intended use, safety, privacy, and jurisdiction decisions are signed off. |
+| 0 — Definition | MG-01 | Development assumptions are recorded; governance and jurisdiction review may remain deferred for private prototype work. |
 | 1 — Foundation | MG-02 to MG-06, MG-19, MG-20 | Modular shell, security boundary, encrypted persistence, profiles, navigation, future-service boundary, and emulator test lane exist. |
 | 2 — Safe MVP | MG-07, MG-08, MG-10 | Emergency card, medication/provider records, and core vitals/allergy/immunization records work offline. |
 | 3 — Full vault | MG-09, MG-11, MG-13, MG-14 | Documents/OCR, daily logs, insurance, and search are usable. |
@@ -29,7 +38,12 @@ This folder is the source of truth for the future implementation. It deliberatel
 | 5 — Intelligence | MG-16 | Grounded, reviewable AI assistance is added behind safety gates. |
 | 6 — Release | MG-17, MG-18 | Quality/compliance gates pass and legacy chat behavior is retired or migrated. |
 
-Do not begin a wave while a required exit gate from an earlier wave is open. Within a wave, parallel work is allowed only where plan dependencies permit it.
+Do not begin a wave while a required technical dependency from an earlier wave
+is open. MG-01 is a non-blocking reference for private prototype development;
+its deferred governance work becomes blocking only before distribution,
+real-world health-data use, off-device health processing, or compliance/medical
+claims. Within a wave, parallel work is allowed only where plan dependencies
+permit it.
 
 ## Mini-goal index
 

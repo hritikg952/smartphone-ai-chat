@@ -2,10 +2,11 @@
 
 ## Intended use
 
-Personal Health Vault is an Android application for adults in India to enter,
+Personal Health Vault is an Android application for individuals to enter,
 organize, view, and retrieve their own personal health and wellness records on
 their device. The private prototype is intended for personal record keeping and
-product evaluation with synthetic or developer-controlled data.
+product evaluation with synthetic or developer-controlled data until the
+storage-security work is implemented and verified.
 
 It is not a clinical system of record and does not replace the original record
 held by a healthcare provider. Users remain responsible for checking entries
@@ -16,12 +17,12 @@ medical decisions.
 
 | Dimension | Baseline |
 |---|---|
-| User | Adult managing only their own records |
-| Minimum age | Proposed 18+; approval open |
+| User | Individual managing only their own records |
+| Minimum age | No restriction enforced in the prototype; legal implications deferred |
 | Dependent/caregiver use | Not supported in the prototype |
-| Jurisdiction | India only |
+| Jurisdiction | Not selected for prototype development; required before distribution |
 | Distribution | Private development prototype |
-| Language | Proposed English for prototype; approval open |
+| Language | English only; localization deferred |
 | Connectivity | Core record management works offline |
 | Accessibility | Android semantics, screen-reader labels, scalable text, adequate contrast, non-color cues, and touch-target checks are required from the first UI slice |
 

@@ -6,6 +6,7 @@ import com.smartphoneaichat.domain.model.ChatRole
 import com.smartphoneaichat.domain.model.Conversation
 import com.smartphoneaichat.domain.model.Message
 import com.smartphoneaichat.domain.model.value.MessageText
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.test.runTest
 import app.cash.turbine.test
 import org.junit.jupiter.api.Assertions.*
