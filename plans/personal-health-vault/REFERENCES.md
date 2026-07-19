@@ -1,6 +1,6 @@
 # Official Reference Baseline
 
-These references are inputs, not substitutes for specialist review. Re-check them when implementing because platform and policy requirements change. Last checked 2026-07-18.
+These references are inputs, not substitutes for specialist review. Re-check them when implementing because platform and policy requirements change. Last checked 2026-07-19.
 
 ## Android security and identity
 
@@ -34,8 +34,12 @@ Applicability depends on intended use, data flows, organization type, and launch
 ## India-first planning
 
 - [Digital Personal Data Protection Act, 2023 — India Code](https://www.indiacode.nic.in/indiacode/handle/123456789/22037?view_type=browse)
-- [DPDP Rules 2025 and enforcement timeline — MeitY](https://www.meity.gov.in/documents/act-and-policies/digital-personal-data-protection-rules-2025-gDOxUjMtQWa)
+- [Final DPDP Rules 2025, corrigendum, and enforcement timeline — MeitY](https://www.meity.gov.in/documents/act-and-policies/digital-personal-data-protection-rules-2025-gDOxUjMtQWa)
 - [Ayushman Bharat Digital Mission overview](https://abdm.gov.in/abdm)
 - [ABDM health-data consent FAQ](https://abdm.gov.in/FAQ)
 
-The private local prototype does not need to integrate with ABHA/ABDM. If the product later accesses, shares, or interoperates with external health data, treat consent, privacy, and interoperability as a separate workstream.
+The final Rules were notified on 2025-11-14 with phased commencement; counsel
+must verify which provisions apply on the actual release date. The private local
+prototype does not need to integrate with ABHA/ABDM. If the product later
+accesses, shares, or interoperates with external health data, treat consent,
+privacy, and interoperability as a separate workstream.

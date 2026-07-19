@@ -1,5 +1,10 @@
 # MG-01 — Product, Safety, Privacy, and Regulatory Baseline
 
+**Mini-goal status:** In progress — vision/current-state baseline and reviewable
+draft packet complete; human approvals and named owners remain open. See the
+[vision baseline](00-vision-baseline-and-current-state.md) and
+[MG-01 governance baseline packet](mg-01/README.md).
+
 ## Outcome
 
 Create an approved product-intent and data-governance baseline that constrains every later feature. This is the first release gate because security architecture and AI scope cannot be chosen until the product claims, users, jurisdictions, and data flows are known.
@@ -36,12 +41,14 @@ D-001, initial age/dependent policy, initial jurisdictions, offline-only launch 
 
 ## Required artifacts
 
-- Intended-use and prohibited-use statement.
-- Data-flow/data-processing inventory and retention schedule.
-- Feature risk register and clinical-safety escalation matrix.
-- Consent taxonomy and privacy-copy checklist.
-- Vendor assessment template and incident-response runbook.
-- Jurisdiction-specific counsel sign-off record.
+- [Intended-use and prohibited-use statement](mg-01/01-intended-use-and-claims.md).
+- [Data-flow/data-processing inventory](mg-01/02-data-processing-inventory.md)
+  and [retention schedule](mg-01/04-consent-privacy-retention-and-rights.md).
+- [Feature risk register and clinical-safety escalation matrix](mg-01/03-feature-risk-and-clinical-safety.md).
+- [Consent taxonomy and privacy-copy checklist](mg-01/04-consent-privacy-retention-and-rights.md).
+- [Vendor assessment template](mg-01/05-vendor-assessment-template.md) and
+  [incident-response runbook](mg-01/06-incident-response-runbook.md).
+- [Jurisdiction-specific counsel sign-off record](mg-01/07-store-compliance-and-signoff.md).
 
 ## Verification
 
@@ -54,12 +61,11 @@ D-001, initial age/dependent policy, initial jurisdictions, offline-only launch 
 
 - [ ] Product owner, security owner, privacy/legal reviewer, and clinical safety reviewer are named.
 - [ ] Intended use, prohibited use, launch jurisdiction, and user population are approved.
-- [ ] Every planned data category has source, purpose, storage, sharing, retention, and deletion rules.
-- [ ] AI/OCR claims are bounded and review requirements are explicit.
-- [ ] Incident and user-data request procedures exist.
-- [ ] MG-02 through MG-18 contain no conflict with this baseline.
+- [x] Every planned data category has source, purpose, storage, sharing, retention, and deletion rules in the draft baseline.
+- [x] AI/OCR claims are bounded and review requirements are explicit.
+- [x] Incident and user-data request procedures exist as reviewable runbooks.
+- [x] MG-02 through MG-20 have been checked at planning level and deferred capabilities remain behind later gates.
 
 ## Exit gate
 
 No later feature may enter implementation until the baseline is approved and open high-severity regulatory/safety questions have an owner and due date.
-
