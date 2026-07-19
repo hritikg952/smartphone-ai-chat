@@ -13,7 +13,12 @@ enum class OnboardingStep {
 
 data class OnboardingUiState(
     val step: OnboardingStep = OnboardingStep.Welcome,
-)
+    val username: String = "",
+    val password: String = "",
+) {
+    val canCompleteSetup: Boolean
+        get() = username.isNotBlank() && password.isNotBlank()
+}
 
 /** Owns the state transitions for the first-run vault setup flow. */
 class OnboardingViewModel : ViewModel() {
@@ -23,5 +28,13 @@ class OnboardingViewModel : ViewModel() {
 
     fun onGetStarted() {
         _state.update { it.copy(step = OnboardingStep.Credentials) }
+    }
+
+    fun onUsernameChanged(username: String) {
+        _state.update { it.copy(username = username) }
+    }
+
+    fun onPasswordChanged(password: String) {
+        _state.update { it.copy(password = password) }
     }
 }

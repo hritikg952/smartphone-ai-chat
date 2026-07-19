@@ -75,11 +75,10 @@ An agent can perform these steps when the SDK/AVD and ADB are available in its e
 Status: **In progress**.
 
 - AndroidX test runner, Espresso, Compose UI test, and debug test-manifest dependencies are configured.
-- `PersonalHealthVaultAppTest` covers the fresh-start welcome state and the Get started → Credentials interaction through the real `OnboardingViewModel` seam.
-- The focused suite passed two tests on `Pixel_10(AVD) - 17`; a clean onboarding screenshot was captured and inspected during the session.
-- The full JVM test task and debug assembly pass. `git diff --check` also passes.
-- The first device attempt encountered an offline ADB target and ran zero tests; reconnecting the emulator resolved the infrastructure failure and the same suite passed.
-- The exact AVD configuration, repository-owned smoke script, retained screenshot convention, broader device matrix, and physical-device checks remain open, so the exit gate is not complete.
+- The connected suite now covers fresh onboarding, prototype credentials → Home, locked/unlocked startup, every top-level placeholder route, back behavior, explicit locking, Activity recreation, and application-scoped dependency lifetime.
+- `testDebugUnitTest`, `assembleDebug`, `assembleRelease`, `assembleLegacy`, `verifyHealthVaultArtifact`, and the full `connectedDebugAndroidTest` suite pass; ten connected tests pass on `Pixel_10(AVD) - 17`.
+- A clean onboarding screenshot was captured and inspected during the session; tests use synthetic state only and do not download the legacy model.
+- The exact AVD configuration, repository-owned smoke script, retained screenshot convention/artifacts, CI emulator lane, broader release matrix, and physical-device checks remain open, so the MG-20 exit gate is not complete.
 
 ## Exit gate
 

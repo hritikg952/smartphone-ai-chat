@@ -14,12 +14,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Key
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.smartphoneaichat.R
 import com.smartphoneaichat.ui.theme.AccentBlue
@@ -27,9 +32,17 @@ import com.smartphoneaichat.ui.theme.DarkBackground
 import com.smartphoneaichat.ui.theme.TextPrimary
 import com.smartphoneaichat.ui.theme.TextSecondary
 
-/** Introduction to the local username/password setup step. */
+/** Prototype local-access form; secure credential storage is deliberately deferred to MG-03. */
 @Composable
-fun CredentialsSetupScreen(modifier: Modifier = Modifier) {
+fun CredentialsSetupScreen(
+    username: String,
+    password: String,
+    canComplete: Boolean,
+    onUsernameChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
+    onComplete: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -66,5 +79,47 @@ fun CredentialsSetupScreen(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
         )
+        Spacer(modifier = Modifier.height(28.dp))
+        OutlinedTextField(
+            value = username,
+            onValueChange = onUsernameChanged,
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text(stringResource(R.string.credentials_username)) },
+            singleLine = true,
+            colors = credentialFieldColors(),
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        OutlinedTextField(
+            value = password,
+            onValueChange = onPasswordChanged,
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text(stringResource(R.string.credentials_password)) },
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            colors = credentialFieldColors(),
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+        Button(
+            onClick = onComplete,
+            enabled = canComplete,
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = AccentBlue,
+                contentColor = DarkBackground,
+            ),
+        ) {
+            Text(stringResource(R.string.credentials_create_action))
+        }
     }
 }
+
+@Composable
+private fun credentialFieldColors() = OutlinedTextFieldDefaults.colors(
+    focusedTextColor = TextPrimary,
+    unfocusedTextColor = TextPrimary,
+    focusedBorderColor = AccentBlue,
+    unfocusedBorderColor = TextSecondary,
+    focusedLabelColor = AccentBlue,
+    unfocusedLabelColor = TextSecondary,
+    cursorColor = AccentBlue,
+)

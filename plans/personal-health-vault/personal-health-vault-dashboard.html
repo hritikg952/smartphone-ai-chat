@@ -883,8 +883,8 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   &lt;section class=&quot;phv-grid&quot; aria-label=&quot;Planning status summary&quot;&gt;
     &lt;article class=&quot;card phv-stat&quot;&gt;&lt;span class=&quot;phv-muted phv-small&quot;&gt;Planning coverage&lt;/span&gt;&lt;strong class=&quot;phv-value&quot;&gt;20 / 20&lt;/strong&gt;&lt;span class=&quot;phv-small&quot;&gt;Mini-goals defined&lt;/span&gt;&lt;/article&gt;
-    &lt;article class=&quot;card phv-stat&quot;&gt;&lt;span class=&quot;phv-muted phv-small&quot;&gt;Exit-gate progress&lt;/span&gt;&lt;strong class=&quot;phv-value&quot;&gt;0%&lt;/strong&gt;&lt;span class=&quot;phv-small&quot;&gt;0 complete · 20 total mini-goals&lt;/span&gt;&lt;/article&gt;
-    &lt;article class=&quot;card phv-stat&quot;&gt;&lt;span class=&quot;phv-muted phv-small&quot;&gt;Active mini-goals&lt;/span&gt;&lt;strong class=&quot;phv-value&quot;&gt;2&lt;/strong&gt;&lt;span class=&quot;phv-small&quot;&gt;MG-02 and MG-20 in progress · MG-01 deferred · 17 planned&lt;/span&gt;&lt;/article&gt;
+    &lt;article class=&quot;card phv-stat&quot;&gt;&lt;span class=&quot;phv-muted phv-small&quot;&gt;Exit-gate progress&lt;/span&gt;&lt;strong class=&quot;phv-value&quot;&gt;5%&lt;/strong&gt;&lt;span class=&quot;phv-small&quot;&gt;1 complete · 20 total mini-goals&lt;/span&gt;&lt;/article&gt;
+    &lt;article class=&quot;card phv-stat&quot;&gt;&lt;span class=&quot;phv-muted phv-small&quot;&gt;Active mini-goals&lt;/span&gt;&lt;strong class=&quot;phv-value&quot;&gt;1&lt;/strong&gt;&lt;span class=&quot;phv-small&quot;&gt;MG-20 in progress · MG-02 complete · MG-01 deferred · 17 planned&lt;/span&gt;&lt;/article&gt;
     &lt;article class=&quot;card phv-stat&quot;&gt;&lt;span class=&quot;phv-muted phv-small&quot;&gt;Open decisions&lt;/span&gt;&lt;strong class=&quot;phv-value&quot;&gt;7&lt;/strong&gt;&lt;span class=&quot;phv-small&quot;&gt;Must resolve before affected work begins&lt;/span&gt;&lt;/article&gt;
   &lt;/section&gt;
 
@@ -899,7 +899,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;div class=&quot;phv-section&quot;&gt;
       &lt;div&gt;
         &lt;h2&gt;Delivery sequence&lt;/h2&gt;
-        &lt;p class=&quot;phv-muted phv-small&quot;&gt;Private-prototype implementation is active. MG-01 governance work is deferred and non-blocking; MG-02 and MG-20 now carry the application-shell and verification work.&lt;/p&gt;
+        &lt;p class=&quot;phv-muted phv-small&quot;&gt;Private-prototype implementation is active. MG-01 governance work is deferred and non-blocking; MG-02 is complete and MG-20 carries the remaining verification-lane work.&lt;/p&gt;
       &lt;/div&gt;
       &lt;div class=&quot;phv-roadmap&quot; aria-label=&quot;Seven-wave roadmap&quot;&gt;
         &lt;section class=&quot;phv-wave&quot;&gt;&lt;div class=&quot;phv-wave-label&quot;&gt;Wave 0&lt;/div&gt;&lt;div class=&quot;phv-wave-number&quot;&gt;Definition&lt;/div&gt;&lt;div class=&quot;phv-small&quot;&gt;MG-01 deferred&lt;/div&gt;&lt;/section&gt;
@@ -913,11 +913,11 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;div class=&quot;card phv-gate&quot;&gt;
         &lt;div&gt;
           &lt;h3&gt;Current position&lt;/h3&gt;
-          &lt;p class=&quot;phv-muted phv-small&quot;&gt;The health-vault root now owns startup. A tested session resolver selects onboarding, unlock, or home, and the welcome screen advances to the credentials step. MG-02 and MG-20 are in progress; no mini-goal exit gate is complete.&lt;/p&gt;
+          &lt;p class=&quot;phv-muted phv-small&quot;&gt;MG-02 now owns startup, application-scoped session state, allowlisted protected navigation, onboarding/unlock/home, and default-artifact legacy-runtime isolation. Its shell exit gate is complete; MG-20 remains in progress for the reusable AVD and release evidence lane.&lt;/p&gt;
         &lt;/div&gt;
         &lt;div&gt;
           &lt;h3&gt;Next safe move&lt;/h3&gt;
-          &lt;p class=&quot;phv-muted phv-small&quot;&gt;Implement credential entry and validation through the confirmed onboarding state seam, then add durable session state and unlock/home rendering. In parallel, isolate retained LiteRT/image-processing native libraries that trigger the Android 16 KB compatibility warning.&lt;/p&gt;
+          &lt;p class=&quot;phv-muted phv-small&quot;&gt;Finish MG-20’s repository-owned AVD contract, smoke script, retained screenshot convention, CI lane, and broader device matrix. Then begin MG-03 vault keys and cryptographic unlock before any real health data.&lt;/p&gt;
         &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
@@ -926,7 +926,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   &lt;section class=&quot;phv-panel&quot; role=&quot;tabpanel&quot; id=&quot;panel-goals&quot; aria-labelledby=&quot;tab-goals&quot; hidden&gt;
     &lt;div class=&quot;phv-section&quot;&gt;
       &lt;div class=&quot;phv-controls&quot;&gt;
-        &lt;div&gt;&lt;h2&gt;Mini-goal dependency map&lt;/h2&gt;&lt;p class=&quot;phv-muted phv-small&quot;&gt;MG-01 is intentionally deferred for private prototype work. MG-02 and MG-20 are in progress; the other 17 mini-goals remain planned. Filter to understand the sequencing.&lt;/p&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;h2&gt;Mini-goal dependency map&lt;/h2&gt;&lt;p class=&quot;phv-muted phv-small&quot;&gt;MG-01 is intentionally deferred for private prototype work. MG-02 is complete, MG-20 is in progress, and the other 17 mini-goals remain planned. Filter to understand the sequencing.&lt;/p&gt;&lt;/div&gt;
         &lt;label class=&quot;phv-small&quot;&gt;Show &lt;select class=&quot;phv-select&quot; id=&quot;goal-filter&quot;&gt;&lt;option value=&quot;all&quot;&gt;All waves&lt;/option&gt;&lt;option value=&quot;0&quot;&gt;Wave 0 — Definition&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;Wave 1 — Foundation&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;Wave 2 — Safe MVP&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;Wave 3 — Full vault&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;Wave 4 — Ecosystem&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;Wave 5 — Intelligence&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;Wave 6 — Release&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
       &lt;/div&gt;
       &lt;div id=&quot;goal-list&quot; class=&quot;phv-goal-list&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
@@ -963,7 +963,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     (() =&gt; {
       const goals = [
         [&#x27;MG-01&#x27;, &#x27;Product, safety, privacy, and regulatory baseline&#x27;, &#x27;None&#x27;, 0, &#x27;Deferred&#x27;],
-        [&#x27;MG-02&#x27;, &#x27;Architecture pivot and modular application shell&#x27;, &#x27;MG-01&#x27;, 1, &#x27;In progress&#x27;],
+        [&#x27;MG-02&#x27;, &#x27;Architecture pivot and modular application shell&#x27;, &#x27;MG-01&#x27;, 1, &#x27;Complete&#x27;],
         [&#x27;MG-03&#x27;, &#x27;Vault cryptography, key lifecycle, and biometric access&#x27;, &#x27;MG-01, MG-02&#x27;, 1],
         [&#x27;MG-04&#x27;, &#x27;Encrypted persistence, file vault, backup, and recovery&#x27;, &#x27;MG-02, MG-03&#x27;, 1],
         [&#x27;MG-05&#x27;, &#x27;Profiles, dependents, consent, and audit&#x27;, &#x27;MG-01, MG-03, MG-04&#x27;, 1],

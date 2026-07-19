@@ -1,3 +1,5 @@
+import java.util.zip.ZipFile
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -20,8 +22,18 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("boolean", "LEGACY_RUNTIME_ENABLED", "false")
+        }
+        create("legacy") {
+            initWith(getByName("debug"))
+            isDebuggable = true
+            matchingFallbacks += listOf("debug")
+            buildConfigField("boolean", "LEGACY_RUNTIME_ENABLED", "true")
+        }
         release {
             isMinifyEnabled = true
+            buildConfigField("boolean", "LEGACY_RUNTIME_ENABLED", "false")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -79,14 +91,18 @@ dependencies {
     // Debug tooling
     debugImplementation("androidx.compose.ui:ui-tooling")
 
-    // LiteRT-LM
-    implementation("com.google.ai.edge.litertlm:litertlm-android:latest.release")
+    // Legacy AI compiles for preservation but is packaged only in the explicit legacy build.
+    compileOnly("com.google.ai.edge.litertlm:litertlm-android:latest.release")
+    add("legacyImplementation", "com.google.ai.edge.litertlm:litertlm-android:latest.release")
 
     // CameraX
     val cameraxVersion = "1.3.4"
-    implementation("androidx.camera:camera-camera2:$cameraxVersion")
-    implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
-    implementation("androidx.camera:camera-view:$cameraxVersion")
+    compileOnly("androidx.camera:camera-camera2:$cameraxVersion")
+    compileOnly("androidx.camera:camera-lifecycle:$cameraxVersion")
+    compileOnly("androidx.camera:camera-view:$cameraxVersion")
+    add("legacyImplementation", "androidx.camera:camera-camera2:$cameraxVersion")
+    add("legacyImplementation", "androidx.camera:camera-lifecycle:$cameraxVersion")
+    add("legacyImplementation", "androidx.camera:camera-view:$cameraxVersion")
 
     // Test dependencies
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.3")
@@ -103,4 +119,60 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.3.0")
     androidTestImplementation("androidx.test:runner:1.7.0")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+}
+
+tasks.register("verifyHealthVaultArtifact") {
+    group = "verification"
+    description = "Verifies that the default Health Vault APK excludes legacy native runtimes."
+    dependsOn("assembleDebug")
+
+    doLast {
+        val apk = layout.buildDirectory.file("outputs/apk/debug/app-debug.apk").get().asFile
+        val forbiddenNames = listOf("liblitertlm_jni.so", "libimage_processing_util_jni.so")
+        val packagedForbiddenLibraries = ZipFile(apk).use { zip ->
+            zip.entries().asSequence()
+                .map { it.name }
+                .filter { entry -> forbiddenNames.any { forbidden -> entry.endsWith(forbidden) } }
+                .toList()
+        }
+        check(packagedForbiddenLibraries.isEmpty()) {
+            "Default Health Vault APK packages legacy native libraries: $packagedForbiddenLibraries"
+        }
+    }
+}
+
+val verifyHealthVaultBoundaries by tasks.registering {
+    group = "verification"
+    description = "Rejects platform, UI, data, and legacy-runtime imports from the active Health Vault core."
+
+    doLast {
+        val coreFiles = listOf(
+            file("src/main/java/com/smartphoneaichat/domain/model/AppSessionState.kt"),
+            file("src/main/java/com/smartphoneaichat/domain/repository/AppSessionStore.kt"),
+        )
+        val forbiddenImports = listOf(
+            "import android.",
+            "import androidx.",
+            "import com.google.ai.edge.litertlm",
+            "import com.smartphoneaichat.data.",
+            "import com.smartphoneaichat.presentation.",
+            "import com.smartphoneaichat.ui.",
+        )
+        val violations = coreFiles.flatMap { sourceFile ->
+            sourceFile.readLines().mapIndexedNotNull { index, line ->
+                if (forbiddenImports.any(line::startsWith)) {
+                    "${sourceFile.relativeTo(projectDir)}:${index + 1}: $line"
+                } else {
+                    null
+                }
+            }
+        }
+        check(violations.isEmpty()) {
+            "Health Vault core boundary violations:\n${violations.joinToString("\n")}"
+        }
+    }
+}
+
+tasks.named("check").configure {
+    dependsOn(verifyHealthVaultBoundaries)
 }

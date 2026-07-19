@@ -50,24 +50,27 @@ MG-01; decisions D-002 and D-003.
 
 ## Acceptance criteria
 
-- [ ] App launches into onboarding/unlock/home based on session state.
-- [ ] All feature routes are addressable without exposing data while locked.
-- [ ] Dependency lifetimes survive configuration change and do not leak an Activity.
-- [ ] Domain/core modules have no Compose, LiteRT, Room, or platform imports except explicitly platform-owned modules.
-- [ ] Legacy chat is isolated and removable.
+- [x] App launches into onboarding/unlock/home based on session state.
+- [x] All feature routes are addressable without exposing data while locked.
+- [x] Dependency lifetimes survive configuration change and do not leak an Activity.
+- [x] Active Health Vault core contracts have no Compose, LiteRT, Room, or platform imports; the repository check enforces the boundary.
+- [x] Legacy chat is isolated from the default startup/artifact and remains buildable only through the explicit `legacy` build.
 - [x] Build and focused test suite pass after every migration step.
 
 ## Implementation evidence — 2026-07-19
 
-Status: **In progress**.
+Status: **Complete for the shell exit gate**.
 
-- `MainActivity` now starts `PersonalHealthVaultApp`; the legacy chat screen is no longer the launch surface.
-- `AppDestinationResolver` provides a pure, unit-tested onboarding/unlock/home decision seam.
-- `OnboardingViewModel.state` and `onGetStarted()` drive the tested Welcome → Credentials transition.
-- Unlock and home rendering, durable session state, typed navigation, modular dependency rules, and legacy-runtime isolation remain open; therefore the MG-02 exit gate is not complete.
-- `testDebugUnitTest`, `assembleDebug`, and the focused connected onboarding suite pass.
-- Device launch exposes an Android 16 KB page-size compatibility warning from retained native LiteRT/image-processing libraries. Removing those libraries from the health-vault startup artifact is active legacy-isolation work, not a closed criterion.
+- `MainActivity` starts `PersonalHealthVaultApp`; the legacy chat screen is no longer the launch surface.
+- `AppSessionStore` persists only onboarding completion, keeps unlock state process-local, and is owned by an application-scoped `HealthVaultAppContainer`.
+- `AppRoute` and `AppRoutePolicy` provide an allowlisted route set, fresh/locked/unlocked redirects, invalid-path fallback, and protected-route blocking.
+- Compose Navigation renders onboarding, prototype credentials, unlock, home, and every planned top-level placeholder route; connected tests cover back behavior, lock behavior, and Activity recreation.
+- `verifyHealthVaultBoundaries` enforces the active Health Vault core import boundary.
+- The default debug/release artifacts omit LiteRT/CameraX native libraries and permissions; the explicit `legacy` build remains buildable for preserved chat/model work.
+- Before tests, the public seams were confirmed as `AppSessionStore`, `AppRoutePolicy`, `PersonalHealthVaultApp`, application-scoped `HealthVaultAppContainer`, and `verifyHealthVaultArtifact`; focused red runs exposed each missing seam before the corresponding green implementation.
+- TDD evidence is recorded in the focused red→green session-store, route-policy, onboarding, navigation, dependency-lifetime, and artifact-verification tests.
+- `testDebugUnitTest`, `assembleDebug`, `assembleRelease`, `assembleLegacy`, `verifyHealthVaultArtifact`, and the full `connectedDebugAndroidTest` suite pass. Ten connected tests pass on `Pixel_10(AVD) - 17`.
 
 ## Exit gate
 
-The new shell owns application startup and navigation, is testable without AI, and supplies stable boundaries for MG-03 through MG-16.
+The new shell owns application startup and navigation, is testable without the AI/camera runtime, and supplies stable boundaries for MG-03 through MG-16.

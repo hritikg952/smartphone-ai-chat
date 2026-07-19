@@ -13,5 +13,13 @@
     <string name="onboarding_get_started">Get started</string>
     <string name="onboarding_footer">English only · Stored on this device</string>
     <string name="credentials_title">Set up local access</string>
-    <string name="credentials_subtitle">Create a username and password for this device. Credential entry is the next setup step.</string>
+    <string name="credentials_subtitle">Choose prototype access details. Secure credential protection will be added with the vault security work.</string>
+    <string name="credentials_username">Username</string>
+    <string name="credentials_password">Password</string>
+    <string name="credentials_create_action">Create vault</string>
+    <string name="unlock_title">Unlock your vault</string>
+    <string name="unlock_subtitle">Continue to the private prototype stored on this device.</string>
+    <string name="unlock_action">Unlock</string>
+    <string name="home_title">Health Vault Home</string>
+    <string name="home_subtitle">Your private prototype is ready for the next health-record feature.</string>
 </resources>
