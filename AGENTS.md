@@ -106,7 +106,7 @@ For every feature, bug fix, or behavior change, use the `/tdd` skill and follow 
 
 ### Personal Health Vault wrap-up
 
-When the user explicitly invokes `/health-vault-wrap-up` or `$health-vault-wrap-up`, read and follow [`plans/personal-health-vault/skills/health-vault-wrap-up/SKILL.md`](plans/personal-health-vault/skills/health-vault-wrap-up/SKILL.md). Do not update the Personal Health Vault dashboard automatically outside that manual workflow.
+When the user explicitly invokes `/health-vault-wrap-up` or `$health-vault-wrap-up`, read and follow [`.codex/skills/health-vault-wrap-up/SKILL.md`](.codex/skills/health-vault-wrap-up/SKILL.md). Do not update the Personal Health Vault dashboard automatically outside that manual workflow.
 
 Unit tests live in `app/src/test/java/com/smartphoneaichat/` and use JUnit 5, MockK, `kotlinx-coroutines-test`, and Turbine.
 

@@ -1,6 +1,6 @@
 # Personal Health Vault — Master Implementation Planning Set
 
-**Status:** Finalized planning + prototype brief  
+**Status:** Planning set finalized; MG-01 in progress (draft complete, approvals open)
 **Created:** 2026-07-18  
 **Product direction:** Pivot the current Android local-AI chat prototype into an Android-first, local-first personal health vault.
 
@@ -63,7 +63,7 @@ Do not begin a wave while a required exit gate from an earlier wave is open. Wit
 - [Prototype fast track and its explicit boundaries](PROTOTYPE_FAST_TRACK.md)
 - [Copy-ready dark UI design prompt](UI_DESIGN_PROMPT.md)
 - [Figma design context and implementation alignment](FIGMA_DESIGN_CONTEXT.md)
-- [Interactive plan and progress dashboard](personal-health-vault-dashboard.html) — refreshed only through the manual [`/health-vault-wrap-up`](skills/health-vault-wrap-up/SKILL.md) workflow after a progress review.
+- [Interactive plan and progress dashboard](personal-health-vault-dashboard.html) — refreshed only through the manual [`/health-vault-wrap-up`](../../.codex/skills/health-vault-wrap-up/SKILL.md) workflow after a progress review.
 - [Requirement traceability matrix](TRACEABILITY.md)
 - [Decision register](DECISIONS.md)
 - [Official reference baseline](REFERENCES.md)
