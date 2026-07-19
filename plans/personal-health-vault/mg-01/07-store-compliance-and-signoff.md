@@ -64,8 +64,9 @@ store policy can change.
 ## Sign-off statement
 
 ```text
-I reviewed the MG-01 governance packet against the stated India-first private
-prototype scope. My approval applies only to the documented version and does
+I reviewed the MG-01 governance packet against the stated private-prototype
+scope and the jurisdiction selected for distribution. My approval applies only
+to the documented version and does
 not extend to deferred features, external distribution, or changed data flows.
 
 Reviewer / role / qualification:

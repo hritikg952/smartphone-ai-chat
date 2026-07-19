@@ -884,7 +884,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   &lt;section class=&quot;phv-grid&quot; aria-label=&quot;Planning status summary&quot;&gt;
     &lt;article class=&quot;card phv-stat&quot;&gt;&lt;span class=&quot;phv-muted phv-small&quot;&gt;Planning coverage&lt;/span&gt;&lt;strong class=&quot;phv-value&quot;&gt;20 / 20&lt;/strong&gt;&lt;span class=&quot;phv-small&quot;&gt;Mini-goals defined&lt;/span&gt;&lt;/article&gt;
     &lt;article class=&quot;card phv-stat&quot;&gt;&lt;span class=&quot;phv-muted phv-small&quot;&gt;Exit-gate progress&lt;/span&gt;&lt;strong class=&quot;phv-value&quot;&gt;0%&lt;/strong&gt;&lt;span class=&quot;phv-small&quot;&gt;0 complete · 20 total mini-goals&lt;/span&gt;&lt;/article&gt;
-    &lt;article class=&quot;card phv-stat&quot;&gt;&lt;span class=&quot;phv-muted phv-small&quot;&gt;Active mini-goals&lt;/span&gt;&lt;strong class=&quot;phv-value&quot;&gt;1&lt;/strong&gt;&lt;span class=&quot;phv-small&quot;&gt;MG-01 in progress · 19 planned&lt;/span&gt;&lt;/article&gt;
+    &lt;article class=&quot;card phv-stat&quot;&gt;&lt;span class=&quot;phv-muted phv-small&quot;&gt;Active mini-goals&lt;/span&gt;&lt;strong class=&quot;phv-value&quot;&gt;2&lt;/strong&gt;&lt;span class=&quot;phv-small&quot;&gt;MG-02 and MG-20 in progress · MG-01 deferred · 17 planned&lt;/span&gt;&lt;/article&gt;
     &lt;article class=&quot;card phv-stat&quot;&gt;&lt;span class=&quot;phv-muted phv-small&quot;&gt;Open decisions&lt;/span&gt;&lt;strong class=&quot;phv-value&quot;&gt;7&lt;/strong&gt;&lt;span class=&quot;phv-small&quot;&gt;Must resolve before affected work begins&lt;/span&gt;&lt;/article&gt;
   &lt;/section&gt;
 
@@ -899,11 +899,11 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;div class=&quot;phv-section&quot;&gt;
       &lt;div&gt;
         &lt;h2&gt;Delivery sequence&lt;/h2&gt;
-        &lt;p class=&quot;phv-muted phv-small&quot;&gt;The planning set is complete. The MG-01 draft is ready for human review; implementation begins only after its decision and exit gates are satisfied.&lt;/p&gt;
+        &lt;p class=&quot;phv-muted phv-small&quot;&gt;Private-prototype implementation is active. MG-01 governance work is deferred and non-blocking; MG-02 and MG-20 now carry the application-shell and verification work.&lt;/p&gt;
       &lt;/div&gt;
       &lt;div class=&quot;phv-roadmap&quot; aria-label=&quot;Seven-wave roadmap&quot;&gt;
-        &lt;section class=&quot;phv-wave is-active&quot;&gt;&lt;div class=&quot;phv-wave-label&quot;&gt;Wave 0&lt;/div&gt;&lt;div class=&quot;phv-wave-number&quot;&gt;Definition&lt;/div&gt;&lt;div class=&quot;phv-small&quot;&gt;MG-01&lt;/div&gt;&lt;/section&gt;
-        &lt;section class=&quot;phv-wave&quot;&gt;&lt;div class=&quot;phv-wave-label&quot;&gt;Wave 1&lt;/div&gt;&lt;div class=&quot;phv-wave-number&quot;&gt;Foundation&lt;/div&gt;&lt;div class=&quot;phv-small&quot;&gt;MG-02–06, 19–20&lt;/div&gt;&lt;/section&gt;
+        &lt;section class=&quot;phv-wave&quot;&gt;&lt;div class=&quot;phv-wave-label&quot;&gt;Wave 0&lt;/div&gt;&lt;div class=&quot;phv-wave-number&quot;&gt;Definition&lt;/div&gt;&lt;div class=&quot;phv-small&quot;&gt;MG-01 deferred&lt;/div&gt;&lt;/section&gt;
+        &lt;section class=&quot;phv-wave is-active&quot;&gt;&lt;div class=&quot;phv-wave-label&quot;&gt;Wave 1&lt;/div&gt;&lt;div class=&quot;phv-wave-number&quot;&gt;Foundation&lt;/div&gt;&lt;div class=&quot;phv-small&quot;&gt;MG-02–06, 19–20&lt;/div&gt;&lt;/section&gt;
         &lt;section class=&quot;phv-wave&quot;&gt;&lt;div class=&quot;phv-wave-label&quot;&gt;Wave 2&lt;/div&gt;&lt;div class=&quot;phv-wave-number&quot;&gt;Safe MVP&lt;/div&gt;&lt;div class=&quot;phv-small&quot;&gt;MG-07, 08, 10&lt;/div&gt;&lt;/section&gt;
         &lt;section class=&quot;phv-wave&quot;&gt;&lt;div class=&quot;phv-wave-label&quot;&gt;Wave 3&lt;/div&gt;&lt;div class=&quot;phv-wave-number&quot;&gt;Full vault&lt;/div&gt;&lt;div class=&quot;phv-small&quot;&gt;MG-09, 11, 13–14&lt;/div&gt;&lt;/section&gt;
         &lt;section class=&quot;phv-wave&quot;&gt;&lt;div class=&quot;phv-wave-label&quot;&gt;Wave 4&lt;/div&gt;&lt;div class=&quot;phv-wave-number&quot;&gt;Ecosystem&lt;/div&gt;&lt;div class=&quot;phv-small&quot;&gt;MG-12, 15&lt;/div&gt;&lt;/section&gt;
@@ -913,11 +913,11 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;div class=&quot;card phv-gate&quot;&gt;
         &lt;div&gt;
           &lt;h3&gt;Current position&lt;/h3&gt;
-          &lt;p class=&quot;phv-muted phv-small&quot;&gt;The verified vision/current-state baseline and all eight MG-01 governance artifacts are complete as reviewable drafts. Human approvals, named owners, and high-severity decision due dates remain open; the MG-01 exit gate is not closed. Health-vault code implementation remains at 0%.&lt;/p&gt;
+          &lt;p class=&quot;phv-muted phv-small&quot;&gt;The health-vault root now owns startup. A tested session resolver selects onboarding, unlock, or home, and the welcome screen advances to the credentials step. MG-02 and MG-20 are in progress; no mini-goal exit gate is complete.&lt;/p&gt;
         &lt;/div&gt;
         &lt;div&gt;
           &lt;h3&gt;Next safe move&lt;/h3&gt;
-          &lt;p class=&quot;phv-muted phv-small&quot;&gt;Name the product, security, privacy/legal, and clinical reviewers; resolve the age, language, and v1 drug-interaction scope; assign owners and due dates; then record approval evidence to close MG-01 before starting MG-02.&lt;/p&gt;
+          &lt;p class=&quot;phv-muted phv-small&quot;&gt;Implement credential entry and validation through the confirmed onboarding state seam, then add durable session state and unlock/home rendering. In parallel, isolate retained LiteRT/image-processing native libraries that trigger the Android 16 KB compatibility warning.&lt;/p&gt;
         &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
@@ -926,7 +926,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   &lt;section class=&quot;phv-panel&quot; role=&quot;tabpanel&quot; id=&quot;panel-goals&quot; aria-labelledby=&quot;tab-goals&quot; hidden&gt;
     &lt;div class=&quot;phv-section&quot;&gt;
       &lt;div class=&quot;phv-controls&quot;&gt;
-        &lt;div&gt;&lt;h2&gt;Mini-goal dependency map&lt;/h2&gt;&lt;p class=&quot;phv-muted phv-small&quot;&gt;MG-01 has reviewable draft artifacts but an open exit gate; all later mini-goals remain planned. Filter to understand the sequencing.&lt;/p&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;h2&gt;Mini-goal dependency map&lt;/h2&gt;&lt;p class=&quot;phv-muted phv-small&quot;&gt;MG-01 is intentionally deferred for private prototype work. MG-02 and MG-20 are in progress; the other 17 mini-goals remain planned. Filter to understand the sequencing.&lt;/p&gt;&lt;/div&gt;
         &lt;label class=&quot;phv-small&quot;&gt;Show &lt;select class=&quot;phv-select&quot; id=&quot;goal-filter&quot;&gt;&lt;option value=&quot;all&quot;&gt;All waves&lt;/option&gt;&lt;option value=&quot;0&quot;&gt;Wave 0 — Definition&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;Wave 1 — Foundation&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;Wave 2 — Safe MVP&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;Wave 3 — Full vault&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;Wave 4 — Ecosystem&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;Wave 5 — Intelligence&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;Wave 6 — Release&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
       &lt;/div&gt;
       &lt;div id=&quot;goal-list&quot; class=&quot;phv-goal-list&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
@@ -937,10 +937,10 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;div class=&quot;phv-section&quot;&gt;
       &lt;div&gt;&lt;h2&gt;Decision readiness&lt;/h2&gt;&lt;p class=&quot;phv-muted phv-small&quot;&gt;Decisions are planning inputs, not implementation completion.&lt;/p&gt;&lt;/div&gt;
       &lt;div class=&quot;phv-decision-bars&quot; aria-label=&quot;Decision status chart&quot;&gt;
-        &lt;div class=&quot;phv-bar-row&quot;&gt;&lt;span&gt;Accepted&lt;/span&gt;&lt;div class=&quot;phv-bar&quot;&gt;&lt;span style=&quot;width:40%&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;span&gt;8&lt;/span&gt;&lt;/div&gt;
-        &lt;div class=&quot;phv-bar-row&quot;&gt;&lt;span&gt;Open&lt;/span&gt;&lt;div class=&quot;phv-bar is-open&quot;&gt;&lt;span style=&quot;width:35%&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;span&gt;7&lt;/span&gt;&lt;/div&gt;
-        &lt;div class=&quot;phv-bar-row&quot;&gt;&lt;span&gt;Deferred&lt;/span&gt;&lt;div class=&quot;phv-bar is-deferred&quot;&gt;&lt;span style=&quot;width:20%&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;span&gt;4&lt;/span&gt;&lt;/div&gt;
-        &lt;div class=&quot;phv-bar-row&quot;&gt;&lt;span&gt;Partial&lt;/span&gt;&lt;div class=&quot;phv-bar is-partial&quot;&gt;&lt;span style=&quot;width:5%&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;span&gt;1&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;phv-bar-row&quot;&gt;&lt;span&gt;Accepted&lt;/span&gt;&lt;div class=&quot;phv-bar&quot;&gt;&lt;span style=&quot;width:42.9%&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;span&gt;9&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;phv-bar-row&quot;&gt;&lt;span&gt;Open&lt;/span&gt;&lt;div class=&quot;phv-bar is-open&quot;&gt;&lt;span style=&quot;width:33.3%&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;span&gt;7&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;phv-bar-row&quot;&gt;&lt;span&gt;Deferred&lt;/span&gt;&lt;div class=&quot;phv-bar is-deferred&quot;&gt;&lt;span style=&quot;width:19%&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;span&gt;4&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;phv-bar-row&quot;&gt;&lt;span&gt;Partial&lt;/span&gt;&lt;div class=&quot;phv-bar is-partial&quot;&gt;&lt;span style=&quot;width:4.8%&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;span&gt;1&lt;/span&gt;&lt;/div&gt;
       &lt;/div&gt;
       &lt;div class=&quot;phv-gates&quot;&gt;
         &lt;article class=&quot;card phv-gate&quot;&gt;&lt;h3&gt;Prototype safeguards&lt;/h3&gt;&lt;p class=&quot;phv-muted phv-small&quot;&gt;Local-only, synthetic/developer-controlled data, no cloud health uploads, no encryption/security claims, and Android backup disabled before prototype use.&lt;/p&gt;&lt;/article&gt;
@@ -962,14 +962,14 @@ html&gt;body{padding:0}&lt;/style&gt;
   &lt;script&gt;
     (() =&gt; {
       const goals = [
-        [&#x27;MG-01&#x27;, &#x27;Product, safety, privacy, and regulatory baseline&#x27;, &#x27;None&#x27;, 0, &#x27;In progress&#x27;],
-        [&#x27;MG-02&#x27;, &#x27;Architecture pivot and modular application shell&#x27;, &#x27;MG-01&#x27;, 1],
+        [&#x27;MG-01&#x27;, &#x27;Product, safety, privacy, and regulatory baseline&#x27;, &#x27;None&#x27;, 0, &#x27;Deferred&#x27;],
+        [&#x27;MG-02&#x27;, &#x27;Architecture pivot and modular application shell&#x27;, &#x27;MG-01&#x27;, 1, &#x27;In progress&#x27;],
         [&#x27;MG-03&#x27;, &#x27;Vault cryptography, key lifecycle, and biometric access&#x27;, &#x27;MG-01, MG-02&#x27;, 1],
         [&#x27;MG-04&#x27;, &#x27;Encrypted persistence, file vault, backup, and recovery&#x27;, &#x27;MG-02, MG-03&#x27;, 1],
         [&#x27;MG-05&#x27;, &#x27;Profiles, dependents, consent, and audit&#x27;, &#x27;MG-01, MG-03, MG-04&#x27;, 1],
         [&#x27;MG-06&#x27;, &#x27;Navigation, home dashboard, and design system&#x27;, &#x27;MG-02, MG-05&#x27;, 1],
         [&#x27;MG-19&#x27;, &#x27;Local-first data, optional cloud, sync, and recovery boundary&#x27;, &#x27;MG-02 to MG-05&#x27;, 1],
-        [&#x27;MG-20&#x27;, &#x27;Android verification, emulator, and UI-regression workflow&#x27;, &#x27;MG-02, MG-06&#x27;, 1],
+        [&#x27;MG-20&#x27;, &#x27;Android verification, emulator, and UI-regression workflow&#x27;, &#x27;MG-02, MG-06&#x27;, 1, &#x27;In progress&#x27;],
         [&#x27;MG-07&#x27;, &#x27;Emergency card and external emergency access&#x27;, &#x27;MG-03 to MG-06&#x27;, 2],
         [&#x27;MG-08&#x27;, &#x27;Medication, prescriptions, and provider history&#x27;, &#x27;MG-04 to MG-06&#x27;, 2],
         [&#x27;MG-10&#x27;, &#x27;Vitals, allergies, immunizations, and trends&#x27;, &#x27;MG-04 to MG-06&#x27;, 2],
@@ -991,7 +991,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       function renderGoals() {
         const wave = filter.value;
         const visible = wave === &#x27;all&#x27; ? goals : goals.filter(goal =&gt; String(goal[3]) === wave);
-        goalList.innerHTML = visible.map(([id, name, dependency, goalWave, status = &#x27;Planned&#x27;]) =&gt; `&lt;article class=&quot;phv-goal&quot;&gt;&lt;span class=&quot;phv-goal-id&quot;&gt;${id}&lt;/span&gt;&lt;div class=&quot;phv-goal-main&quot;&gt;&lt;div class=&quot;phv-goal-name&quot;&gt;${name}&lt;/div&gt;&lt;div class=&quot;phv-goal-dep&quot;&gt;Wave ${goalWave} · Depends on ${dependency}&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;phv-status${status === &#x27;In progress&#x27; ? &#x27; is-open&#x27; : &#x27;&#x27;}&quot;&gt;${status}&lt;/span&gt;&lt;/article&gt;`).join(&#x27;&#x27;);
+        goalList.innerHTML = visible.map(([id, name, dependency, goalWave, status = &#x27;Planned&#x27;]) =&gt; `&lt;article class=&quot;phv-goal&quot;&gt;&lt;span class=&quot;phv-goal-id&quot;&gt;${id}&lt;/span&gt;&lt;div class=&quot;phv-goal-main&quot;&gt;&lt;div class=&quot;phv-goal-name&quot;&gt;${name}&lt;/div&gt;&lt;div class=&quot;phv-goal-dep&quot;&gt;Wave ${goalWave} · Depends on ${dependency}&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;phv-status${status === &#x27;In progress&#x27; ? &#x27; is-open&#x27; : status === &#x27;Deferred&#x27; ? &#x27; is-deferred&#x27; : &#x27;&#x27;}&quot;&gt;${status}&lt;/span&gt;&lt;/article&gt;`).join(&#x27;&#x27;);
       }
       tabs.forEach(tab =&gt; tab.addEventListener(&#x27;click&#x27;, () =&gt; {
         tabs.forEach(item =&gt; item.setAttribute(&#x27;aria-selected&#x27;, String(item === tab)));

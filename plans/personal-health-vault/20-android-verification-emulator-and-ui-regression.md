@@ -65,10 +65,21 @@ An agent can perform these steps when the SDK/AVD and ADB are available in its e
 ## Acceptance criteria
 
 - [ ] A documented AVD can launch the app from a clean checkout.
-- [ ] `assembleDebug`, JVM tests, and connected UI tests have clear standard commands.
+- [x] `assembleDebug`, JVM tests, and connected UI tests have clear standard commands.
 - [ ] A changed UI route has automated interaction coverage and screenshot evidence.
 - [ ] Build/test scripts surface failures and do not rely on manually opening Android Studio.
-- [ ] Real-device checks are listed as a release gate for platform-dependent features.
+- [x] Real-device checks are listed as a release gate for platform-dependent features.
+
+## Implementation evidence — 2026-07-19
+
+Status: **In progress**.
+
+- AndroidX test runner, Espresso, Compose UI test, and debug test-manifest dependencies are configured.
+- `PersonalHealthVaultAppTest` covers the fresh-start welcome state and the Get started → Credentials interaction through the real `OnboardingViewModel` seam.
+- The focused suite passed two tests on `Pixel_10(AVD) - 17`; a clean onboarding screenshot was captured and inspected during the session.
+- The full JVM test task and debug assembly pass. `git diff --check` also passes.
+- The first device attempt encountered an offline ADB target and ran zero tests; reconnecting the emulator resolved the infrastructure failure and the same suite passed.
+- The exact AVD configuration, repository-owned smoke script, retained screenshot convention, broader device matrix, and physical-device checks remain open, so the exit gate is not complete.
 
 ## Exit gate
 

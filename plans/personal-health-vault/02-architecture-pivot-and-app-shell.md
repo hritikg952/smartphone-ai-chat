@@ -55,9 +55,19 @@ MG-01; decisions D-002 and D-003.
 - [ ] Dependency lifetimes survive configuration change and do not leak an Activity.
 - [ ] Domain/core modules have no Compose, LiteRT, Room, or platform imports except explicitly platform-owned modules.
 - [ ] Legacy chat is isolated and removable.
-- [ ] Build and focused test suite pass after every migration step.
+- [x] Build and focused test suite pass after every migration step.
+
+## Implementation evidence — 2026-07-19
+
+Status: **In progress**.
+
+- `MainActivity` now starts `PersonalHealthVaultApp`; the legacy chat screen is no longer the launch surface.
+- `AppDestinationResolver` provides a pure, unit-tested onboarding/unlock/home decision seam.
+- `OnboardingViewModel.state` and `onGetStarted()` drive the tested Welcome → Credentials transition.
+- Unlock and home rendering, durable session state, typed navigation, modular dependency rules, and legacy-runtime isolation remain open; therefore the MG-02 exit gate is not complete.
+- `testDebugUnitTest`, `assembleDebug`, and the focused connected onboarding suite pass.
+- Device launch exposes an Android 16 KB page-size compatibility warning from retained native LiteRT/image-processing libraries. Removing those libraries from the health-vault startup artifact is active legacy-isolation work, not a closed criterion.
 
 ## Exit gate
 
 The new shell owns application startup and navigation, is testable without AI, and supplies stable boundaries for MG-03 through MG-16.
-

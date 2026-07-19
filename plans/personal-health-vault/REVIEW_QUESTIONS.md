@@ -18,15 +18,15 @@ Should the first release focus strictly on organizing personal health records an
 
 Examples: individual adults, caregivers managing parents, parents managing children, users with chronic conditions, or a broad consumer audience.
 
-**Recommended starting point:** Adults managing their own records, with dependent profiles added after the self-profile workflow is stable.
+**Recommended starting point (superseded by owner direction below):** Adults managing their own records, with dependent profiles added after the self-profile workflow is stable.
 
-**Your answer:** Personal records for now. 
+**Your answer:** Personal records for now. No minimum age restriction in the prototype.
 
 ### Q-003: Where will the first public version launch?
 
 List the initial countries/jurisdictions and supported languages. Privacy, medical-function, insurance, emergency, and drug-reference requirements depend on this answer.
 
-**Your answer:** Just India for now. But how will this impact development overall?
+**Your answer:** Jurisdiction and legal constraints are deferred and do not gate private prototype development. English only for the prototype.
 
 ### Q-004: What should the application be called?
 
@@ -225,4 +225,3 @@ Requirements removed or changed:
 Decisions ready to transfer into DECISIONS.md:
 Notes for the next planning revision:
 ```
-

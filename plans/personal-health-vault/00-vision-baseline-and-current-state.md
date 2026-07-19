@@ -1,10 +1,10 @@
 # Vision Baseline and Current-State Gap
 
-**Status:** Implementation-ready planning baseline; human MG-01 approvals remain open
+**Status:** Implementation-ready planning baseline; MG-01 governance review deferred
 
 **Repository snapshot:** 2026-07-19 on `codex/health-vault-mg-01-baseline`
 
-**Product scope:** India-first, adult self-profile, private local-only prototype
+**Product scope:** English-only self-profile, private local-only prototype; no enforced minimum age
 
 This document is the bridge between the current Android application and the
 Personal Health Vault roadmap. It records what exists now, what may be reused,
@@ -31,7 +31,7 @@ security.
 | Dimension | Current direction |
 |---|---|
 | Intended use | Personal record organization and wellness support |
-| User | Adult managing only their own records; proposed minimum age 18+ pending approval |
+| User | Individual managing only their own records; no minimum age restriction enforced in the prototype |
 | Jurisdiction | India |
 | Distribution | Private prototype; no public or external Play track authorized |
 | Storage | Local-only; production encryption, backup, and recovery are deferred |
@@ -110,7 +110,7 @@ earlier exit gate.
 
 | Priority | Gap | Current risk | Owning plan | Proof target |
 |---|---|---|---|---|
-| P0 | MG-01 human ownership/approval | Product and safety scope is not yet signed off | MG-01 | Named product, security, privacy/legal, and clinical reviewers; approved packet |
+| Deferred | MG-01 human ownership/approval | The prototype has no legal, privacy, clinical, or store sign-off and must not claim otherwise | MG-01 | Revisit before distribution, real-world use, off-device health processing, or compliance/medical claims |
 | P0 | Backup enabled with no approved health backup design | App-private health files could enter an unintended system backup path | MG-03, MG-04, D-008 | Manifest/backup-rule tests and restore evidence |
 | P0 | Client HF credential and unpinned AI dependency | Credential leakage and non-reproducible builds | MG-02, MG-16, MG-18 | Secret/artifact scan; signed model distribution and pinned dependency evidence |
 | P0 | No vault security or encryption | Prototype cannot safely claim protection for real health records | MG-03, MG-04 | Threat model, key lifecycle, encrypted DB/files, recovery/deletion tests |
@@ -159,7 +159,8 @@ feature ownership, replaceable adapters, and test seams are required.
 ## Migration invariants
 
 1. Keep the app buildable after every vertical slice; avoid a big-bang rewrite.
-2. Do not begin later-wave implementation while the MG-01 exit gate is open.
+2. Use MG-01 as a development reference; its deferred governance review does
+   not block private prototype implementation.
 3. Use synthetic/developer-controlled data until the security and persistence
    gates authorize real sensitive records.
 4. Preserve legacy chat/model behavior behind an internal boundary until MG-18
@@ -209,9 +210,12 @@ truth. This definition is not the private prototype's completion claim.
 - [x] Every material gap has an owning mini-goal and proof target.
 - [x] Migration invariants and prototype/north-star success definitions are
   documented.
+- [x] MG-01 development assumptions reflect the owner's current direction.
 - [ ] MG-01 reviewers approve the intended use and high-risk assumptions.
-- [ ] Owners and due dates are assigned to every open high-severity item in the
-  [MG-01 packet](mg-01/README.md).
+  Deferred until the owner plans distribution or real-world use.
+- [ ] Owners and due dates are assigned to open high-severity governance items.
+  Deferred and non-blocking for private prototype development.
 
-This baseline is complete as a planning artifact. It does not close the MG-01
-exit gate or authorize production health-data implementation by itself.
+This baseline is complete as a planning artifact and authorizes proceeding with
+private prototype development. It does not authorize claims of legal
+compliance, medical approval, clinical validation, or release readiness.

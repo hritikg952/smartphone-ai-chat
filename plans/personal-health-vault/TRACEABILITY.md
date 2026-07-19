@@ -49,3 +49,10 @@ This matrix ensures every requirement in the supplied master development plan ha
 
 A master requirement is complete only when its primary plan exit gate is closed, supporting-plan dependencies are complete, and the proof target is stored with the release evidence. A checked UI box without data lifecycle, security, and failure-path proof does not satisfy traceability.
 
+## Current implementation evidence — 2026-07-19
+
+| Implemented seam | Owning plan | Evidence | Remaining boundary |
+|---|---|---|---|
+| Session destination resolution | MG-02 | Unit tests cover fresh, locked-returning, and unlocked-returning states. | Unlock/home screens and durable session persistence are not implemented. |
+| Welcome → Credentials onboarding transition | MG-02 | ViewModel unit test and two connected Compose tests pass. | Credential fields, validation, storage, and unlock are not implemented. |
+| Android connected-test lane | MG-20 | Focused suite passes on `Pixel_10(AVD) - 17`; visual onboarding smoke inspected. | AVD specification, scripts, retained regression artifacts, CI, and physical-device matrix remain open. |

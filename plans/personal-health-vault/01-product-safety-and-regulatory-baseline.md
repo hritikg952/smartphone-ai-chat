@@ -1,13 +1,17 @@
 # MG-01 — Product, Safety, Privacy, and Regulatory Baseline
 
-**Mini-goal status:** In progress — vision/current-state baseline and reviewable
-draft packet complete; human approvals and named owners remain open. See the
+**Mini-goal status:** Development baseline recorded — legal, privacy, clinical,
+and store review deferred and non-blocking for private prototype development.
+See the
 [vision baseline](00-vision-baseline-and-current-state.md) and
 [MG-01 governance baseline packet](mg-01/README.md).
 
 ## Outcome
 
-Create an approved product-intent and data-governance baseline that constrains every later feature. This is the first release gate because security architecture and AI scope cannot be chosen until the product claims, users, jurisdictions, and data flows are known.
+Keep a product-intent and data-governance draft that informs development without
+blocking the private prototype. It is not an approved legal, privacy, clinical,
+or release baseline. Those reviews are deferred until the owner chooses to
+prepare the application for real-world use or distribution.
 
 ## Scope
 
@@ -26,7 +30,23 @@ Create an approved product-intent and data-governance baseline that constrains e
 
 ## Required decisions
 
-D-001, initial age/dependent policy, initial jurisdictions, offline-only launch versus any service, and whether drug interaction alerts ship in v1.
+The owner-selected direction is recorded for personal record organization,
+private local-only development, self-profile only, no minimum age restriction,
+English-only UI, and no drug-interaction alerts in the prototype/v1. Launch
+jurisdictions and legal, privacy, clinical, and store constraints are deferred.
+
+## Owner direction recorded 2026-07-19
+
+- No minimum age restriction is enforced in the prototype.
+- The prototype UI is English only.
+- Named governance owners and specialist reviewers are deferred.
+- MG-01 does not gate private prototype implementation.
+- Legal and regulatory applicability will be addressed later.
+
+These are development instructions, not legal or clinical approvals. Until the
+deferred review occurs, the application and documentation must not claim legal
+compliance, medical approval, clinical validation, or suitability for real
+patient care.
 
 ## Work packages
 
@@ -59,8 +79,9 @@ D-001, initial age/dependent policy, initial jurisdictions, offline-only launch 
 
 ## Acceptance criteria
 
-- [ ] Product owner, security owner, privacy/legal reviewer, and clinical safety reviewer are named.
-- [ ] Intended use, prohibited use, launch jurisdiction, and user population are approved.
+- [ ] Product owner, security owner, privacy/legal reviewer, and clinical safety reviewer are named. Deferred; non-blocking for private development.
+- [x] Development scope is recorded: personal records, self-profile, no minimum age restriction, English only, local-only private prototype, and no clinical claims.
+- [ ] Launch jurisdiction and legal/clinical/store approval are complete. Deferred until distribution or real-world use is planned.
 - [x] Every planned data category has source, purpose, storage, sharing, retention, and deletion rules in the draft baseline.
 - [x] AI/OCR claims are bounded and review requirements are explicit.
 - [x] Incident and user-data request procedures exist as reviewable runbooks.
@@ -68,4 +89,7 @@ D-001, initial age/dependent policy, initial jurisdictions, offline-only launch 
 
 ## Exit gate
 
-No later feature may enter implementation until the baseline is approved and open high-severity regulatory/safety questions have an owner and due date.
+MG-01 does not block private prototype implementation. Revisit this baseline
+before external distribution, use with real health data, medical or clinical
+claims, off-device health-data processing, or any claim of compliance or
+approval.

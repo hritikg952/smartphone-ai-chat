@@ -1,24 +1,28 @@
 # MG-01 Governance Baseline Packet
 
-**Status:** In progress — draft complete; human approvals open
+**Status:** Development direction recorded; governance review deferred
 
 **Prepared:** 2026-07-19
 
-**Applies to:** India-first, private, local-only Personal Health Vault prototype
+**Applies to:** English-only, private, local-only Personal Health Vault prototype
 
-This packet implements the documentation work packages in MG-01. It is a
-product and engineering baseline, not legal advice or a medical-device
-classification. No later mini-goal may treat MG-01 as closed until the named
-reviewers approve the packet and any high-severity question has an owner and
-due date.
+This packet is a product and engineering reference, not legal advice, a privacy
+assessment, or a medical-device classification. Its governance review is
+deferred and it does not block private prototype implementation. Deferred work
+must not be represented as approval or compliance.
 
-## Approved planning direction
+## Owner-selected planning direction
 
-- Adults managing only their own personal records.
+These choices are recorded in the decision register and constrain the draft.
+They are not a substitute for the versioned approval evidence below.
+
+- Individuals managing only their own personal records; the prototype enforces
+  no minimum age restriction.
 - Personal record organization and wellness support only.
 - No diagnosis, treatment, dosage, clinical decision support, or emergency
   triage claims.
-- India is the only initial jurisdiction.
+- The prototype UI is English only. Launch jurisdiction is not selected for
+  development and must be reviewed before distribution.
 - Private prototype; no public Play Store release in this phase.
 - Local-only health records. No health-data backend, cloud OCR, remote
   analytics, sharing service, Health Connect, or wearable integration.
@@ -46,20 +50,21 @@ accepted.
 
 | Role | Name | Status | Date | Evidence |
 |---|---|---|---|---|
-| Product owner | TBD | Open | — | Intended use and scope approval |
-| Security owner | TBD | Open | — | Data map, vendor gate, incident plan |
-| Privacy/legal reviewer | TBD | Open | — | India DPDP applicability and copy review |
-| Clinical safety reviewer | TBD | Open | — | Claims, feature risk, escalation review |
+| Product owner | TBD | Deferred | — | Intended use and scope approval |
+| Security owner | TBD | Deferred | — | Data map, vendor gate, incident plan |
+| Privacy/legal reviewer | TBD | Deferred | — | Applicable law, rights, and copy review |
+| Clinical safety reviewer | TBD | Deferred | — | Claims, feature risk, escalation review |
 
-## Open decisions blocking the exit gate
+## Decision and approval status
 
-| ID | Decision | Owner | Due date | Severity |
-|---|---|---|---|---|
-| MG01-O01 | Confirm minimum age (proposed: 18+) | Product/privacy | TBD | High |
-| MG01-O02 | Confirm prototype language (proposed: English) and localization plan | Product | TBD | Medium |
-| MG01-O03 | Confirm named reviewers and approval evidence | Product | TBD | High |
-| MG01-O04 | Obtain India-specific counsel assessment before any external/public distribution | Privacy/legal | Before distribution | High |
-| MG01-O05 | Confirm whether any drug-interaction feature is in v1 (proposed: no) | Product/clinical | TBD | High |
+| ID | Decision | Owner | Due date | Severity | Status |
+|---|---|---|---|---|---|
+| MG01-O01 | Prototype minimum age restriction | Product/privacy | 2026-07-19 | High | Resolved for development: none; legal implications deferred |
+| MG01-O02 | Prototype language and localization | Product | 2026-07-19 | Medium | Resolved: English only; localization deferred |
+| MG01-O03 | Confirm named reviewers and versioned approval evidence | Product | Later | High | Deferred; non-blocking for private development |
+| MG01-O04 | Obtain applicable counsel assessment before any external/public distribution | Privacy/legal | Before distribution | High | Deferred |
+| MG01-O05 | Exclude drug-interaction alerts from prototype/v1 | Product/clinical | 2026-07-19 | High | Resolved by D-021; later reintroduction requires separate approval |
+| MG01-O06 | MG-01 implementation gate | Product/security | 2026-07-19 | High | Resolved: no MG-01 gate for private prototype development |
 
 ## Exit-gate status
 
@@ -67,6 +72,7 @@ accepted.
 - Vision/current-state baseline: verified against the repository on 2026-07-19.
 - Cross-plan conflict review: complete at planning level; deferred capabilities
   remain behind their later gates.
-- Human approvals: open.
-- High-severity questions with named owner and due date: open.
-- **MG-01 exit gate: OPEN.**
+- Product direction: recorded in the decision register.
+- Human approvals and specialist review: deferred.
+- Development dependency: satisfied for private prototype work.
+- **MG-01 governance status: DEFERRED; NON-BLOCKING FOR DEVELOPMENT.**

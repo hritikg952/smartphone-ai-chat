@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AI Chat</string>
+    <string name="app_name">Personal Health Vault</string>
+    <string name="onboarding_title">Personal Health Vault</string>
+    <string name="onboarding_subtitle">Your health history, organized and available when you need it.</string>
+    <string name="onboarding_local_title">Offline by design</string>
+    <string name="onboarding_local_body">Your records stay available without an internet connection.</string>
+    <string name="onboarding_private_title">Private by default</string>
+    <string name="onboarding_private_body">Health records remain on this device during the private prototype.</string>
+    <string name="onboarding_control_title">You stay in control</string>
+    <string name="onboarding_control_body">Review information before it becomes part of your vault.</string>
+    <string name="onboarding_prototype_notice">Private prototype: secure vault encryption is still being built. Use test data for now.</string>
+    <string name="onboarding_get_started">Get started</string>
+    <string name="onboarding_footer">English only · Stored on this device</string>
+    <string name="credentials_title">Set up local access</string>
+    <string name="credentials_subtitle">Create a username and password for this device. Credential entry is the next setup step.</string>
 </resources>
