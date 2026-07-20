@@ -12,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.smartphoneaichat.presentation.onboarding.OnboardingViewModel
 import com.smartphoneaichat.presentation.session.AppSessionState
+import com.smartphoneaichat.presentation.security.VaultAccessUiState
 import com.smartphoneaichat.ui.navigation.AppRoute
 import org.junit.Rule
 import org.junit.Test
@@ -97,15 +98,21 @@ class PersonalHealthVaultAppTest {
                 isVaultUnlocked = false,
             ),
         )
+        var vaultAccessState by mutableStateOf(VaultAccessUiState())
 
         composeRule.setContent {
             val onboardingState by onboardingViewModel.state.collectAsState()
             PersonalHealthVaultApp(
                 sessionState = sessionState,
                 onboardingState = onboardingState,
+                vaultAccessState = vaultAccessState,
                 onGetStarted = onboardingViewModel::onGetStarted,
-                onUsernameChanged = onboardingViewModel::onUsernameChanged,
-                onPasswordChanged = onboardingViewModel::onPasswordChanged,
+                onUsernameChanged = {
+                    vaultAccessState = vaultAccessState.copy(username = it)
+                },
+                onPasswordChanged = {
+                    vaultAccessState = vaultAccessState.copy(password = it)
+                },
                 onCompleteOnboarding = {
                     sessionState = AppSessionState(
                         hasCompletedOnboarding = true,

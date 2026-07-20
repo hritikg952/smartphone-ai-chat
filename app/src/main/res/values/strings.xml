@@ -16,6 +16,11 @@
     <string name="credentials_subtitle">Choose prototype access details. Secure credential protection will be added with the vault security work.</string>
     <string name="credentials_username">Username</string>
     <string name="credentials_password">Password</string>
+    <string name="credentials_recovery_warning">Recovery and key rotation are unavailable in this prototype. If you lose your password, this vault cannot be recovered.</string>
+    <string name="vault_error_invalid_credentials">Username or password is incorrect.</string>
+    <string name="vault_error_already_exists">A vault already exists on this device.</string>
+    <string name="vault_error_key_invalidated">This device can no longer unlock the vault key.</string>
+    <string name="vault_error_unavailable">The vault is unavailable.</string>
     <string name="credentials_create_action">Create vault</string>
     <string name="unlock_title">Unlock your vault</string>
     <string name="unlock_subtitle">Continue to the private prototype stored on this device.</string>

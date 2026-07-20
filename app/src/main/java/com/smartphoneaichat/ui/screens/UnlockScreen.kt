@@ -14,6 +14,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,9 +28,15 @@ import com.smartphoneaichat.ui.theme.DarkBackground
 import com.smartphoneaichat.ui.theme.TextPrimary
 import com.smartphoneaichat.ui.theme.TextSecondary
 
-/** Process-local prototype unlock entry point; cryptographic auth belongs to MG-03. */
+/** Credential entry point for unlocking the process-local vault session. */
 @Composable
 fun UnlockScreen(
+    username: String,
+    password: String,
+    canUnlock: Boolean,
+    errorMessage: String?,
+    onUsernameChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
     onUnlock: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -59,8 +67,42 @@ fun UnlockScreen(
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
         )
+        OutlinedTextField(
+            value = username,
+            onValueChange = onUsernameChanged,
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text(stringResource(R.string.credentials_username)) },
+            singleLine = true,
+        )
+        OutlinedTextField(
+            value = password,
+            onValueChange = onPasswordChanged,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 12.dp),
+            label = { Text(stringResource(R.string.credentials_password)) },
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+        )
+        if (errorMessage != null) {
+            Text(
+                text = errorMessage,
+                modifier = Modifier.padding(top = 12.dp),
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Text(
+            text = stringResource(R.string.credentials_recovery_warning),
+            modifier = Modifier.padding(top = 12.dp),
+            color = TextSecondary,
+            style = MaterialTheme.typography.bodySmall,
+            textAlign = TextAlign.Center,
+        )
         Button(
             onClick = onUnlock,
+            enabled = canUnlock,
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(18.dp),
             colors = ButtonDefaults.buttonColors(

@@ -14,10 +14,15 @@ class MainActivityNavigationTest {
     val composeRule = createAndroidComposeRule<MainActivity>()
 
     @Test
-    fun activityRecreationRestoresProtectedRouteWhileSessionRemainsUnlocked() {
+    fun activityRecreationLocksProtectedRoute() {
         composeRule.runOnUiThread {
-            (composeRule.activity.application as App)
-                .healthVaultContainer.appSessionStore.completeOnboarding()
+            val container = (composeRule.activity.application as App).healthVaultContainer
+            container.vaultKeyManager.destroy()
+            container.vaultKeyManager.createVault(
+                username = "activity-owner",
+                password = "activity-password".toCharArray(),
+            )
+            container.appSessionStore.completeOnboarding()
         }
         composeRule.waitForIdle()
 
@@ -26,6 +31,6 @@ class MainActivityNavigationTest {
 
         composeRule.activityRule.scenario.recreate()
 
-        composeRule.onNodeWithText("Medications").assertIsDisplayed()
+        composeRule.onNodeWithText("Unlock your vault").assertIsDisplayed()
     }
 }

@@ -8,6 +8,4 @@ interface AppSessionStore {
     val state: StateFlow<AppSessionState>
 
     fun completeOnboarding()
-    fun unlockVault()
-    fun lockVault()
 }

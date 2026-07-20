@@ -2,9 +2,13 @@ package com.smartphoneaichat.data.session
 
 import com.smartphoneaichat.domain.model.AppSessionState
 import com.smartphoneaichat.domain.repository.AppSessionStore
+import com.smartphoneaichat.domain.repository.VaultSession
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 
 /** Small persistence seam for the only session value that survives a process restart. */
 interface OnboardingStatusStorage {
@@ -14,31 +18,42 @@ interface OnboardingStatusStorage {
 
 class DefaultAppSessionStore(
     private val onboardingStatusStorage: OnboardingStatusStorage,
+    private val vaultSession: VaultSession,
+    scope: CoroutineScope,
 ) : AppSessionStore {
 
-    private val _state = MutableStateFlow(
+    private val hasCompletedOnboarding = MutableStateFlow(
+        onboardingStatusStorage.readHasCompletedOnboarding(),
+    )
+    override val state: StateFlow<AppSessionState> = combine(
+        hasCompletedOnboarding,
+        vaultSession.state,
+    ) { onboardingComplete, vaultState ->
         AppSessionState(
-            hasCompletedOnboarding = onboardingStatusStorage.readHasCompletedOnboarding(),
-            isVaultUnlocked = false,
+            hasCompletedOnboarding = onboardingComplete && vaultState.hasVaultEnvelope(),
+            isVaultUnlocked = vaultState == com.smartphoneaichat.domain.model.VaultSessionState.Unlocked,
+        )
+    }.stateIn(
+        scope = scope,
+        started = SharingStarted.Eagerly,
+        initialValue = AppSessionState(
+            hasCompletedOnboarding = hasCompletedOnboarding.value &&
+                vaultSession.state.value.hasVaultEnvelope(),
+            isVaultUnlocked = vaultSession.state.value ==
+                com.smartphoneaichat.domain.model.VaultSessionState.Unlocked,
         ),
     )
-    override val state: StateFlow<AppSessionState> = _state.asStateFlow()
 
     override fun completeOnboarding() {
-        onboardingStatusStorage.writeHasCompletedOnboarding(true)
-        _state.value = AppSessionState(
-            hasCompletedOnboarding = true,
-            isVaultUnlocked = true,
-        )
-    }
-
-    override fun unlockVault() {
-        if (_state.value.hasCompletedOnboarding) {
-            _state.value = _state.value.copy(isVaultUnlocked = true)
+        if (vaultSession.state.value != com.smartphoneaichat.domain.model.VaultSessionState.Unlocked) {
+            return
         }
+        onboardingStatusStorage.writeHasCompletedOnboarding(true)
+        hasCompletedOnboarding.value = true
     }
 
-    override fun lockVault() {
-        _state.value = _state.value.copy(isVaultUnlocked = false)
-    }
 }
+
+private fun com.smartphoneaichat.domain.model.VaultSessionState.hasVaultEnvelope(): Boolean =
+    this != com.smartphoneaichat.domain.model.VaultSessionState.Absent &&
+        this != com.smartphoneaichat.domain.model.VaultSessionState.Destroyed
