@@ -32,12 +32,13 @@ import com.smartphoneaichat.ui.theme.DarkBackground
 import com.smartphoneaichat.ui.theme.TextPrimary
 import com.smartphoneaichat.ui.theme.TextSecondary
 
-/** Prototype local-access form; secure credential storage is deliberately deferred to MG-03. */
+/** Local vault provisioning form backed by the MG-03 access boundary. */
 @Composable
 fun CredentialsSetupScreen(
     username: String,
     password: String,
     canComplete: Boolean,
+    errorMessage: String? = null,
     onUsernameChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onComplete: () -> Unit,
@@ -98,6 +99,22 @@ fun CredentialsSetupScreen(
             visualTransformation = PasswordVisualTransformation(),
             colors = credentialFieldColors(),
         )
+        Spacer(modifier = Modifier.height(24.dp))
+        Text(
+            text = stringResource(R.string.credentials_recovery_warning),
+            color = TextSecondary,
+            style = MaterialTheme.typography.bodySmall,
+            textAlign = TextAlign.Center,
+        )
+        if (errorMessage != null) {
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                text = errorMessage,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center,
+            )
+        }
         Spacer(modifier = Modifier.height(24.dp))
         Button(
             onClick = onComplete,

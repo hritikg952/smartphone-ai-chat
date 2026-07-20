@@ -7,9 +7,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.smartphoneaichat.R
 import com.smartphoneaichat.presentation.onboarding.OnboardingStep
 import com.smartphoneaichat.presentation.onboarding.OnboardingUiState
 import com.smartphoneaichat.presentation.session.AppSessionState
+import com.smartphoneaichat.presentation.security.VaultAccessError
+import com.smartphoneaichat.presentation.security.VaultAccessUiState
 import com.smartphoneaichat.ui.screens.OnboardingScreen
 import com.smartphoneaichat.ui.screens.CredentialsSetupScreen
 import com.smartphoneaichat.ui.screens.UnlockScreen
@@ -30,6 +34,7 @@ fun PersonalHealthVaultApp(
     sessionState: AppSessionState,
     modifier: Modifier = Modifier,
     onboardingState: OnboardingUiState = OnboardingUiState(),
+    vaultAccessState: VaultAccessUiState = VaultAccessUiState(),
     onGetStarted: () -> Unit = {},
     onUnlock: () -> Unit = {},
     onLock: () -> Unit = {},
@@ -44,6 +49,7 @@ fun PersonalHealthVaultApp(
         }
         val currentEntry by navController.currentBackStackEntryAsState()
         val currentRoute = AppRoute.fromPath(currentEntry?.destination?.route)
+        val accessError = vaultAccessState.error.toMessage()
 
         LaunchedEffect(sessionState, currentRoute) {
             val safeRoute = AppRoutePolicy.resolve(currentRoute, sessionState)
@@ -67,9 +73,10 @@ fun PersonalHealthVaultApp(
                     when (onboardingState.step) {
                         OnboardingStep.Welcome -> OnboardingScreen(onGetStarted = onGetStarted)
                         OnboardingStep.Credentials -> CredentialsSetupScreen(
-                            username = onboardingState.username,
-                            password = onboardingState.password,
-                            canComplete = onboardingState.canCompleteSetup,
+                            username = vaultAccessState.username,
+                            password = vaultAccessState.password,
+                            canComplete = vaultAccessState.canSubmit,
+                            errorMessage = accessError,
                             onUsernameChanged = onUsernameChanged,
                             onPasswordChanged = onPasswordChanged,
                             onComplete = onCompleteOnboarding,
@@ -77,7 +84,15 @@ fun PersonalHealthVaultApp(
                     }
                 }
                 composable(AppRoute.Unlock.path) {
-                    UnlockScreen(onUnlock = onUnlock)
+                    UnlockScreen(
+                        username = vaultAccessState.username,
+                        password = vaultAccessState.password,
+                        canUnlock = vaultAccessState.canSubmit,
+                        errorMessage = accessError,
+                        onUsernameChanged = onUsernameChanged,
+                        onPasswordChanged = onPasswordChanged,
+                        onUnlock = onUnlock,
+                    )
                 }
                 composable(AppRoute.Home.path) {
                     HomeScreen(
@@ -101,4 +116,13 @@ fun PersonalHealthVaultApp(
             }
         }
     }
+}
+
+@Composable
+private fun VaultAccessError?.toMessage(): String? = when (this) {
+    VaultAccessError.InvalidCredentials -> stringResource(R.string.vault_error_invalid_credentials)
+    VaultAccessError.AlreadyExists -> stringResource(R.string.vault_error_already_exists)
+    VaultAccessError.KeyInvalidated -> stringResource(R.string.vault_error_key_invalidated)
+    VaultAccessError.Unavailable -> stringResource(R.string.vault_error_unavailable)
+    null -> null
 }
