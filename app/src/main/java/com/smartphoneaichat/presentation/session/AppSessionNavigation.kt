@@ -1,14 +1,6 @@
 package com.smartphoneaichat.presentation.session
 
-/**
- * Application-level state used to choose the first safe destination.
- *
- * Feature state belongs to its feature owner rather than this global session.
- */
-data class AppSessionState(
-    val hasCompletedOnboarding: Boolean,
-    val isVaultUnlocked: Boolean,
-)
+typealias AppSessionState = com.smartphoneaichat.domain.model.AppSessionState
 
 /** Top-level destinations that can be selected before Compose navigation starts. */
 enum class AppDestination {

@@ -6,7 +6,7 @@ Resolve decisions before the mini-goal that lists them as prerequisites. Accepte
 |---|---|---|---|---|
 | D-001 | Intended use, users, language, and launch jurisdictions | Personal record organization only; no diagnosis/treatment claims; private local-only prototype; self-profile; no enforced minimum age; English only. Launch jurisdiction and legal constraints are deferred until distribution or real-world use. | MG-01 | Revised for development — 2026-07-19 |
 | D-002 | Android application/package rename | Product name is Personal Health Vault; “Health Vault” is allowed only as a compact app-bar label; package-identity decision deferred | MG-02 | Partially accepted |
-| D-003 | Single module vs staged multi-module | Introduce core/feature boundaries incrementally, not in one rewrite | MG-02 | Open |
+| D-003 | Single module vs staged multi-module | Keep one application module during the foundation wave; extract modules only when ownership/build measurements justify it | MG-02 | Accepted — 2026-07-19 |
 | D-004 | Local-only MVP vs account/sync | Local-only prototype; interfaces remain ready for future integrations | MG-03/04 | Accepted — 2026-07-18 |
 | D-005 | Vault unlock and inactivity policy | Prototype local username/password; no inactivity timeout; revisit before public release | MG-03 | Accepted for prototype |
 | D-006 | Recovery model | Reserved/optional recovery fields only; no recovery mechanism in prototype | MG-03/04 | Deferred |

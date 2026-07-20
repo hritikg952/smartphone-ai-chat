@@ -53,6 +53,9 @@ A master requirement is complete only when its primary plan exit gate is closed,
 
 | Implemented seam | Owning plan | Evidence | Remaining boundary |
 |---|---|---|---|
-| Session destination resolution | MG-02 | Unit tests cover fresh, locked-returning, and unlocked-returning states. | Unlock/home screens and durable session persistence are not implemented. |
-| Welcome → Credentials onboarding transition | MG-02 | ViewModel unit test and two connected Compose tests pass. | Credential fields, validation, storage, and unlock are not implemented. |
-| Android connected-test lane | MG-20 | Focused suite passes on `Pixel_10(AVD) - 17`; visual onboarding smoke inspected. | AVD specification, scripts, retained regression artifacts, CI, and physical-device matrix remain open. |
+| Session destination resolution | MG-02 | Unit tests cover fresh, locked-returning, and unlocked-returning states; `AppRoutePolicy` covers every protected route and invalid-path fallback. | Cryptographic unlock and durable vault data remain MG-03/MG-04 work. |
+| Onboarding → Credentials → Home | MG-02 | ViewModel unit test plus connected Compose coverage for valid prototype credentials and Home rendering. | Credential security and actual authentication remain MG-03 work. |
+| Protected navigation and locking | MG-02 | Connected tests cover every top-level placeholder route, back behavior, lock redirect, and Activity recreation. | Feature data screens are planned under MG-06 onward. |
+| Application-scoped session dependencies | MG-02 | `HealthVaultDependencyLifetimeTest` verifies the session store survives `MainActivity` recreation. | Full profile/migration session fields remain future foundation work. |
+| Default artifact legacy-runtime boundary | MG-02 | `verifyHealthVaultArtifact` passes; default APK omits LiteRT/CameraX native libraries and permissions, while `assembleLegacy` passes. | Legacy source retirement remains MG-18 work. |
+| Android connected-test lane | MG-20 | Full `connectedDebugAndroidTest` suite passes ten tests on `Pixel_10(AVD) - 17`; visual onboarding smoke was inspected. | AVD specification, scripts, retained regression artifacts, CI, and physical-device matrix remain open. |
