@@ -148,7 +148,14 @@ val verifyHealthVaultBoundaries by tasks.registering {
     doLast {
         val coreFiles = listOf(
             file("src/main/java/com/smartphoneaichat/domain/model/AppSessionState.kt"),
+            file("src/main/java/com/smartphoneaichat/domain/model/HealthRecord.kt"),
+            file("src/main/java/com/smartphoneaichat/domain/model/VaultSecurityModels.kt"),
             file("src/main/java/com/smartphoneaichat/domain/repository/AppSessionStore.kt"),
+            file("src/main/java/com/smartphoneaichat/domain/repository/EncryptedDocumentStore.kt"),
+            file("src/main/java/com/smartphoneaichat/domain/repository/HealthRecordRepository.kt"),
+            file("src/main/java/com/smartphoneaichat/domain/repository/VaultBackupPolicy.kt"),
+            file("src/main/java/com/smartphoneaichat/domain/repository/VaultSecurity.kt"),
+            file("src/main/java/com/smartphoneaichat/domain/repository/VaultStorageCoordinator.kt"),
         )
         val forbiddenImports = listOf(
             "import android.",

@@ -12,7 +12,10 @@ UI → Presentation → Domain ← Data
 
 Package: `com.smartphoneaichat`. Production sources are under `app/src/main/java/com/smartphoneaichat/`.
 
-The current health-vault shell has an in-memory session/navigation seam and no health-record persistence yet. Legacy conversations remain in memory through `InMemoryConversationRepository`; they do not survive an app-process restart.
+The current health-vault shell has real vault unlock state plus prototype
+encrypted local persistence for structured health records and document bytes.
+Legacy conversations remain in memory through `InMemoryConversationRepository`;
+they do not survive an app-process restart.
 
 ## Project Setup
 
@@ -37,21 +40,44 @@ Build commands:
 
 | Area | Responsibility |
 |---|---|
-| `MainActivity.kt` | Enables edge-to-edge UI, creates the initial app session and `OnboardingViewModel`, and renders `PersonalHealthVaultApp`. |
-| `ui/app/PersonalHealthVaultApp.kt` | Resolves the session destination and renders the current onboarding step. Unlock and home destinations are intentionally pending. |
+| `MainActivity.kt` | Enables secure-window rendering, edge-to-edge UI, creates app/session/access ViewModels, renders `PersonalHealthVaultApp`, and locks the vault on backgrounding. |
+| `ui/app/PersonalHealthVaultApp.kt` | Resolves safe destinations for onboarding, unlock, home, and protected placeholder routes from session state. |
 | `presentation/session/` | Defines startup session state and the pure onboarding/unlock/home destination resolver. |
 | `presentation/onboarding/` | Owns the welcome-to-credentials onboarding transition. |
 | `di/AppContainer.kt` | Composes concrete repositories, the LiteRT engine, title service, and use cases. |
 | `presentation/viewmodel/ChatViewModel.kt` | Owns UI state, coordinates conversations, model actions, notifications, and use cases. |
 | `presentation/state/ChatUiState.kt` | Flat immutable state consumed by Compose; exposes the computed `activeConversation`. |
 | `presentation/notification/` | SharedFlow-backed snackbar event bus and its event types. |
-| `domain/model/` | Conversation aggregate, messages, attachments, model metadata, and validated ID/text value objects. |
-| `domain/repository/` | ISP contracts for inference, model files, conversations, and ID generation. |
+| `domain/model/` | Health record models, vault security models, conversation aggregate, messages, attachments, model metadata, and validated ID/text value objects. |
+| `domain/repository/` | ISP contracts for vault access/ciphering, encrypted health records, encrypted documents, backup policy, inference, model files, conversations, and ID generation. |
 | `domain/usecase/` | Message streaming, model download, and model loading orchestration. |
-| `data/` | LiteRT engine adapter, Hugging Face file manager, in-memory conversations, and UUID IDs. |
+| `data/security/` | Local password verifier, Android Keystore DEK envelope, process-local vault session, and AES-GCM content cipher. |
+| `data/persistence/` | Prototype encrypted health-record file store, encrypted document blob store, record/document coordinator, and disabled backup policy. |
+| `data/` | LiteRT engine adapter, Hugging Face file manager, in-memory conversations, UUID IDs, session storage, security, and persistence implementations. |
 | `ui/` | Health-vault app root and onboarding screens plus the retained legacy chat screen/components and dark Material 3 theme. |
 
-Use domain interfaces from presentation/domain code. Keep LiteRT-LM, HTTP, Android file I/O, and concrete storage details in `data`.
+Use domain interfaces from presentation/domain code. Keep LiteRT-LM, HTTP,
+Android file I/O, Android Keystore, concrete vault storage, and concrete
+encrypted persistence details in `data`.
+
+## Vault Storage
+
+MG-03 owns the key lifecycle. MG-04 owns prototype encrypted persistence. Feature
+code should depend on `HealthRecordRepository`, `EncryptedDocumentStore`,
+`VaultBackupPolicy`, and future feature-specific repositories rather than
+reading files directly.
+
+- `HealthRecordRepository` stores profile-scoped structured record bodies via
+  `VaultCipher`; reads/writes require the vault to be unlocked.
+- `EncryptedDocumentStore` stores document bytes as encrypted blobs with opaque
+  filenames and an app-private index.
+- `VaultStorageCoordinator` coordinates a document import with its companion
+  record write and rolls back the document if the record save fails.
+- `PrototypeVaultBackupPolicy` keeps export disabled and restore unavailable
+  until an authenticated backup/recovery format is reviewed.
+- D-007 intentionally defers Room/SQLCipher. Do not add plaintext Room tables
+  for health records; replace the prototype store only with an approved
+  encrypted database/migration plan.
 
 ## State, Conversations, and Notifications
 
@@ -119,5 +145,7 @@ Coverage currently includes:
 - Send, download, and load use-case behavior, including token streaming, failures, and cancellation/finalization paths.
 - `ChatUiState` and `ChatViewModel` state transitions.
 - In-memory conversation repository and UUID ID generator behavior.
+- Vault key/session/cipher behavior, encrypted record/document persistence,
+  record/document rollback, disabled backup policy, and app session locking.
 
 Use `FakeInferenceEngine` and `FakeIdGenerator` for deterministic domain/presentation tests; prefer them over wiring LiteRT or network/file I/O into unit tests. Add or update focused tests whenever changing state transitions, aggregate behavior, or use-case contracts.

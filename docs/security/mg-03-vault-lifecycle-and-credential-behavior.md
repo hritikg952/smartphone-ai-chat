@@ -38,7 +38,7 @@ held only in process memory while the vault is unlocked.
 | Plaintext vault DEK | No | No | Process-local only; zeroized on explicit lock/session transitions where code owns the byte array. |
 | Wrapped vault DEK envelope | Yes | No | Stored in app-private preferences. |
 | Android Keystore wrapping key | Yes, while app remains installed | Expected no | App-owned key alias is destroyed on explicit vault destroy and is not relied on across uninstall. |
-| Future encrypted health records | Not implemented in MG-03 | No, under current no-backup policy | MG-04 must document actual record/file persistence. |
+| Encrypted health records and documents | Yes, after MG-04 writes them | No, under current no-backup policy | MG-04 documents record/file persistence and remaining hardening gaps. |
 
 Android application backup is disabled for the prototype. The current expected
 reinstall behavior is therefore a clean first-run vault setup, not restoration

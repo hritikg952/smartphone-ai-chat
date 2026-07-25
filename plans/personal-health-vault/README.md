@@ -1,19 +1,21 @@
 # Personal Health Vault — Master Implementation Planning Set
 
-**Status:** Private prototype development active; MG-01 deferred, MG-02 complete, MG-20 in progress
+**Status:** Private prototype development active; MG-01 deferred, MG-02 to MG-04 complete for prototype scope, MG-20 in progress
 **Created:** 2026-07-18  
 **Product direction:** Pivot the current Android local-AI chat prototype into an Android-first, local-first personal health vault.
 
 This folder is the source of truth for the implementation. Every mini-goal has an independent plan, an exit gate, and explicit dependencies so work can be delivered incrementally without rediscovering architecture or safety constraints.
 
-## Current implementation status — 2026-07-19
+## Current implementation status — 2026-07-20
 
 | Status | Mini-goals | Evidence summary |
 |---|---|---|
 | Deferred | MG-01 | Private-prototype assumptions are recorded; legal, jurisdiction, and named-reviewer work is intentionally postponed. |
 | Complete | MG-02 | Application-scoped session state, onboarding/unlock/home routing, allowlisted protected routes, Activity-recreation coverage, architecture checks, and default-artifact legacy-runtime isolation meet the shell exit gate. |
+| Complete for prototype scope | MG-03 | Local username/password vault creation and unlock, Android Keystore-wrapped DEK, AES-GCM content cipher, background lock, secure-window flag, backup exclusion, threat model, and lifecycle docs are implemented. |
+| Complete for prototype scope | MG-04 | Encrypted local `HealthRecordRepository`, encrypted opaque-file `EncryptedDocumentStore`, record/document coordination rollback, disabled backup policy, D-007 prototype decision, and persistence lifecycle docs are implemented. |
 | In progress | MG-20 | JVM and the full connected Compose suite pass on a Pixel_10 Android 17 AVD; the repository-owned AVD contract, reusable smoke scripts, retained screenshot convention, CI lane, and release matrix remain pending. |
-| Planned | MG-03–MG-19 except the goals above | No implementation exit gate is complete. |
+| Planned | MG-05–MG-19 except the goals above | No implementation exit gate is complete. |
 
 ## Non-negotiable product principles
 
