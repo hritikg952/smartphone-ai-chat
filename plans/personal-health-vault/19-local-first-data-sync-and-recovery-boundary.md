@@ -10,7 +10,10 @@ MG-02 to MG-05; decisions D-004, D-006, D-007, D-008, and D-019.
 
 ## Product decision
 
-There is no health-data backend in the prototype. The local database and private document store are the only source of truth. Username/password is local vault access for the prototype, not a cloud identity or recovery system.
+There is no health-data backend in the prototype. The local encrypted record
+store and private encrypted document store are the only source of truth.
+Username/password is local vault access for the prototype, not a cloud identity
+or recovery system.
 
 Supabase is not ruled out. It is a future implementation option for account/device registration, encrypted object storage, encrypted sync transport, rate limiting, or sharing metadata. It must not become the canonical plaintext store for health records merely because it is convenient.
 
@@ -20,8 +23,8 @@ Supabase is not ruled out. It is a future implementation option for account/devi
 |---|---|---|
 | Frontend | Compose UI, ViewModels, feature state | No change |
 | Backend application/API | Domain use cases and repository contracts running in the app | A narrowly scoped sync/account service |
-| Primary database | Room/SQLite database in app-private storage | Encrypted cloud replica, never a replacement without a new decision |
-| Object storage | App-private encrypted document store | Encrypted backup/sync object store |
+| Primary database | `HealthRecordRepository` backed by encrypted app-private local storage; Room/SQLite deferred by D-007 | Encrypted cloud replica, never a replacement without a new decision |
+| Object storage | App-private encrypted `EncryptedDocumentStore` with opaque blob names | Encrypted backup/sync object store |
 | Authentication | Local vault unlock session | Optional cloud account/device identity |
 | Background jobs | WorkManager, persisted local job/outbox records | Network sync only when opted in |
 
@@ -81,11 +84,16 @@ Self-hosted or alternative providers remain valid because the app owns interface
 ## Acceptance criteria
 
 - [ ] The prototype has no required server, account, internet permission, or cloud health-data flow.
-- [ ] One local source of truth exists behind repository interfaces.
-- [ ] The schema supports multiple future family profiles without cross-profile queries.
+- [x] One local source of truth exists behind repository interfaces.
+- [x] The schema supports multiple future family profiles without cross-profile queries.
 - [ ] AI/RAG data is local, profile-scoped, attributable, and deletable.
-- [ ] A provider can be introduced or replaced without feature/UI rewrites.
-- [ ] Backup and sync remain disabled until their encryption, recovery, and test gates pass.
+- [x] A provider can be introduced or replaced without feature/UI rewrites.
+- [x] Backup and sync remain disabled until their encryption, recovery, and test gates pass.
+
+Progress note — 2026-07-20: MG-04 introduced local repository contracts and
+prototype encrypted local implementations. Profile repository, AI/RAG records,
+sync transports, encrypted backup envelope, and cloud provider work remain
+future scope.
 
 ## Exit gate
 

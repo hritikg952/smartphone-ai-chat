@@ -49,7 +49,7 @@ This matrix ensures every requirement in the supplied master development plan ha
 
 A master requirement is complete only when its primary plan exit gate is closed, supporting-plan dependencies are complete, and the proof target is stored with the release evidence. A checked UI box without data lifecycle, security, and failure-path proof does not satisfy traceability.
 
-## Current implementation evidence — 2026-07-19
+## Current implementation evidence — 2026-07-20
 
 | Implemented seam | Owning plan | Evidence | Remaining boundary |
 |---|---|---|---|
@@ -58,4 +58,9 @@ A master requirement is complete only when its primary plan exit gate is closed,
 | Protected navigation and locking | MG-02 | Connected tests cover every top-level placeholder route, back behavior, lock redirect, and Activity recreation. | Feature data screens are planned under MG-06 onward. |
 | Application-scoped session dependencies | MG-02 | `HealthVaultDependencyLifetimeTest` verifies the session store survives `MainActivity` recreation. | Full profile/migration session fields remain future foundation work. |
 | Default artifact legacy-runtime boundary | MG-02 | `verifyHealthVaultArtifact` passes; default APK omits LiteRT/CameraX native libraries and permissions, while `assembleLegacy` passes. | Legacy source retirement remains MG-18 work. |
+| Vault key lifecycle and content cipher | MG-03 | `DefaultVaultKeyManagerTest`, `DefaultVaultSessionTest`, `AesGcmVaultCipherTest`, `VaultAccessViewModelTest`, and Android Keystore adapter coverage verify create/unlock/lock, key invalidation, AES-GCM AAD, password clearing, and locked-route behavior. | Recovery, rotation, biometric/device-credential gating, rate limiting, and independent security review remain open. |
+| Encrypted structured health records | MG-04 | `EncryptedHealthRecordRepositoryTest` verifies locked-save rejection, encrypted persistence across repository restart, profile-scoped listing, pagination, and delete isolation. | Final normalized database schema, golden migrations, storage-full/power-loss simulation, and corruption safe mode remain open. |
+| Encrypted document vault | MG-04 | `LocalEncryptedDocumentStoreTest` verifies locked import rejection, encrypted round-trip after store restart, opaque filenames, MIME/size policy hooks, and no plaintext document body in published files. | Chunked streaming, thumbnails, EXIF stripping, parser isolation, OCR derivatives, quotas, and orphan cleanup hardening remain open. |
+| Record/document write coordination | MG-04 | `VaultStorageCoordinatorTest` verifies rollback of a published encrypted document when the companion record save fails. | Durable outbox, crash recovery, and kill-process simulation remain open. |
+| Backup and restore policy | MG-04 | `PrototypeVaultBackupPolicyTest`, manifest backup disabling, and `data_extraction_rules.xml` keep export disabled and restore unavailable in the prototype. | Authenticated backup envelope, restore preview, recovery material, and conflict policy remain open. |
 | Android connected-test lane | MG-20 | Full `connectedDebugAndroidTest` suite passes ten tests on `Pixel_10(AVD) - 17`; visual onboarding smoke was inspected. | AVD specification, scripts, retained regression artifacts, CI, and physical-device matrix remain open. |

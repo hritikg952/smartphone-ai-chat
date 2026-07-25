@@ -1,6 +1,10 @@
 package com.smartphoneaichat.di
 
 import android.app.Application
+import com.smartphoneaichat.data.persistence.EncryptedHealthRecordRepository
+import com.smartphoneaichat.data.persistence.LocalEncryptedDocumentStore
+import com.smartphoneaichat.data.persistence.PrototypeVaultBackupPolicy
+import com.smartphoneaichat.data.persistence.VaultStorageCoordinator
 import com.smartphoneaichat.data.security.DefaultVaultSession
 import com.smartphoneaichat.data.security.AesGcmVaultCipher
 import com.smartphoneaichat.data.security.AndroidKeystoreVaultKeyEnvelopeCipher
@@ -11,7 +15,10 @@ import com.smartphoneaichat.data.security.SharedPreferencesVaultSecurityStorage
 import com.smartphoneaichat.data.session.DefaultAppSessionStore
 import com.smartphoneaichat.data.session.SharedPreferencesOnboardingStatusStorage
 import com.smartphoneaichat.domain.repository.AppSessionStore
+import com.smartphoneaichat.domain.repository.EncryptedDocumentStore
+import com.smartphoneaichat.domain.repository.HealthRecordRepository
 import com.smartphoneaichat.domain.repository.VaultCipher
+import com.smartphoneaichat.domain.repository.VaultBackupPolicy
 import com.smartphoneaichat.domain.repository.VaultKeyManager
 import com.smartphoneaichat.domain.repository.VaultSession
 import kotlinx.coroutines.CoroutineScope
@@ -35,6 +42,20 @@ class HealthVaultAppContainer(application: Application) {
         session = defaultVaultSession,
         randomBytes = randomBytes,
     )
+    private val vaultStorageRoot = application.filesDir.resolve("vault").toPath()
+    val healthRecordRepository: HealthRecordRepository = EncryptedHealthRecordRepository(
+        rootDirectory = vaultStorageRoot,
+        cipher = vaultCipher,
+    )
+    val encryptedDocumentStore: EncryptedDocumentStore = LocalEncryptedDocumentStore(
+        rootDirectory = vaultStorageRoot,
+        cipher = vaultCipher,
+    )
+    val vaultStorageCoordinator: VaultStorageCoordinator = VaultStorageCoordinator(
+        records = healthRecordRepository,
+        documents = encryptedDocumentStore,
+    )
+    val vaultBackupPolicy: VaultBackupPolicy = PrototypeVaultBackupPolicy
     val appSessionStore: AppSessionStore = DefaultAppSessionStore(
         onboardingStatusStorage = SharedPreferencesOnboardingStatusStorage(application),
         vaultSession = vaultSession,

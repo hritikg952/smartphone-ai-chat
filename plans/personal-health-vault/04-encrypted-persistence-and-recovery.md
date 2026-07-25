@@ -29,16 +29,24 @@ Use normalized tables for profiles, emergency data, medications/regimens/doses, 
 
 ## Work packages
 
-1. Evaluate database-encryption options for maintenance, Room compatibility, migration safety, memory behavior, licensing, and device coverage; record D-007.
-2. Define schema v1 and repository interfaces by aggregate, not one generic database service.
-3. Build encrypted database opening around `VaultSession`; the DB cannot open while locked.
-4. Build streaming `EncryptedDocumentStore` with authenticated chunks or approved equivalent.
-5. Implement transaction/outbox coordination for DB/file operations and crash recovery.
-6. Add migration harness with golden databases/ciphertext from every released schema/crypto version.
-7. Define backup format: manifest, schema/crypto version, encrypted records/files, integrity tree/hash, and recovery envelope; never include live Keystore keys.
-8. Disable/exclude unsafe platform backup paths until restore is explicitly proven.
+1. [x] Evaluate database-encryption options for maintenance, Room compatibility, migration safety, memory behavior, licensing, and device coverage; record D-007.
+2. [x] Define schema v1 and repository interfaces by aggregate, not one generic database service.
+3. [x] Build encrypted database opening around `VaultSession`; the DB cannot open while locked.
+4. [x] Build streaming `EncryptedDocumentStore` with authenticated chunks or approved equivalent.
+5. [~] Implement transaction/outbox coordination for DB/file operations and crash recovery.
+6. [ ] Add migration harness with golden databases/ciphertext from every released schema/crypto version.
+7. [ ] Define backup format: manifest, schema/crypto version, encrypted records/files, integrity tree/hash, and recovery envelope; never include live Keystore keys.
+8. [x] Disable/exclude unsafe platform backup paths until restore is explicitly proven.
 9. Implement restore preview, available-space checks, integrity validation, conflict policy, and atomic activation.
 10. Add corruption detection, non-destructive safe mode, support bundle with no health content, and user-controlled reset.
+
+Progress note — 2026-07-20: The private prototype now has
+`HealthRecordRepository`, `EncryptedDocumentStore`, `VaultStorageCoordinator`,
+and `VaultBackupPolicy` contracts backed by `VaultCipher`-encrypted local files.
+D-007 is accepted for this prototype as an encrypted file-backed boundary, with
+Room/SQLCipher deferred. Coordination currently rolls back a published document
+when the companion record write fails; full crash-recovery/outbox semantics
+remain open.
 
 ## Tests
 
@@ -49,14 +57,19 @@ Use normalized tables for profiles, emergency data, medications/regimens/doses, 
 
 ## Acceptance criteria
 
-- [ ] Real records and documents persist across process/device restart only in encrypted form.
-- [ ] Database and file vault remain inaccessible while locked.
+- [x] Real records and documents persist across process/device restart only in encrypted form.
+- [x] Database and file vault remain inaccessible while locked.
 - [ ] Schema/crypto migrations are forward-tested with retained fixtures.
-- [ ] Backup/restore is authenticated and tested, or backup is safely disabled and disclosed.
+- [x] Backup/restore is authenticated and tested, or backup is safely disabled and disclosed.
 - [ ] Deletion covers all derived artifacts and queued jobs.
-- [ ] Storage failures never publish half-imported records.
+- [~] Storage failures never publish half-imported records.
+
+Acceptance note — 2026-07-20: Record/document content persistence, locked
+access, profile-scoped listing, opaque document filenames, disabled backup, and
+record/document rollback are covered by unit tests. Derived artifacts, queued
+jobs, golden migrations, power-loss simulation, quotas, and restore are not yet
+implemented.
 
 ## Exit gate
 
 Feature teams receive stable encrypted repositories, migration fixtures, and a documented record/file lifecycle.
-

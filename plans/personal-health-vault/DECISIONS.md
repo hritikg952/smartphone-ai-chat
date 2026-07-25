@@ -10,7 +10,7 @@ Resolve decisions before the mini-goal that lists them as prerequisites. Accepte
 | D-004 | Local-only MVP vs account/sync | Local-only prototype; interfaces remain ready for future integrations | MG-03/04 | Accepted — 2026-07-18 |
 | D-005 | Vault unlock and inactivity policy | Prototype local username/password; no inactivity timeout; revisit before public release | MG-03 | Accepted for prototype |
 | D-006 | Recovery model | Reserved/optional recovery fields only; no recovery mechanism in prototype | MG-03/04 | Deferred |
-| D-007 | Database encryption implementation | Evaluate maintained Room-compatible encryption; approve via security spike | MG-04 | Open |
+| D-007 | Database encryption implementation | Prototype uses `VaultCipher`-encrypted local record and document stores behind repository contracts; Room/SQLCipher selection remains deferred until the normalized schema and migration harness are justified. | MG-04 | Accepted for prototype — 2026-07-20 |
 | D-008 | Android Auto Backup | Backup/restore deferred; system backup disabled until a tested design exists | MG-04 | Accepted for prototype |
 | D-009 | Dependent authorization/guardianship evidence | Self profile only | MG-05 | Deferred |
 | D-010 | Emergency projection fields and exposure | User-selectable minimum: name, blood group, severe allergies, critical conditions, emergency contacts | MG-07 | Open |
