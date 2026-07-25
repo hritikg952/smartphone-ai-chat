@@ -3,6 +3,8 @@ package com.smartphoneaichat.data.persistence
 import com.smartphoneaichat.domain.model.HealthRecord
 import com.smartphoneaichat.domain.model.HealthRecordProvenance
 import com.smartphoneaichat.domain.model.HealthRecordWrite
+import com.smartphoneaichat.domain.model.AuthorizedSessionContext
+import com.smartphoneaichat.domain.model.ProfileCapability
 import com.smartphoneaichat.domain.model.VaultAssociatedData
 import com.smartphoneaichat.domain.model.VaultCryptoResult
 import com.smartphoneaichat.domain.model.VaultEncryptedPayload
@@ -21,7 +23,8 @@ class EncryptedHealthRecordRepository(
 ) : HealthRecordRepository {
     private val recordsFile: Path = rootDirectory.resolve(FILE_NAME)
 
-    override fun save(record: HealthRecordWrite): HealthRecordSaveResult {
+    override fun save(context: AuthorizedSessionContext, record: HealthRecordWrite): HealthRecordSaveResult {
+        context.requireAccess(record.profileId, ProfileCapability.Write)
         val encrypted = cipher.encrypt(record.plaintext, record.associatedData())
         if (encrypted == VaultCryptoResult.Locked) return HealthRecordSaveResult.Locked
         if (encrypted !is VaultCryptoResult.Encrypted) return HealthRecordSaveResult.Unavailable
@@ -38,19 +41,21 @@ class EncryptedHealthRecordRepository(
         }
     }
 
-    override fun get(profileId: String, id: String): HealthRecord? {
+    override fun get(context: AuthorizedSessionContext, id: String): HealthRecord? {
+        context.requireAccess(context.profileId, ProfileCapability.Read)
         val stored = runCatching { loadStoredRecords() }.getOrDefault(emptyList()).firstOrNull {
-            it.profileId == profileId && it.id == id
+            it.profileId == context.profileId && it.id == id
         } ?: return null
         return stored.decrypt()
     }
 
-    override fun list(profileId: String, limit: Int, offset: Int): List<HealthRecord> {
+    override fun list(context: AuthorizedSessionContext, limit: Int, offset: Int): List<HealthRecord> {
+        context.requireAccess(context.profileId, ProfileCapability.Read)
         require(limit > 0)
         require(offset >= 0)
         return runCatching {
             loadStoredRecords()
-                .filter { it.profileId == profileId }
+                .filter { it.profileId == context.profileId }
                 .sortedWith(compareByDescending<StoredHealthRecord> { it.updatedAtEpochMillis }.thenBy { it.id })
                 .drop(offset)
                 .take(limit)
@@ -58,10 +63,11 @@ class EncryptedHealthRecordRepository(
         }.getOrDefault(emptyList())
     }
 
-    override fun delete(profileId: String, id: String): HealthRecordDeleteResult {
+    override fun delete(context: AuthorizedSessionContext, id: String): HealthRecordDeleteResult {
+        context.requireAccess(context.profileId, ProfileCapability.Delete)
         return runCatching {
             val stored = loadStoredRecords()
-            val updated = stored.filterNot { it.profileId == profileId && it.id == id }
+            val updated = stored.filterNot { it.profileId == context.profileId && it.id == id }
             if (updated.size == stored.size) return HealthRecordDeleteResult.NotFound
             if (writeRecords(updated)) {
                 HealthRecordDeleteResult.Deleted

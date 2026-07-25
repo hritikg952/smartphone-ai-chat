@@ -30,6 +30,9 @@ class MainActivity : ComponentActivity() {
                     keyManager = container.vaultKeyManager,
                     vaultSession = container.vaultSession,
                     appSessionStore = appSessionStore,
+                    selfProfileInitializer = container.selfProfileInitializer,
+                    profileSessionCoordinator = container.profileSessionCoordinator,
+                    auditRepository = container.auditRepository,
                 ),
             )
             val onboardingState by onboardingViewModel.state.collectAsStateWithLifecycle()

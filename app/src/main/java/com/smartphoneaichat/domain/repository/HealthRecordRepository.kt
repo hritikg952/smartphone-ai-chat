@@ -2,6 +2,7 @@ package com.smartphoneaichat.domain.repository
 
 import com.smartphoneaichat.domain.model.HealthRecord
 import com.smartphoneaichat.domain.model.HealthRecordWrite
+import com.smartphoneaichat.domain.model.AuthorizedSessionContext
 
 sealed interface HealthRecordSaveResult {
     data object Saved : HealthRecordSaveResult
@@ -17,8 +18,8 @@ sealed interface HealthRecordDeleteResult {
 
 /** Profile-scoped persistence contract for encrypted structured health data. */
 interface HealthRecordRepository {
-    fun save(record: HealthRecordWrite): HealthRecordSaveResult
-    fun get(profileId: String, id: String): HealthRecord?
-    fun list(profileId: String, limit: Int, offset: Int = 0): List<HealthRecord>
-    fun delete(profileId: String, id: String): HealthRecordDeleteResult
+    fun save(context: AuthorizedSessionContext, record: HealthRecordWrite): HealthRecordSaveResult
+    fun get(context: AuthorizedSessionContext, id: String): HealthRecord?
+    fun list(context: AuthorizedSessionContext, limit: Int, offset: Int = 0): List<HealthRecord>
+    fun delete(context: AuthorizedSessionContext, id: String): HealthRecordDeleteResult
 }
