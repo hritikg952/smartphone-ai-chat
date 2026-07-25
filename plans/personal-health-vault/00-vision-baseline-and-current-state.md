@@ -2,7 +2,7 @@
 
 **Status:** Implementation-ready planning baseline; MG-01 governance review deferred
 
-**Repository snapshot:** 2026-07-25; MG-02 through MG-06 prototype work is implemented.
+**Repository snapshot:** 2026-07-25; MG-02 through MG-06 and the first name-only MG-07 emergency-card slice are implemented pending verification.
 
 **Product scope:** English-only self-profile, private local-only prototype; no enforced minimum age
 

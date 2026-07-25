@@ -1,6 +1,6 @@
 # Personal Health Vault — Master Implementation Planning Set
 
-**Status:** Private prototype development active; MG-01 deferred, MG-02 to MG-05 complete for prototype scope, MG-06 implemented pending verification, MG-20 in progress
+**Status:** Private prototype development active; MG-01 deferred, MG-02 to MG-05 complete for prototype scope, MG-06 and the first MG-07 slice implemented pending verification, MG-20 in progress
 **Created:** 2026-07-18  
 **Product direction:** Pivot the current Android local-AI chat prototype into an Android-first, local-first personal health vault.
 
@@ -16,8 +16,9 @@ This folder is the source of truth for the implementation. Every mini-goal has a
 | Complete for prototype scope | MG-04 | Encrypted local `HealthRecordRepository`, encrypted opaque-file `EncryptedDocumentStore`, record/document coordination rollback, disabled backup policy, D-007 prototype decision, and persistence lifecycle docs are implemented. |
 | Complete for prototype scope | MG-05 | First-run self-profile creation, authorized profile session context, scoped prototype repositories, consent/audit contracts, and profile-switch invalidation seams are implemented; dependent authority remains deferred by D-009. |
 | Implemented; verification pending | MG-06 | Typed five-destination navigation, lock-safe destination resolution, adaptive navigation bar/rail, selected-profile shell indicator, independently empty home sections, and accessible destination placeholders are implemented. Clinical feature data, emergency projection, and AI insight content remain owned by later milestones. The local Java runtime is unavailable, so Gradle verification has not yet run. |
+| Implemented; verification pending | MG-07 (first slice) | A self-profile name can be explicitly published to a separate authenticated, no-backup local projection and viewed from the locked Emergency route. Vault data, clinical/contact fields, calling, QR/share, Wallet, widgets, and dependent profiles remain deferred. The local Java runtime is unavailable, so Gradle verification has not yet run. |
 | In progress | MG-20 | JVM and the full connected Compose suite pass on a Pixel_10 Android 17 AVD; the repository-owned AVD contract, reusable smoke scripts, retained screenshot convention, CI lane, and release matrix remain pending. |
-| Planned | MG-07–MG-19 except the goals above | No implementation exit gate is complete. |
+| Planned | MG-08–MG-19 except the goals above | No implementation exit gate is complete. |
 
 ## Non-negotiable product principles
 

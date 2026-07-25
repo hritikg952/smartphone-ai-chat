@@ -14,9 +14,9 @@ The shell scope is implemented pending Gradle verification with typed Home, Reco
 Profile destinations; Settings remains nested. Locked routes are redirected
 before content renders, compact layouts use a navigation bar and expanded
 layouts use a rail, and Home uses independently safe empty states rather than
-invented clinical data. Current profile storage remains self-only, emergency
-projection is not configured, and feature data/AI insights remain owned by
-MG-07 onward.
+invented clinical data. Current profile storage remains self-only; Home reflects
+whether the MG-07 name-only emergency card is published, while clinical feature
+data and AI insights remain owned by later milestones.
 
 ## Information architecture
 

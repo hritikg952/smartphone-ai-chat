@@ -13,8 +13,8 @@ Resolve decisions before the mini-goal that lists them as prerequisites. Accepte
 | D-007 | Database encryption implementation | Prototype uses `VaultCipher`-encrypted local record and document stores behind repository contracts; Room/SQLCipher selection remains deferred until the normalized schema and migration harness are justified. | MG-04 | Accepted for prototype — 2026-07-20 |
 | D-008 | Android Auto Backup | Backup/restore deferred; system backup disabled until a tested design exists | MG-04 | Accepted for prototype |
 | D-009 | Dependent authorization/guardianship evidence | Self profile only | MG-05 | Deferred |
-| D-010 | Emergency projection fields and exposure | User-selectable minimum: name, blood group, severe allergies, critical conditions, emergency contacts | MG-07 | Open |
-| D-011 | Google Wallet private pass | Feasibility and issuer approval required; not an MVP dependency | MG-07 | Open |
+| D-010 | Emergency projection fields and exposure | Name-only, self-profile prototype: explicit publish confirmation and a separate authenticated public projection. Blood group, allergies, conditions, and contacts remain the approved future allowlist once verified source features exist. | MG-07 | Accepted for prototype — 2026-07-25 |
+| D-011 | Google Wallet private pass | Feasibility and issuer approval required; not an MVP dependency. | MG-07 | Deferred — 2026-07-25 |
 | D-012 | Drug knowledge provider | Licensed/authoritative dataset or API with update SLA and jurisdiction coverage | MG-08/16 | Open |
 | D-013 | OCR engine | On-device, modular/plug-and-play, separately documented; no cloud fallback | MG-09 | Accepted — 2026-07-18 |
 | D-014 | Health Connect direction | No Health Connect integration in prototype | MG-12 | Deferred |

@@ -18,10 +18,12 @@ import com.smartphoneaichat.presentation.onboarding.OnboardingUiState
 import com.smartphoneaichat.presentation.security.VaultAccessError
 import com.smartphoneaichat.presentation.security.VaultAccessUiState
 import com.smartphoneaichat.presentation.session.AppSessionState
+import com.smartphoneaichat.presentation.emergency.EmergencyCardUiState
 import com.smartphoneaichat.ui.navigation.AppRoute
 import com.smartphoneaichat.ui.navigation.AppRoutePolicy
 import com.smartphoneaichat.ui.screens.CredentialsSetupScreen
 import com.smartphoneaichat.ui.screens.HomeScreen
+import com.smartphoneaichat.ui.screens.EmergencyCardScreen
 import com.smartphoneaichat.ui.screens.OnboardingScreen
 import com.smartphoneaichat.ui.screens.UnlockScreen
 import com.smartphoneaichat.ui.screens.VaultDestinationScreen
@@ -42,6 +44,11 @@ fun PersonalHealthVaultApp(
     onPasswordChanged: (String) -> Unit = {},
     onCompleteOnboarding: () -> Unit = {},
     selectedProfileLabel: String = "Self profile",
+    emergencyCardState: EmergencyCardUiState = EmergencyCardUiState(),
+    onRequestEmergencyPublish: () -> Unit = {},
+    onDismissEmergencyExposureWarning: () -> Unit = {},
+    onConfirmEmergencyPublish: () -> Unit = {},
+    onRevokeEmergencyCard: () -> Unit = {},
 ) {
     SmartphoneAIChatTheme {
         val navController = rememberNavController()
@@ -107,9 +114,21 @@ fun PersonalHealthVaultApp(
                             onUnlock = onUnlock,
                         )
                     }
-                    composable(AppRoute.Home.path) { HomeScreen(onNavigate = navigateSafely) }
+                    composable(AppRoute.Home.path) {
+                        HomeScreen(
+                            onNavigate = navigateSafely,
+                            hasEmergencyCard = emergencyCardState.projection != null,
+                        )
+                    }
                     composable(AppRoute.Emergency.path) {
-                        VaultDestinationScreen(AppRoute.Emergency)
+                        EmergencyCardScreen(
+                            state = emergencyCardState,
+                            isVaultUnlocked = sessionState.isVaultUnlocked,
+                            onRequestPublish = onRequestEmergencyPublish,
+                            onDismissExposureWarning = onDismissEmergencyExposureWarning,
+                            onConfirmPublish = onConfirmEmergencyPublish,
+                            onRevoke = onRevokeEmergencyCard,
+                        )
                     }
                     AppRoute.protectedRoutes.filterNot { it == AppRoute.Home }.forEach { route ->
                         composable(route.path) {
