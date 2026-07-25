@@ -25,6 +25,7 @@ Resolve decisions before the mini-goal that lists them as prerequisites. Accepte
 | D-019 | Future service provider and sync model | Local database is authoritative. Any cloud service, including Supabase, is optional and must only receive explicitly approved encrypted backup/sync payloads until a separate security decision approves more. | MG-19 | Accepted for prototype — 2026-07-19 |
 | D-020 | Android device-test lane | Establish a reproducible emulator/connected-test lane before feature implementation; exact AVD/device matrix remains open. | MG-20 | Open |
 | D-021 | Drug-interaction alerts in prototype/v1 | Excluded. Any later implementation requires an authoritative licensed source, deterministic behavior, clinical fixtures, and separate product/clinical/regulatory approval; an LLM is not an interaction source. | MG-01/08/16 | Accepted for prototype — 2026-07-19 |
+| D-022 | MG-08 offline prototype scope | Manual encrypted self-profile medication/provider records and common deterministic schedules are allowed. Direct replacement is accepted only for this prototype slice; append-only correction history, reminders/adherence, prescription documents, D-012 drug data, interactions, export, and search remain deferred. | MG-08 | Accepted for prototype — 2026-07-26 |
 
 ## Decision record template
 

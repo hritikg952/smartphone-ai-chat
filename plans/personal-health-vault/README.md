@@ -6,7 +6,7 @@
 
 This folder is the source of truth for the implementation. Every mini-goal has an independent plan, an exit gate, and explicit dependencies so work can be delivered incrementally without rediscovering architecture or safety constraints.
 
-## Current implementation status — 2026-07-25
+## Current implementation status — 2026-07-26
 
 | Status | Mini-goals | Evidence summary |
 |---|---|---|
@@ -15,10 +15,11 @@ This folder is the source of truth for the implementation. Every mini-goal has a
 | Complete for prototype scope | MG-03 | Local username/password vault creation and unlock, Android Keystore-wrapped DEK, AES-GCM content cipher, background lock, secure-window flag, backup exclusion, threat model, and lifecycle docs are implemented. |
 | Complete for prototype scope | MG-04 | Encrypted local `HealthRecordRepository`, encrypted opaque-file `EncryptedDocumentStore`, record/document coordination rollback, disabled backup policy, D-007 prototype decision, and persistence lifecycle docs are implemented. |
 | Complete for prototype scope | MG-05 | First-run self-profile creation, authorized profile session context, scoped prototype repositories, consent/audit contracts, and profile-switch invalidation seams are implemented; dependent authority remains deferred by D-009. |
-| Implemented; verification pending | MG-06 | Typed five-destination navigation, lock-safe destination resolution, adaptive navigation bar/rail, selected-profile shell indicator, independently empty home sections, and accessible destination placeholders are implemented. Clinical feature data, emergency projection, and AI insight content remain owned by later milestones. The local Java runtime is unavailable, so Gradle verification has not yet run. |
-| Implemented; verification pending | MG-07 (first slice) | A self-profile name can be explicitly published to a separate authenticated, no-backup local projection and viewed from the locked Emergency route. Vault data, clinical/contact fields, calling, QR/share, Wallet, widgets, and dependent profiles remain deferred. The local Java runtime is unavailable, so Gradle verification has not yet run. |
+| Implemented; JVM verified | MG-06 | Typed five-destination navigation, lock-safe destination resolution, adaptive navigation bar/rail, selected-profile shell indicator, independently empty home sections, and accessible destination placeholders are implemented. Clinical feature data, emergency projection, and AI insight content remain owned by later milestones. `assembleDebug` and `testDebugUnitTest` pass; connected verification remains pending. |
+| Implemented; JVM verified | MG-07 (first slice) | A self-profile name can be explicitly published to a separate authenticated, no-backup local projection and viewed from the locked Emergency route. Vault data, clinical/contact fields, calling, QR/share, Wallet, widgets, and dependent profiles remain deferred. `assembleDebug` and `testDebugUnitTest` pass; connected verification remains pending. |
 | In progress | MG-20 | JVM and the full connected Compose suite pass on a Pixel_10 Android 17 AVD; the repository-owned AVD contract, reusable smoke scripts, retained screenshot convention, CI lane, and release matrix remain pending. |
-| Planned | MG-08–MG-19 except the goals above | No implementation exit gate is complete. |
+| Implemented; prototype slice JVM verified | MG-08 | Encrypted self-profile medication/provider records, common schedule materialization, Today/Home rendering, editable forms, typed-delete isolation, and profile-switch-safe asynchronous state are implemented. Direct-overwrite edits and all clinical-reference, reminder, adherence, prescription-document, and interaction features remain deferred; the MG-08 exit gate is not complete. `assembleDebug` and `testDebugUnitTest` pass. |
+| Planned | MG-09–MG-19 except the goals above | No implementation exit gate is complete. |
 
 ## Non-negotiable product principles
 

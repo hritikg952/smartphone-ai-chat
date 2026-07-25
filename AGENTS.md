@@ -13,7 +13,11 @@ UI → Presentation → Domain ← Data
 Package: `com.smartphoneaichat`. Production sources are under `app/src/main/java/com/smartphoneaichat/`.
 
 The current health-vault shell has real vault unlock state plus prototype
-encrypted local persistence for structured health records and document bytes.
+encrypted local persistence for structured health records, document bytes, and
+the first offline medication/provider slice. Medication data supports manual
+regimens, common schedules, Today rendering, and editable provider links;
+reminders, dose logging, prescription documents, drug reference data,
+interaction checks, and auditable correction history remain deferred.
 Legacy conversations remain in memory through `InMemoryConversationRepository`;
 they do not survive an app-process restart.
 
@@ -45,12 +49,13 @@ Build commands:
 | `ui/app/VaultShell.kt` | Owns the adaptive primary navigation bar/rail, selected-profile indicator, and lock affordance for unlocked routes. |
 | `presentation/session/` | Defines startup session state and the pure onboarding/unlock/home destination resolver. |
 | `presentation/onboarding/` | Owns the welcome-to-credentials onboarding transition. |
+| `presentation/medication/` | Owns encrypted medication/provider UI state, refresh invalidation, asynchronous save results, and Today schedule projection. |
 | `di/AppContainer.kt` | Composes concrete repositories, the LiteRT engine, title service, and use cases. |
 | `presentation/viewmodel/ChatViewModel.kt` | Owns UI state, coordinates conversations, model actions, notifications, and use cases. |
 | `presentation/state/ChatUiState.kt` | Flat immutable state consumed by Compose; exposes the computed `activeConversation`. |
 | `presentation/notification/` | SharedFlow-backed snackbar event bus and its event types. |
 | `domain/model/` | Health record models, vault security models, conversation aggregate, messages, attachments, model metadata, and validated ID/text value objects. |
-| `domain/repository/` | ISP contracts for vault access/ciphering, encrypted health records, encrypted documents, backup policy, inference, model files, conversations, and ID generation. |
+| `domain/repository/` | ISP contracts for vault access/ciphering, encrypted health records, feature-scoped medication/provider data, encrypted documents, backup policy, inference, model files, conversations, and ID generation. |
 | `domain/usecase/` | Message streaming, model download, and model loading orchestration. |
 | `data/security/` | Local password verifier, Android Keystore DEK envelope, process-local vault session, and AES-GCM content cipher. |
 | `data/persistence/` | Prototype encrypted health-record file store, encrypted document blob store, record/document coordinator, and disabled backup policy. |
@@ -70,6 +75,10 @@ reading files directly.
 
 - `HealthRecordRepository` stores profile-scoped structured record bodies via
   `VaultCipher`; reads/writes require the vault to be unlocked.
+- `MedicationRepository` and `ProviderRepository` persist typed bodies through
+  `HealthRecordRepository`; use their scoped operations rather than accessing
+  generic records directly. `deleteIfType` preserves feature ownership without
+  requiring read capability for deletion.
 - `EncryptedDocumentStore` stores document bytes as encrypted blobs with opaque
   filenames and an app-private index.
 - `VaultStorageCoordinator` coordinates a document import with its companion
@@ -124,6 +133,13 @@ Available models are declared in `domain/model/ModelInfo.kt`:
 
 Home must keep feature sections independent: an unavailable medication, records, vitals, or appointment section cannot blank the rest of Home. Until its owning feature exists, render a safe empty/loading/error state rather than invented clinical data. Show the selected profile relationship in the shell on every protected destination; current storage supports only the self profile despite the future-ready UI contract.
 
+The Medication route is the implemented MG-08 prototype surface. It supports
+manual daily, weekly, as-needed, and explicitly unsupported-complex schedules;
+only active daily/weekly schedules are materialized for Today. Keep schedule
+calculation deterministic and on-device. Do not add reminder/alarm behavior,
+dose logging, prescription-document links, drug monographs/interactions, or
+clinical advice without their separate approved milestones and decisions.
+
 - Keep the UI strictly dark through `SmartphoneAIChatTheme`, colors in `ui/theme/Color.kt`, and typography in `ui/theme/Type.kt`.
 - Public reusable composables accept a `Modifier` parameter when they expose layout customization; application-root composables that fill the surface are exceptions.
 - Prefer `remember` for Compose-local state. `ChatInput` intentionally uses `rememberSaveable` for draft text across configuration changes.
@@ -150,6 +166,8 @@ Coverage currently includes:
 - In-memory conversation repository and UUID ID generator behavior.
 - Vault key/session/cipher behavior, encrypted record/document persistence,
   record/document rollback, disabled backup policy, and app session locking.
+- Medication/provider encrypted persistence, typed-delete isolation, schedule
+  materialization including DST-gap and PRN behavior, and save-result behavior.
 - Typed vault navigation, primary-destination semantics, selected-profile visibility,
   and safe Home/destination rendering.
 
