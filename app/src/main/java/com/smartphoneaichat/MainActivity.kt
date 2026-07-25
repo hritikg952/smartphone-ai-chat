@@ -13,6 +13,8 @@ import com.smartphoneaichat.presentation.security.VaultAccessViewModel
 import com.smartphoneaichat.presentation.security.VaultAccessViewModelFactory
 import com.smartphoneaichat.presentation.emergency.EmergencyCardViewModel
 import com.smartphoneaichat.presentation.emergency.EmergencyCardViewModelFactory
+import com.smartphoneaichat.presentation.medication.MedicationViewModel
+import com.smartphoneaichat.presentation.medication.MedicationViewModelFactory
 import androidx.compose.runtime.LaunchedEffect
 import com.smartphoneaichat.ui.app.PersonalHealthVaultApp
 
@@ -46,9 +48,16 @@ class MainActivity : ComponentActivity() {
                     vaultSession = container.vaultSession,
                 ),
             )
+            val medicationViewModel: MedicationViewModel = viewModel(
+                factory = MedicationViewModelFactory(
+                    medications = container.medicationRepository,
+                    providers = container.providerRepository,
+                ),
+            )
             val onboardingState by onboardingViewModel.state.collectAsStateWithLifecycle()
             val vaultAccessState by vaultAccessViewModel.state.collectAsStateWithLifecycle()
             val emergencyCardState by emergencyCardViewModel.state.collectAsStateWithLifecycle()
+            val medicationState by medicationViewModel.state.collectAsStateWithLifecycle()
             val sessionState by appSessionStore.state.collectAsStateWithLifecycle()
             val selectedProfileContext by container.profileSessionCoordinator.currentContext
                 .collectAsStateWithLifecycle()
@@ -59,6 +68,7 @@ class MainActivity : ComponentActivity() {
             } ?: "Self profile"
             LaunchedEffect(sessionState.isVaultUnlocked, selectedProfileContext) {
                 emergencyCardViewModel.refresh(sessionState.isVaultUnlocked, selectedProfileContext)
+                medicationViewModel.refresh(selectedProfileContext.takeIf { sessionState.isVaultUnlocked })
             }
             PersonalHealthVaultApp(
                 sessionState = sessionState,
@@ -76,6 +86,9 @@ class MainActivity : ComponentActivity() {
                 onDismissEmergencyExposureWarning = emergencyCardViewModel::dismissExposureWarning,
                 onConfirmEmergencyPublish = { emergencyCardViewModel.confirmPublish(selectedProfileContext) },
                 onRevokeEmergencyCard = { emergencyCardViewModel.revoke(selectedProfileContext) },
+                medicationState = medicationState,
+                onSaveMedication = { regimen -> selectedProfileContext?.let { medicationViewModel.saveRegimen(it, regimen) } ?: false },
+                onSaveProvider = { provider -> selectedProfileContext?.let { medicationViewModel.saveProvider(it, provider) } ?: false },
             )
         }
     }

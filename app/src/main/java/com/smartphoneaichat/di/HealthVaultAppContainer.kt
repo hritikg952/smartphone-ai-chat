@@ -5,6 +5,8 @@ import com.smartphoneaichat.data.persistence.EncryptedHealthRecordRepository
 import com.smartphoneaichat.data.persistence.LocalEmergencyCardRepository
 import com.smartphoneaichat.data.persistence.LocalEncryptedDocumentStore
 import com.smartphoneaichat.data.persistence.PrototypeVaultBackupPolicy
+import com.smartphoneaichat.data.persistence.EncryptedMedicationRepository
+import com.smartphoneaichat.data.persistence.EncryptedProviderRepository
 import com.smartphoneaichat.data.persistence.VaultStorageCoordinator
 import com.smartphoneaichat.data.governance.InMemoryAuditRepository
 import com.smartphoneaichat.data.governance.InMemoryConsentRepository
@@ -23,6 +25,8 @@ import com.smartphoneaichat.domain.repository.AppSessionStore
 import com.smartphoneaichat.domain.repository.EncryptedDocumentStore
 import com.smartphoneaichat.domain.repository.EmergencyCardRepository
 import com.smartphoneaichat.domain.repository.HealthRecordRepository
+import com.smartphoneaichat.domain.repository.MedicationRepository
+import com.smartphoneaichat.domain.repository.ProviderRepository
 import com.smartphoneaichat.domain.repository.VaultCipher
 import com.smartphoneaichat.domain.repository.VaultBackupPolicy
 import com.smartphoneaichat.domain.repository.VaultKeyManager
@@ -67,6 +71,8 @@ class HealthVaultAppContainer(application: Application) {
         rootDirectory = vaultStorageRoot,
         cipher = vaultCipher,
     )
+    val medicationRepository: MedicationRepository = EncryptedMedicationRepository(healthRecordRepository)
+    val providerRepository: ProviderRepository = EncryptedProviderRepository(healthRecordRepository)
     val encryptedDocumentStore: EncryptedDocumentStore = LocalEncryptedDocumentStore(
         rootDirectory = vaultStorageRoot,
         cipher = vaultCipher,
