@@ -60,13 +60,14 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>main — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 1575 nodes, 2264 edges, 156 communities. Commit: c04f120</p>
+<p class="subtitle">Generated from graphify knowledge graph: 1468 nodes, 2137 edges, 164 communities. Commit: f08231b</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
     <a href="#extract-pipeline">Extraction Pipeline</a>
     <a href="#build-graph">Graph Build</a>
     <a href="#analysis-clustering">Analysis &amp; Clustering</a>
+    <a href="#outputs-docs">Outputs &amp; Docs</a>
     <a href="#cli-skills">CLI &amp; Skill Installers</a>
     <a href="#ingest-cache-update">Ingestion &amp; Updates</a>
     <a href="#serve-api">Serving API</a>
@@ -77,7 +78,6 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
     <a href="#mg-19-local-first-data-optional-cloud-sync-and-r">MG-19 — Local-First Data, Optional Cloud, Sync, and Recovery Boundary</a>
     <a href="#readme-md">README.md</a>
     <a href="#mg-01-product-safety-privacy-and-regulatory-base">MG-01 — Product, Safety, Privacy, and Regulatory Baseline</a>
-    <a href="#mg-02-architecture-pivot-and-modular-application">MG-02 — Architecture Pivot and Modular Application Shell</a>
     <a href="#other">Other</a>
 </div>
 
@@ -88,21 +88,23 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    EXTRACT_PIPELINE_5F350230("Extraction Pipeline<br/><small>993 nodes</small>")
+    EXTRACT_PIPELINE_5F350230("Extraction Pipeline<br/><small>941 nodes</small>")
     class EXTRACT_PIPELINE_5F350230 module;
-    BUILD_GRAPH_321CBB04("Graph Build<br/><small>3 nodes</small>")
+    BUILD_GRAPH_321CBB04("Graph Build<br/><small>2 nodes</small>")
     class BUILD_GRAPH_321CBB04 module;
-    ANALYSIS_CLUSTERING_C79796DA("Analysis &amp; Clustering<br/><small>5 nodes</small>")
+    ANALYSIS_CLUSTERING_C79796DA("Analysis &amp; Clustering<br/><small>6 nodes</small>")
     class ANALYSIS_CLUSTERING_C79796DA module;
-    CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>74 nodes</small>")
+    OUTPUTS_DOCS_ED82387C("Outputs &amp; Docs<br/><small>1 nodes</small>")
+    class OUTPUTS_DOCS_ED82387C module;
+    CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>28 nodes</small>")
     class CLI_SKILLS_9964CBB8 module;
-    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>5 nodes</small>")
+    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>6 nodes</small>")
     class INGEST_CACHE_UPDATE_FF457338 module;
     SERVE_API_35EC8E86("Serving API<br/><small>27 nodes</small>")
     class SERVE_API_35EC8E86 module;
     SECURITY_GLOBAL_5B9C6A04("Security &amp; Global Graph<br/><small>60 nodes</small>")
     class SECURITY_GLOBAL_5B9C6A04 module;
-    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>36 nodes</small>")
+    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>22 nodes</small>")
     class TESTS_FIXTURES_B84B1DCC module;
     QUESTIONS_FOR_OWNER_REVIEW_4EDD5410("Questions for Owner Review<br/><small>36 nodes</small>")
     class QUESTIONS_FOR_OWNER_REVIEW_4EDD5410 module;
@@ -110,26 +112,24 @@ flowchart LR
     class VISION_BASELINE_AND_CURRENT_STATE_GAP_FFA0CA2F module;
     MG_19_LOCAL_FIRST_DATA_OPTIONAL_CLOUD_SYNC_AND_R_FFC1B7AC("MG-19 — Local-First Data, Optional Cloud, Sync, and Recovery Boundary<br/><small>14 nodes</small>")
     class MG_19_LOCAL_FIRST_DATA_OPTIONAL_CLOUD_SYNC_AND_R_FFC1B7AC module;
-    README_MD_6F88C4CB("README.md<br/><small>13 nodes</small>")
+    README_MD_6F88C4CB("README.md<br/><small>14 nodes</small>")
     class README_MD_6F88C4CB module;
     MG_01_PRODUCT_SAFETY_PRIVACY_AND_REGULATORY_BASE_B039EB01("MG-01 — Product, Safety, Privacy, and Regulatory Baseline<br/><small>11 nodes</small>")
     class MG_01_PRODUCT_SAFETY_PRIVACY_AND_REGULATORY_BASE_B039EB01 module;
-    MG_02_ARCHITECTURE_PIVOT_AND_MODULAR_APPLICATION_12281FDB("MG-02 — Architecture Pivot and Modular Application Shell<br/><small>11 nodes</small>")
-    class MG_02_ARCHITECTURE_PIVOT_AND_MODULAR_APPLICATION_12281FDB module;
-    OTHER_D0941E68("Other<br/><small>272 nodes</small>")
+    OTHER_D0941E68("Other<br/><small>285 nodes</small>")
     class OTHER_D0941E68 module;
     OTHER_D0941E68 -->|references x16| README_MD_6F88C4CB
     SERVE_API_35EC8E86 -->|contains x7| OTHER_D0941E68
+    CLI_SKILLS_9964CBB8 -->|references x6| EXTRACT_PIPELINE_5F350230
+    EXTRACT_PIPELINE_5F350230 -->|method x4| CLI_SKILLS_9964CBB8
     SERVE_API_35EC8E86 -->|references x3| README_MD_6F88C4CB
-    README_MD_6F88C4CB -->|contains x2| OTHER_D0941E68
-    CLI_SKILLS_9964CBB8 -->|references x2| EXTRACT_PIPELINE_5F350230
+    README_MD_6F88C4CB -->|contains x3| OTHER_D0941E68
     CLI_SKILLS_9964CBB8 -->|references| README_MD_6F88C4CB
     SERVE_API_35EC8E86 -->|contains| VISION_BASELINE_AND_CURRENT_STATE_GAP_FFA0CA2F
     SERVE_API_35EC8E86 -->|contains| MG_01_PRODUCT_SAFETY_PRIVACY_AND_REGULATORY_BASE_B039EB01
-    README_MD_6F88C4CB -->|contains| MG_02_ARCHITECTURE_PIVOT_AND_MODULAR_APPLICATION_12281FDB
     SECURITY_GLOBAL_5B9C6A04 -->|references| README_MD_6F88C4CB
     MG_19_LOCAL_FIRST_DATA_OPTIONAL_CLOUD_SYNC_AND_R_FFC1B7AC -->|references| README_MD_6F88C4CB
-    README_MD_6F88C4CB -->|contains| TESTS_FIXTURES_B84B1DCC
+    TESTS_FIXTURES_B84B1DCC -->|references| README_MD_6F88C4CB
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -146,41 +146,41 @@ flowchart LR
     <h4>Architecture Layers</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
-      <tr><td>Extraction Pipeline</td><td>993</td><td><code>10, 7, 14, 6, 8, 15, 5, 16, 17, 3, 25, 27, 28, 0, 30, 31, 1, 32, 4, 13, 33, 34, 35, 37, 38, 39, 40, 41, 43, 45, 46, 47, 9, 49, 56, 57, 58, 70, 75, 76, 79, 80, 86, 87, 88, 89, 96, 97, 98, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116</code></td></tr><tr><td>Graph Build</td><td>3</td><td><code>154, 19, 22</code></td></tr><tr><td>Analysis &amp; Clustering</td><td>5</td><td><code>101</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>74</td><td><code>2, 29, 18</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>5</td><td><code>102</code></td></tr><tr><td>Serving API</td><td>27</td><td><code>59, 67, 83</code></td></tr><tr><td>Security &amp; Global Graph</td><td>60</td><td><code>26, 50, 60, 81, 91</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>36</td><td><code>11, 48, 12</code></td></tr><tr><td>Questions for Owner Review</td><td>36</td><td><code>24</code></td></tr><tr><td>Vision Baseline and Current-State Gap</td><td>15</td><td><code>36</code></td></tr><tr><td>MG-19 — Local-First Data, Optional Cloud, Sync, and Recovery Boundary</td><td>14</td><td><code>42</code></td></tr><tr><td>README.md</td><td>13</td><td><code>44</code></td></tr><tr><td>MG-01 — Product, Safety, Privacy, and Regulatory Baseline</td><td>11</td><td><code>51</code></td></tr><tr><td>MG-02 — Architecture Pivot and Modular Application Shell</td><td>11</td><td><code>52</code></td></tr><tr><td>Other</td><td>272</td><td><code>53, 54, 55, 61, 62, 63, 64, 65, 66, 68, 69, 71, 72, 73, 74, 77, 78, 82, 84, 85, 90, 92, 93, 94, 95, 100, 103, 99, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 155, 20, 21, 23</code></td></tr>
+      <tr><td>Extraction Pipeline</td><td>941</td><td><code>10, 17, 14, 25, 7, 6, 5, 35, 16, 8, 28, 15, 27, 31, 34, 39, 0, 1, 76, 3, 32, 37, 80, 4, 9, 40, 41, 11, 114, 45, 47, 57, 79, 112, 43, 46, 56, 58, 13, 30, 33, 38, 49, 70, 75, 20, 21, 22, 23, 85, 89, 87, 88, 86, 96, 97, 98, 104, 105, 106, 107, 108, 113, 115, 2, 116</code></td></tr><tr><td>Graph Build</td><td>2</td><td><code>154, 19</code></td></tr><tr><td>Analysis &amp; Clustering</td><td>6</td><td><code>101, 156</code></td></tr><tr><td>Outputs &amp; Docs</td><td>1</td><td><code>111</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>28</td><td><code>29, 18</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>6</td><td><code>102, 159</code></td></tr><tr><td>Serving API</td><td>27</td><td><code>59, 67, 83</code></td></tr><tr><td>Security &amp; Global Graph</td><td>60</td><td><code>26, 50, 60, 81, 91</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>22</td><td><code>48, 12</code></td></tr><tr><td>Questions for Owner Review</td><td>36</td><td><code>24</code></td></tr><tr><td>Vision Baseline and Current-State Gap</td><td>15</td><td><code>36</code></td></tr><tr><td>MG-19 — Local-First Data, Optional Cloud, Sync, and Recovery Boundary</td><td>14</td><td><code>42</code></td></tr><tr><td>README.md</td><td>14</td><td><code>44</code></td></tr><tr><td>MG-01 — Product, Safety, Privacy, and Regulatory Baseline</td><td>11</td><td><code>51</code></td></tr><tr><td>Other</td><td>285</td><td><code>52, 53, 54, 55, 61, 62, 63, 64, 65, 66, 68, 69, 71, 72, 73, 74, 77, 78, 82, 84, 90, 92, 93, 94, 95, 100, 103, 109, 99, 110, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 155, 157, 158, 160, 161, 162, 163</code></td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Core Flow</h4>
-    <div class="arrow-chain">Graph Build -&gt; Extraction Pipeline -&gt; Analysis &amp; Clustering -&gt; CLI &amp; Skill Installers -&gt; README.md -&gt; Other -&gt; Ingestion &amp; Updates</div>
+    <div class="arrow-chain">Graph Build -&gt; Extraction Pipeline -&gt; CLI &amp; Skill Installers -&gt; README.md -&gt; Other -&gt; Analysis &amp; Clustering -&gt; Outputs &amp; Docs</div>
   </div>
 </div>
 <div class="grid">
   <div class="card">
     <h4>Graph Report Highlights</h4>
     <ul>
-      <li>1575 nodes · 2264 edges · 156 communities (100 shown, 56 thin omitted)</li>
-      <li>Extraction: 87% EXTRACTED · 13% INFERRED · 0% AMBIGUOUS · INFERRED: 297 edges (avg confidence: 0.8)</li>
+      <li>1468 nodes · 2137 edges · 164 communities (99 shown, 65 thin omitted)</li>
+      <li>Extraction: 90% EXTRACTED · 10% INFERRED · 0% AMBIGUOUS · INFERRED: 222 edges (avg confidence: 0.8)</li>
       <li>Token cost: 0 input · 0 output</li>
-      <li>1. `MessageText` - 49 edges</li>
-      <li>2. `MessageText` - 45 edges</li>
-      <li>3. `Message` - 33 edges</li>
+      <li>1. `AuthorizedSessionContext` - 54 edges</li>
+      <li>2. `MessageText` - 50 edges</li>
+      <li>3. `ChatViewModel` - 30 edges</li>
     </ul>
   </div>
 </div>
 <hr>
 <!-- ====== 2. Extraction Pipeline ====== -->
 <h2 id="extract-pipeline">2. Extraction Pipeline</h2>
-<p>Extraction Pipeline groups implementation around app, com, smartphoneaichat, test, mostly in domain/model/ConversationTest.kt, model/value/ValueObjectTest.kt, presentation/viewmodel/ChatViewModelTest.kt. This section covers 993 nodes and 1705 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Extraction Pipeline groups implementation around app, com, smartphoneaichat, domain, mostly in presentation/viewmodel/ChatViewModel.kt, domain/usecase/SendMessageUseCaseTest.kt, domain/model/ConversationTest.kt. This section covers 941 nodes and 1646 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Extraction Pipeline (993 nodes, 1705 edges)
+    %% Section: Extraction Pipeline (941 nodes, 1646 edges)
     subgraph extract_pipeline_ui_app_PersonalHealthVaultAppTe_e2e048a4["ui/app/PersonalHealthVaultAppTest.kt"]
         app_src_androidtest_java_com_smartphoneaichat_ui_07b95314("PersonalHealthVaultAppTest<br/><small>ui/app/PersonalHealthVaultAppTest.kt</small>")
         app_src_androidtest_java_com_smartphoneaichat_ui_85833ba3("completedLockedSessionDisplaysUnlock()<br/><small>ui/app/PersonalHealthVaultAppTest.kt</small>")
         app_src_androidtest_java_com_smartphoneaichat_ui_94af4d1a("completedUnlockedSessionDisplaysHome()<br/><small>ui/app/PersonalHealthVaultAppTest.kt</small>")
-        app_src_androidtest_java_com_smartphoneaichat_ui_49b19d4a("everyTopLevelFeatureRouteIsAddressable()<br/><small>ui/app/PersonalHealthVaultAppTest.kt</small>")
+        app_src_androidtest_java_com_smartphoneaichat_ui_fdeb9ace("everyPrimaryDestinationIsAddressable()<br/><small>ui/app/PersonalHealthVaultAppTest.kt</small>")
         app_src_androidtest_java_com_smartphoneaichat_ui_35ecbbd9("freshSession_displaysOnboardingInsteadOfLegacyChat()<br/><small>ui/app/PersonalHealthVaultAppTest.kt</small>")
     end
     subgraph extract_pipeline_data_security_AndroidVaultSecur_2da1a3bc["data/security/AndroidVaultSecurityAdaptersTest.kt"]
@@ -196,14 +196,12 @@ flowchart LR
         app_src_androidtest_java_com_smartphoneaichat_ma_b76bdb47("MainActivityNavigationTest<br/><small>com/smartphoneaichat/MainActivityNavigationTest.kt</small>")
         app_src_androidtest_java_com_smartphoneaichat_ma_4cb57042("activityRecreationLocksProtectedRoute()<br/><small>com/smartphoneaichat/MainActivityNavigationTest.kt</small>")
     end
-    subgraph extract_pipeline_domain_model_ConversationTest_k_eb3b3428["domain/model/ConversationTest.kt"]
-        app_src_test_java_com_smartphoneaichat_domain_mo_0398d104("ConversationTest<br/><small>domain/model/ConversationTest.kt</small>")
-        users_peakysmokin14_dev_personal_projects_smartp_c3521789("ConversationTest<br/><small>domain/model/ConversationTest.kt</small>")
-    end
     subgraph extract_pipeline_presentation_viewmodel_ChatView_c0c5b03d["presentation/viewmodel/ChatViewModelTest.kt"]
-        app_src_test_java_com_smartphoneaichat_presentat_a920b549("ChatViewModelTest<br/><small>presentation/viewmodel/ChatViewModelTest.kt</small>")
         users_peakysmokin14_dev_personal_projects_smartp_7c4a04da("ChatViewModelTest<br/><small>presentation/viewmodel/ChatViewModelTest.kt</small>")
+        users_peakysmokin14_dev_personal_projects_smartp_c3fe49a3("createViewModel()<br/><small>presentation/viewmodel/ChatViewModelTest.kt</small>")
     end
+    users_peakysmokin14_dev_personal_projects_smartp_e2c7ebce("InMemoryConversationRepositoryTest<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+    users_peakysmokin14_dev_personal_projects_smartp_c3521789("ConversationTest<br/><small>domain/model/ConversationTest.kt</small>")
     app_src_test_java_com_smartphoneaichat_domain_us_6cf6bb5b("SendMessageUseCaseTest<br/><small>domain/usecase/SendMessageUseCaseTest.kt</small>")
     app_src_main_java_com_smartphoneaichat_presentat_a8b9360e("ChatViewModel<br/><small>presentation/viewmodel/ChatViewModel.kt</small>")
     app_src_androidtest_java_com_smartphoneaichat_he_658e2756 -->|method| app_src_androidtest_java_com_smartphoneaichat_he_60079e95
@@ -212,13 +210,14 @@ flowchart LR
     app_src_androidtest_java_com_smartphoneaichat_da_18e83d0c -->|method| app_src_androidtest_java_com_smartphoneaichat_da_033a46e1
     app_src_androidtest_java_com_smartphoneaichat_ui_07b95314 -->|method| app_src_androidtest_java_com_smartphoneaichat_ui_85833ba3
     app_src_androidtest_java_com_smartphoneaichat_ui_07b95314 -->|method| app_src_androidtest_java_com_smartphoneaichat_ui_94af4d1a
-    app_src_androidtest_java_com_smartphoneaichat_ui_07b95314 -->|method| app_src_androidtest_java_com_smartphoneaichat_ui_49b19d4a
+    app_src_androidtest_java_com_smartphoneaichat_ui_07b95314 -->|method| app_src_androidtest_java_com_smartphoneaichat_ui_fdeb9ace
     app_src_androidtest_java_com_smartphoneaichat_ui_07b95314 -->|method| app_src_androidtest_java_com_smartphoneaichat_ui_35ecbbd9
-    %% Omitted for readability: 975 nodes, 0 edges
+    users_peakysmokin14_dev_personal_projects_smartp_7c4a04da -->|method| users_peakysmokin14_dev_personal_projects_smartp_c3fe49a3
+    %% Omitted for readability: 923 nodes, 0 edges
     class app_src_androidtest_java_com_smartphoneaichat_ui_07b95314 test;
     class app_src_androidtest_java_com_smartphoneaichat_ui_85833ba3 test;
     class app_src_androidtest_java_com_smartphoneaichat_ui_94af4d1a test;
-    class app_src_androidtest_java_com_smartphoneaichat_ui_49b19d4a test;
+    class app_src_androidtest_java_com_smartphoneaichat_ui_fdeb9ace test;
     class app_src_androidtest_java_com_smartphoneaichat_ui_35ecbbd9 test;
     class app_src_androidtest_java_com_smartphoneaichat_da_18e83d0c test;
     class app_src_androidtest_java_com_smartphoneaichat_da_6712afda test;
@@ -227,10 +226,10 @@ flowchart LR
     class app_src_androidtest_java_com_smartphoneaichat_he_60079e95 test;
     class app_src_androidtest_java_com_smartphoneaichat_ma_b76bdb47 test;
     class app_src_androidtest_java_com_smartphoneaichat_ma_4cb57042 test;
-    class app_src_test_java_com_smartphoneaichat_domain_mo_0398d104 test;
-    class users_peakysmokin14_dev_personal_projects_smartp_c3521789 test;
-    class app_src_test_java_com_smartphoneaichat_presentat_a920b549 test;
     class users_peakysmokin14_dev_personal_projects_smartp_7c4a04da test;
+    class users_peakysmokin14_dev_personal_projects_smartp_c3fe49a3 test;
+    class users_peakysmokin14_dev_personal_projects_smartp_e2c7ebce test;
+    class users_peakysmokin14_dev_personal_projects_smartp_c3521789 test;
     class app_src_test_java_com_smartphoneaichat_domain_us_6cf6bb5b test;
     class app_src_main_java_com_smartphoneaichat_presentat_a8b9360e klass;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
@@ -304,38 +303,6 @@ flowchart LR
 </tr>
 <tr>
   <td>7</td>
-  <td><code>.createVault()</code><br><small style="color:var(--muted)">data/security/DefaultVaultKeyManager.kt</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>DefaultVaultKeyManager</code><br><small style="color:var(--muted)">data/security/DefaultVaultKeyManager.kt</small></td>
-  <td><code>StoredVault</code><br><small style="color:var(--muted)">data/security/VaultSecurityStorage.kt</small><br><code>unlock()</code><br><small style="color:var(--muted)">data/security/DefaultVaultKeyManager.kt</small></td>
-  <td>.createVault() node in data/security/DefaultVaultKeyManager.kt.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>String</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>String node in project.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>CharArray</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>CharArray node in project.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>.unlock()</code><br><small style="color:var(--muted)">data/security/DefaultVaultKeyManager.kt</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>createVault()</code><br><small style="color:var(--muted)">data/security/DefaultVaultKeyManager.kt</small><br><code>DefaultVaultKeyManager</code><br><small style="color:var(--muted)">data/security/DefaultVaultKeyManager.kt</small></td>
-  <td>No direct outbound edge</td>
-  <td>.unlock() node in data/security/DefaultVaultKeyManager.kt.</td>
-</tr>
-<tr>
-  <td>11</td>
   <td><code>VaultSecurityModels.kt</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -343,7 +310,7 @@ flowchart LR
   <td>VaultSecurityModels.kt node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>8</td>
   <td><code>VaultAccessResult</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -351,7 +318,7 @@ flowchart LR
   <td>VaultAccessResult node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>9</td>
   <td><code>Success</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -359,7 +326,7 @@ flowchart LR
   <td>Success node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>14</td>
+  <td>10</td>
   <td><code>AlreadyExists</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -367,7 +334,7 @@ flowchart LR
   <td>AlreadyExists node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>11</td>
   <td><code>InvalidCredentials</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -375,7 +342,7 @@ flowchart LR
   <td>InvalidCredentials node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>12</td>
   <td><code>KeyInvalidated</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -383,7 +350,7 @@ flowchart LR
   <td>KeyInvalidated node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>13</td>
   <td><code>Unavailable</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -391,7 +358,7 @@ flowchart LR
   <td>Unavailable node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>14</td>
   <td><code>VaultAssociatedData</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -399,7 +366,7 @@ flowchart LR
   <td>VaultAssociatedData node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>15</td>
   <td><code>VaultEncryptedPayload</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td><code>decode()</code><br><small style="color:var(--muted)">data/persistence/EncryptedHealthRecordRepository.kt</small><br><code>encrypt()</code><br><small style="color:var(--muted)">data/security/AesGcmVaultCipher.kt</small></td>
@@ -407,7 +374,7 @@ flowchart LR
   <td>VaultEncryptedPayload node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>16</td>
   <td><code>VaultCryptoResult</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -415,7 +382,7 @@ flowchart LR
   <td>VaultCryptoResult node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>17</td>
   <td><code>Encrypted</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -423,7 +390,7 @@ flowchart LR
   <td>Encrypted node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>18</td>
   <td><code>Plaintext</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -431,7 +398,7 @@ flowchart LR
   <td>Plaintext node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>19</td>
   <td><code>Locked</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -439,7 +406,7 @@ flowchart LR
   <td>Locked node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>20</td>
   <td><code>InvalidCiphertext</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -447,7 +414,7 @@ flowchart LR
   <td>InvalidCiphertext node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>21</td>
   <td><code>UnsupportedVersion</code><br><small style="color:var(--muted)">domain/model/VaultSecurityModels.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -455,7 +422,7 @@ flowchart LR
   <td>UnsupportedVersion node in domain/model/VaultSecurityModels.kt.</td>
 </tr>
 <tr>
-  <td>26</td>
+  <td>22</td>
   <td><code>VaultSecurity.kt</code><br><small style="color:var(--muted)">domain/repository/VaultSecurity.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -463,7 +430,7 @@ flowchart LR
   <td>VaultSecurity.kt node in domain/repository/VaultSecurity.kt.</td>
 </tr>
 <tr>
-  <td>27</td>
+  <td>23</td>
   <td><code>VaultKeyManager</code><br><small style="color:var(--muted)">domain/repository/VaultSecurity.kt</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -471,7 +438,7 @@ flowchart LR
   <td>VaultKeyManager node in domain/repository/VaultSecurity.kt.</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>24</td>
   <td><code>.createVault()</code><br><small style="color:var(--muted)">domain/repository/VaultSecurity.kt</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>VaultKeyManager</code><br><small style="color:var(--muted)">domain/repository/VaultSecurity.kt</small></td>
@@ -479,7 +446,7 @@ flowchart LR
   <td>.createVault() node in domain/repository/VaultSecurity.kt.</td>
 </tr>
 <tr>
-  <td>29</td>
+  <td>25</td>
   <td><code>String</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -487,12 +454,44 @@ flowchart LR
   <td>String node in project.</td>
 </tr>
 <tr>
-  <td>30</td>
+  <td>26</td>
   <td><code>CharArray</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
   <td>CharArray node in project.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>.unlock()</code><br><small style="color:var(--muted)">domain/repository/VaultSecurity.kt</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>VaultKeyManager</code><br><small style="color:var(--muted)">domain/repository/VaultSecurity.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.unlock() node in domain/repository/VaultSecurity.kt.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>.destroy()</code><br><small style="color:var(--muted)">domain/repository/VaultSecurity.kt</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>VaultKeyManager</code><br><small style="color:var(--muted)">domain/repository/VaultSecurity.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.destroy() node in domain/repository/VaultSecurity.kt.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>VaultCipher</code><br><small style="color:var(--muted)">domain/repository/VaultSecurity.kt</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>decrypt()</code><br><small style="color:var(--muted)">domain/repository/VaultSecurity.kt</small><br><code>encrypt()</code><br><small style="color:var(--muted)">domain/repository/VaultSecurity.kt</small></td>
+  <td>VaultCipher node in domain/repository/VaultSecurity.kt.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>.encrypt()</code><br><small style="color:var(--muted)">domain/repository/VaultSecurity.kt</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>VaultCipher</code><br><small style="color:var(--muted)">domain/repository/VaultSecurity.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.encrypt() node in domain/repository/VaultSecurity.kt.</td>
 </tr>
 </table>
 
@@ -501,39 +500,35 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>domain/model/ConversationTest.kt</code></td><td>40 nodes</td></tr>
-<tr><td><code>model/value/ValueObjectTest.kt</code></td><td>38 nodes</td></tr>
-<tr><td><code>presentation/viewmodel/ChatViewModelTest.kt</code></td><td>38 nodes</td></tr>
-<tr><td><code>presentation/viewmodel/ChatViewModel.kt</code></td><td>25 nodes</td></tr>
+      <tr><td><code>presentation/viewmodel/ChatViewModel.kt</code></td><td>25 nodes</td></tr>
 <tr><td><code>domain/usecase/SendMessageUseCaseTest.kt</code></td><td>24 nodes</td></tr>
-<tr><td><code>data/model/HuggingFaceModelFileManager.kt</code></td><td>22 nodes</td></tr>
 <tr><td><code>data/security/DefaultVaultKeyManagerTest.kt</code></td><td>20 nodes</td></tr>
+<tr><td><code>domain/model/ConversationTest.kt</code></td><td>20 nodes</td></tr>
 <tr><td><code>data/security/VaultSecurityStorage.kt</code></td><td>19 nodes</td></tr>
+<tr><td><code>model/value/ValueObjectTest.kt</code></td><td>19 nodes</td></tr>
+<tr><td><code>presentation/security/VaultAccessViewModelTest.kt</code></td><td>19 nodes</td></tr>
+<tr><td><code>presentation/viewmodel/ChatViewModelTest.kt</code></td><td>19 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: method x461, references x451, contains x244, calls x168. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: references x512, method x403, contains x248, calls x178. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
 <!-- ====== 3. Graph Build ====== -->
 <h2 id="build-graph">3. Graph Build</h2>
-<p>Graph Build groups implementation around buildgradlekts, app, mostly in build.gradle.kts, app/build.gradle.kts. This section covers 3 nodes and 0 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Graph Build groups implementation around buildgradlekts, app, mostly in build.gradle.kts, app/build.gradle.kts. This section covers 2 nodes and 0 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Graph Build (3 nodes, 0 edges)
-    subgraph build_graph_build_gradle_kts_68981f58["build.gradle.kts"]
-        users_peakysmokin14_dev_personal_projects_smartp_09298a99("build.gradle.kts")
-        build_gradle_877734b9("build.gradle.kts")
-    end
+    %% Section: Graph Build (2 nodes, 0 edges)
     app_build_gradle_d5080885("build.gradle.kts")
-    class users_peakysmokin14_dev_personal_projects_smartp_09298a99 function;
-    class build_gradle_877734b9 function;
+    users_peakysmokin14_dev_personal_projects_smartp_09298a99("build.gradle.kts")
     class app_build_gradle_d5080885 function;
+    class users_peakysmokin14_dev_personal_projects_smartp_09298a99 function;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -571,14 +566,6 @@ flowchart LR
   <td>No direct outbound edge</td>
   <td>build.gradle.kts node in app/build.gradle.kts.</td>
 </tr>
-<tr>
-  <td>3</td>
-  <td><code>build.gradle.kts</code><br><small style="color:var(--muted)">build.gradle.kts</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>build.gradle.kts node in build.gradle.kts.</td>
-</tr>
 </table>
 
 <div class="grid">
@@ -586,8 +573,8 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>build.gradle.kts</code></td><td>2 nodes</td></tr>
-<tr><td><code>app/build.gradle.kts</code></td><td>1 nodes</td></tr>
+      <tr><td><code>app/build.gradle.kts</code></td><td>1 nodes</td></tr>
+<tr><td><code>build.gradle.kts</code></td><td>1 nodes</td></tr>
     </table>
   </div>
   <div class="card">
@@ -599,17 +586,20 @@ flowchart LR
 
 <!-- ====== 4. Analysis & Clustering ====== -->
 <h2 id="analysis-clustering">4. Analysis &amp; Clustering</h2>
-<p>Analysis &amp; Clustering groups implementation around what, first, phase, personal, mostly in graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md. This section covers 5 nodes and 4 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Analysis &amp; Clustering groups implementation around what, first, phase, personal, mostly in graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md, AGENTS.md. This section covers 6 nodes and 4 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Analysis &amp; Clustering (5 nodes, 4 edges)
-    graphify_out_memory_query_20260718_233949_what_i_a935cd25("Q: What is the first phase of the Perso...<br/><small>graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md</small>")
-    graphify_out_memory_query_20260718_233949_what_i_4fdbd431("personal health vau.md<br/><small>graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md</small>")
-    graphify_out_memory_query_20260718_233949_what_i_630ad10a("Answer<br/><small>graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md</small>")
-    graphify_out_memory_query_20260718_233949_what_i_0a80c63e("Outcome<br/><small>graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md</small>")
-    graphify_out_memory_query_20260718_233949_what_i_3f33f97b("Source Nodes<br/><small>graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md</small>")
+    %% Section: Analysis &amp; Clustering (6 nodes, 4 edges)
+    subgraph analysis_clustering_graphify_out_memory_query_20_c060b152["graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md"]
+        graphify_out_memory_query_20260718_233949_what_i_a935cd25("Q: What is the first phase of the Perso...<br/><small>graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md</small>")
+        graphify_out_memory_query_20260718_233949_what_i_4fdbd431("personal health vau.md<br/><small>graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md</small>")
+        graphify_out_memory_query_20260718_233949_what_i_630ad10a("Answer<br/><small>graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md</small>")
+        graphify_out_memory_query_20260718_233949_what_i_0a80c63e("Outcome<br/><small>graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md</small>")
+        graphify_out_memory_query_20260718_233949_what_i_3f33f97b("Source Nodes<br/><small>graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md</small>")
+    end
+    chat_viewmodel_9ae1caec("ChatViewModel God Class<br/><small>AGENTS.md</small>")
     graphify_out_memory_query_20260718_233949_what_i_4fdbd431 -->|contains| graphify_out_memory_query_20260718_233949_what_i_a935cd25
     graphify_out_memory_query_20260718_233949_what_i_a935cd25 -->|contains| graphify_out_memory_query_20260718_233949_what_i_630ad10a
     graphify_out_memory_query_20260718_233949_what_i_a935cd25 -->|contains| graphify_out_memory_query_20260718_233949_what_i_0a80c63e
@@ -619,6 +609,7 @@ flowchart LR
     class graphify_out_memory_query_20260718_233949_what_i_630ad10a concept;
     class graphify_out_memory_query_20260718_233949_what_i_0a80c63e concept;
     class graphify_out_memory_query_20260718_233949_what_i_3f33f97b concept;
+    class chat_viewmodel_9ae1caec klass;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -680,6 +671,14 @@ flowchart LR
   <td>No direct outbound edge</td>
   <td>Documentation node describing Source Nodes.</td>
 </tr>
+<tr>
+  <td>6</td>
+  <td><code>ChatViewModel God Class</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
+</tr>
 </table>
 
 <div class="grid">
@@ -688,6 +687,7 @@ flowchart LR
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>graphify-out/memory/query_20260718_233949_what_is_the_first_phase_of_the_personal_health_vau.md</code></td><td>5 nodes</td></tr>
+<tr><td><code>AGENTS.md</code></td><td>1 nodes</td></tr>
     </table>
   </div>
   <div class="card">
@@ -697,60 +697,16 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 5. CLI & Skill Installers ====== -->
-<h2 id="cli-skills">5. CLI &amp; Skill Installers</h2>
-<p>CLI &amp; Skill Installers groups implementation around agentsmd, phase, architecturemd, phases, mostly in AGENTS.md, ARCHITECTURE.md, skills/health-vault-wrap-up/SKILL.md. This section covers 74 nodes and 93 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 5. Outputs & Docs ====== -->
+<h2 id="outputs-docs">5. Outputs &amp; Docs</h2>
+<p>Outputs &amp; Docs groups implementation around architecture, document, architecturehtml, mostly in ARCHITECTURE.html. This section covers 1 nodes and 0 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: CLI &amp; Skill Installers (74 nodes, 93 edges)
-    subgraph cli_skills_ARCHITECTURE_md_60559d92["ARCHITECTURE.md"]
-        conversation_repository_d1283fee("ConversationRepository Interface<br/><small>ARCHITECTURE.md</small>")
-        conversation_title_service_938c2007("ConversationTitleService Pure Domain Se...<br/><small>ARCHITECTURE.md</small>")
-        download_model_use_case_c11b90c0("DownloadModelUseCase<br/><small>ARCHITECTURE.md</small>")
-        idgenerator_9298e9e7("IdGenerator Factory Interface<br/><small>ARCHITECTURE.md</small>")
-        inference_engine_d46d0a9d("InferenceEngine Interface<br/><small>ARCHITECTURE.md</small>")
-        load_model_use_case_b68136c9("LoadModelUseCase<br/><small>ARCHITECTURE.md</small>")
-        messagetext_0f1577fb("MessageText Inline Value Class<br/><small>ARCHITECTURE.md</small>")
-    end
-    subgraph cli_skills_AGENTS_md_c2f84881["AGENTS.md"]
-        chatui_state_f46671e9("ChatUiState Data Class<br/><small>AGENTS.md</small>")
-        chat_viewmodel_9ae1caec("ChatViewModel God Class<br/><small>AGENTS.md</small>")
-        huggingface_model_download_85feb4ba("HuggingFace Model Download Pipeline<br/><small>AGENTS.md</small>")
-        litertlm_backend_0a8917b6("LiteRT-LM On-Device LLM Runtime<br/><small>AGENTS.md</small>")
-        notification_system_1d045dd4("SharedFlow-based AppNotificationManager<br/><small>AGENTS.md</small>")
-    end
-    subgraph cli_skills_opencode_package_json_cc56f92f[".opencode/package.json"]
-        opencode_package_dependencies_opencode_ai_plugin_4e3da3ad("@opencode-ai/plugin<br/><small>.opencode/package.json</small>")
-        opencode_package_dependencies_0e830325("dependencies<br/><small>.opencode/package.json</small>")
-        opencode_package_0b420dd1("package.json")
-    end
-    subgraph cli_skills_domain_service_ConversationTitleServi_4c230d30["domain/service/ConversationTitleService.kt"]
-        users_peakysmokin14_dev_personal_projects_smartp_88e09cce("ConversationTitleService<br/><small>domain/service/ConversationTitleService.kt</small>")
-        users_peakysmokin14_dev_personal_projects_smartp_683bae89("generateTitle()<br/><small>domain/service/ConversationTitleService.kt</small>")
-    end
-    github_workflows_release_aca1fcb8("CI/CD Release Pipeline<br/><small>.github/workflows/release.yml</small>")
-    users_peakysmokin14_dev_personal_projects_smartp_88e09cce -->|method| users_peakysmokin14_dev_personal_projects_smartp_683bae89
-    %% Omitted for readability: 56 nodes, 0 edges
-    class conversation_repository_d1283fee klass;
-    class conversation_title_service_938c2007 klass;
-    class download_model_use_case_c11b90c0 klass;
-    class idgenerator_9298e9e7 klass;
-    class inference_engine_d46d0a9d klass;
-    class load_model_use_case_b68136c9 klass;
-    class messagetext_0f1577fb klass;
-    class chatui_state_f46671e9 klass;
-    class chat_viewmodel_9ae1caec klass;
-    class huggingface_model_download_85feb4ba klass;
-    class litertlm_backend_0a8917b6 klass;
-    class notification_system_1d045dd4 klass;
-    class opencode_package_dependencies_opencode_ai_plugin_4e3da3ad function;
-    class opencode_package_dependencies_0e830325 function;
-    class opencode_package_0b420dd1 function;
-    class users_peakysmokin14_dev_personal_projects_smartp_88e09cce klass;
-    class users_peakysmokin14_dev_personal_projects_smartp_683bae89 function;
-    class github_workflows_release_aca1fcb8 klass;
+    %% Section: Outputs &amp; Docs (1 nodes, 0 edges)
+    architecture_html_8826095a("Architecture HTML Document<br/><small>ARCHITECTURE.html</small>")
+    class architecture_html_8826095a concept;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -774,243 +730,11 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
-  <td><code>ConversationTitleService.kt</code><br><small style="color:var(--muted)">domain/service/ConversationTitleService.kt</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>ConversationTitleService.kt node in domain/service/ConversationTitleService.kt.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>ConversationTitleService</code><br><small style="color:var(--muted)">domain/service/ConversationTitleService.kt</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>generateTitle()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleService.kt</small></td>
-  <td>ConversationTitleService node in domain/service/ConversationTitleService.kt.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>.generateTitle()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleService.kt</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>ConversationTitleService</code><br><small style="color:var(--muted)">domain/service/ConversationTitleService.kt</small></td>
-  <td>No direct outbound edge</td>
-  <td>.generateTitle() node in domain/service/ConversationTitleService.kt.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>CI/CD Release Pipeline</code><br><small style="color:var(--muted)">.github/workflows/release.yml</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>CI/CD Release Pipeline node in .github/workflows/release.yml.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>Agent Guide</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Agent Guide.</td>
-</tr>
-<tr>
-  <td>6</td>
   <td><code>Architecture HTML Document</code><br><small style="color:var(--muted)">ARCHITECTURE.html</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
   <td>Documentation node describing Architecture HTML Document.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>Architecture Markdown Document</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Architecture Markdown Document.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>Code Review Report</code><br><small style="color:var(--muted)">CODE_REVIEW.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Code Review Report.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>Future Plans</code><br><small style="color:var(--muted)">Future_Plans.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Future Plans.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>API Key Setup Guide</code><br><small style="color:var(--muted)">KEY_SETUP.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing API Key Setup Guide.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>Resource Management Guide</code><br><small style="color:var(--muted)">RESOURCE_MANAGEMENT.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Resource Management Guide.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>Threading Model Document</code><br><small style="color:var(--muted)">THREADING.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Threading Model Document.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>Phase 0: IdGenerator + Value Objects</code><br><small style="color:var(--muted)">Phases-workdone/phase-0-id-generator-value-objects.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Phase 0: IdGenerator + Value Objects.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>Phase 1: Package Structure + Interfaces</code><br><small style="color:var(--muted)">Phases-workdone/phase-1-package-structure-interfaces.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Phase 1: Package Structure + Interfaces.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>Phase 2: Conversation Encapsulation</code><br><small style="color:var(--muted)">Phases-workdone/phase-2-conversation-encapsulation.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Phase 2: Conversation Encapsulation.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>Phase 3: Use Cases</code><br><small style="color:var(--muted)">Phases-workdone/phase-3-use-cases.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Phase 3: Use Cases.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>Phase 3.5: Remediation</code><br><small style="color:var(--muted)">Phases-workdone/phase-3.5-remediation.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Phase 3.5: Remediation.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>Phase 4: Dependency Injection</code><br><small style="color:var(--muted)">Phases-workdone/phase-4-dependency-injection.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Phase 4: Dependency Injection.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>Phase 5: Conversation Repository</code><br><small style="color:var(--muted)">Phases-workdone/phase-5-conversation-repository.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Phase 5: Conversation Repository.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>Clean Architecture Refactoring</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Clean Architecture Refactoring.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>MVVM with ChatViewModel and ChatUiState</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for MVVM with ChatViewModel and ChatUiState.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>LiteRT-LM On-Device LLM Runtime</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>LiteRT-LM On-Device LLM Runtime node in AGENTS.md.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>StateFlow/MutableStateFlow State Management</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for StateFlow/MutableStateFlow State Management.</td>
-</tr>
-<tr>
-  <td>24</td>
-  <td><code>ChatUiState Data Class</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td><code>ChatViewModel God Class</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td><code>Value Objects (MessageId, ConversationId, MessageText)</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Value Objects (MessageId, ConversationId, MessageText).</td>
-</tr>
-<tr>
-  <td>27</td>
-  <td><code>MessageText Inline Value Class</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>MessageText Inline Value Class node in ARCHITECTURE.md.</td>
-</tr>
-<tr>
-  <td>28</td>
-  <td><code>IdGenerator Factory Interface</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>IdGenerator Factory Interface node in ARCHITECTURE.md.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>ISP-Compliant Repository Interfaces</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for ISP-Compliant Repository Interfaces.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>InferenceEngine Interface</code><br><small style="color:var(--muted)">ARCHITECTURE.md</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>InferenceEngine Interface node in ARCHITECTURE.md.</td>
 </tr>
 </table>
 
@@ -1019,36 +743,351 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>AGENTS.md</code></td><td>21 nodes</td></tr>
-<tr><td><code>ARCHITECTURE.md</code></td><td>19 nodes</td></tr>
-<tr><td><code>skills/health-vault-wrap-up/SKILL.md</code></td><td>7 nodes</td></tr>
-<tr><td><code>.opencode/package.json</code></td><td>3 nodes</td></tr>
-<tr><td><code>Phases-workdone/phase-1-package-structure-interfaces.md</code></td><td>3 nodes</td></tr>
-<tr><td><code>domain/service/ConversationTitleService.kt</code></td><td>3 nodes</td></tr>
-<tr><td><code>CODE_REVIEW.md</code></td><td>2 nodes</td></tr>
-<tr><td><code>Future_Plans.md</code></td><td>2 nodes</td></tr>
+      <tr><td><code>ARCHITECTURE.html</code></td><td>1 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: references x60, contains x21, cites x7, relates x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: No high-confidence call edges detected. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
-<!-- ====== 6. Ingestion & Updates ====== -->
-<h2 id="ingest-cache-update">6. Ingestion &amp; Updates</h2>
-<p>Ingestion &amp; Updates groups implementation around update, personal, health, vault, mostly in graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md. This section covers 5 nodes and 4 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 6. CLI & Skill Installers ====== -->
+<h2 id="cli-skills">6. CLI &amp; Skill Installers</h2>
+<p>CLI &amp; Skill Installers groups implementation around agentsmd, vault, health, wrap, mostly in AGENTS.md, skills/health-vault-wrap-up/SKILL.md, data/governance/InMemoryGovernanceRepositories.kt. This section covers 28 nodes and 26 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Ingestion &amp; Updates (5 nodes, 4 edges)
-    graphify_out_memory_query_20260719_070209_update_9a80f7df("Q: Update the Personal Health Vault vis...<br/><small>graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md</small>")
-    graphify_out_memory_query_20260719_070209_update_f56bb257("vision baseline a.md<br/><small>graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md</small>")
-    graphify_out_memory_query_20260719_070209_update_d787f136("Answer<br/><small>graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md</small>")
-    graphify_out_memory_query_20260719_070209_update_4f8fa74c("Outcome<br/><small>graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md</small>")
-    graphify_out_memory_query_20260719_070209_update_c074d418("Source Nodes<br/><small>graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md</small>")
+    %% Section: CLI &amp; Skill Installers (28 nodes, 26 edges)
+    subgraph cli_skills_AGENTS_md_c2f84881["AGENTS.md"]
+        agents_e7052aeb("AGENTS.md")
+        agents_architecture_and_key_ownership_2e9e8c47("Architecture and Key Ownership<br/><small>AGENTS.md</small>")
+        agents_message_and_inference_flow_71f6c7a4("Message and Inference Flow<br/><small>AGENTS.md</small>")
+        agents_model_lifecycle_a310d2ed("Model Lifecycle<br/><small>AGENTS.md</small>")
+        agents_overview_fc2baf49("Overview<br/><small>AGENTS.md</small>")
+        agents_personal_health_vault_wrap_up_13f0fad2("Personal Health Vault wrap-up<br/><small>AGENTS.md</small>")
+        agents_personal_health_vault_agent_guide_413d3da7("Personal Health Vault — Agent Guide<br/><small>AGENTS.md</small>")
+        agents_project_setup_35358ef2("Project Setup<br/><small>AGENTS.md</small>")
+        agents_state_conversations_and_notifications_5c3b64ce("State, Conversations, and Notifications<br/><small>AGENTS.md</small>")
+        agents_test_driven_development_requirement_0915d129("Test-driven development requirement<br/><small>AGENTS.md</small>")
+    end
+    subgraph cli_skills_External_generated_0c226fa1["External / generated"]
+        app_src_main_java_com_smartphoneaichat_domain_mo_3c74788b("Boolean")
+        app_src_main_java_com_smartphoneaichat_data_gove_4fc08a44("Int")
+        app_src_main_java_com_smartphoneaichat_data_gove_030c48fe("List")
+        app_src_main_java_com_smartphoneaichat_domain_mo_3d4f2c50("Long")
+    end
+    subgraph cli_skills_data_governance_InMemoryGovernanceRep_32ea8254["data/governance/InMemoryGovernanceRepositories.kt"]
+        app_src_main_java_com_smartphoneaichat_data_gove_2be6cb2a("list()<br/><small>data/governance/InMemoryGovernanceRepositories.kt</small>")
+        app_src_main_java_com_smartphoneaichat_data_gove_cb713ef3("list()<br/><small>data/governance/InMemoryGovernanceRepositories.kt</small>")
+    end
+    subgraph cli_skills_domain_model_GovernanceModels_kt_9554fade["domain/model/GovernanceModels.kt"]
+        app_src_main_java_com_smartphoneaichat_domain_mo_18c437cf("ConsentReceipt<br/><small>domain/model/GovernanceModels.kt</small>")
+        app_src_main_java_com_smartphoneaichat_domain_mo_f197c5bf("isActive()<br/><small>domain/model/GovernanceModels.kt</small>")
+    end
+    app_src_main_java_com_smartphoneaichat_domain_mo_18c437cf -->|method| app_src_main_java_com_smartphoneaichat_domain_mo_f197c5bf
+    %% Omitted for readability: 10 nodes, 0 edges
+    class agents_e7052aeb concept;
+    class agents_architecture_and_key_ownership_2e9e8c47 concept;
+    class agents_message_and_inference_flow_71f6c7a4 concept;
+    class agents_model_lifecycle_a310d2ed concept;
+    class agents_overview_fc2baf49 concept;
+    class agents_personal_health_vault_wrap_up_13f0fad2 concept;
+    class agents_personal_health_vault_agent_guide_413d3da7 concept;
+    class agents_project_setup_35358ef2 concept;
+    class agents_state_conversations_and_notifications_5c3b64ce concept;
+    class agents_test_driven_development_requirement_0915d129 concept;
+    class app_src_main_java_com_smartphoneaichat_domain_mo_3c74788b klass;
+    class app_src_main_java_com_smartphoneaichat_data_gove_4fc08a44 klass;
+    class app_src_main_java_com_smartphoneaichat_data_gove_030c48fe klass;
+    class app_src_main_java_com_smartphoneaichat_domain_mo_3d4f2c50 klass;
+    class app_src_main_java_com_smartphoneaichat_data_gove_2be6cb2a function;
+    class app_src_main_java_com_smartphoneaichat_data_gove_cb713ef3 function;
+    class app_src_main_java_com_smartphoneaichat_domain_mo_18c437cf klass;
+    class app_src_main_java_com_smartphoneaichat_domain_mo_f197c5bf function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>SKILL.md</code><br><small style="color:var(--muted)">skills/health-vault-wrap-up/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing SKILL.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Personal Health Vault Wrap-Up</code><br><small style="color:var(--muted)">skills/health-vault-wrap-up/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Personal Health Vault Wrap-Up.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>1. Collect evidence</code><br><small style="color:var(--muted)">skills/health-vault-wrap-up/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 1. Collect evidence.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>2. Determine status honestly</code><br><small style="color:var(--muted)">skills/health-vault-wrap-up/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 2. Determine status honestly.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>3. Refresh the living plan view</code><br><small style="color:var(--muted)">skills/health-vault-wrap-up/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 3. Refresh the living plan view.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>4. Report and request approval</code><br><small style="color:var(--muted)">skills/health-vault-wrap-up/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 4. Report and request approval.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>5. After approval</code><br><small style="color:var(--muted)">skills/health-vault-wrap-up/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 5. After approval.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>AGENTS.md</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing AGENTS.md.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>Personal Health Vault — Agent Guide</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Personal Health Vault — Agent Guide.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>Overview</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Overview.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>Project Setup</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Project Setup.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>Architecture and Key Ownership</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Architecture and Key Ownership.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>Vault Storage</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Vault Storage.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>State, Conversations, and Notifications</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing State, Conversations, and Notifications.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>Message and Inference Flow</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Message and Inference Flow.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>Model Lifecycle</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Model Lifecycle.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>UI and Compose Conventions</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing UI and Compose Conventions.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>Testing</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Testing.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>Test-driven development requirement</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Test-driven development requirement.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Personal Health Vault wrap-up</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Personal Health Vault wrap-up.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>.list()</code><br><small style="color:var(--muted)">data/governance/InMemoryGovernanceRepositories.kt</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>.list() node in data/governance/InMemoryGovernanceRepositories.kt.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>List</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>List node in project.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>.list()</code><br><small style="color:var(--muted)">data/governance/InMemoryGovernanceRepositories.kt</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>.list() node in data/governance/InMemoryGovernanceRepositories.kt.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>Int</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Int node in project.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>ConsentReceipt</code><br><small style="color:var(--muted)">domain/model/GovernanceModels.kt</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>isActive()</code><br><small style="color:var(--muted)">domain/model/GovernanceModels.kt</small></td>
+  <td>ConsentReceipt node in domain/model/GovernanceModels.kt.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>.isActive()</code><br><small style="color:var(--muted)">domain/model/GovernanceModels.kt</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>ConsentReceipt</code><br><small style="color:var(--muted)">domain/model/GovernanceModels.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.isActive() node in domain/model/GovernanceModels.kt.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>Long</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Long node in project.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>Boolean</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Boolean node in project.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>AGENTS.md</code></td><td>13 nodes</td></tr>
+<tr><td><code>skills/health-vault-wrap-up/SKILL.md</code></td><td>7 nodes</td></tr>
+<tr><td><code>data/governance/InMemoryGovernanceRepositories.kt</code></td><td>2 nodes</td></tr>
+<tr><td><code>domain/model/GovernanceModels.kt</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x18, references x7, method x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 7. Ingestion & Updates ====== -->
+<h2 id="ingest-cache-update">7. Ingestion &amp; Updates</h2>
+<p>Ingestion &amp; Updates groups implementation around update, personal, health, vault, mostly in graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md, AGENTS.md. This section covers 6 nodes and 4 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Ingestion &amp; Updates (6 nodes, 4 edges)
+    subgraph ingest_cache_update_graphify_out_memory_query_20_dac9b92d["graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md"]
+        graphify_out_memory_query_20260719_070209_update_9a80f7df("Q: Update the Personal Health Vault vis...<br/><small>graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md</small>")
+        graphify_out_memory_query_20260719_070209_update_f56bb257("vision baseline a.md<br/><small>graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md</small>")
+        graphify_out_memory_query_20260719_070209_update_d787f136("Answer<br/><small>graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md</small>")
+        graphify_out_memory_query_20260719_070209_update_4f8fa74c("Outcome<br/><small>graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md</small>")
+        graphify_out_memory_query_20260719_070209_update_c074d418("Source Nodes<br/><small>graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md</small>")
+    end
+    huggingface_model_download_85feb4ba("HuggingFace Model Download Pipeline<br/><small>AGENTS.md</small>")
     graphify_out_memory_query_20260719_070209_update_f56bb257 -->|contains| graphify_out_memory_query_20260719_070209_update_9a80f7df
     graphify_out_memory_query_20260719_070209_update_9a80f7df -->|contains| graphify_out_memory_query_20260719_070209_update_d787f136
     graphify_out_memory_query_20260719_070209_update_9a80f7df -->|contains| graphify_out_memory_query_20260719_070209_update_4f8fa74c
@@ -1058,6 +1097,7 @@ flowchart LR
     class graphify_out_memory_query_20260719_070209_update_d787f136 concept;
     class graphify_out_memory_query_20260719_070209_update_4f8fa74c concept;
     class graphify_out_memory_query_20260719_070209_update_c074d418 concept;
+    class huggingface_model_download_85feb4ba klass;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -1119,6 +1159,14 @@ flowchart LR
   <td>No direct outbound edge</td>
   <td>Documentation node describing Source Nodes.</td>
 </tr>
+<tr>
+  <td>6</td>
+  <td><code>HuggingFace Model Download Pipeline</code><br><small style="color:var(--muted)">AGENTS.md</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>HuggingFace Model Download Pipeline node in AGENTS.md.</td>
+</tr>
 </table>
 
 <div class="grid">
@@ -1127,6 +1175,7 @@ flowchart LR
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>graphify-out/memory/query_20260719_070209_update_the_personal_health_vault_vision_baseline_a.md</code></td><td>5 nodes</td></tr>
+<tr><td><code>AGENTS.md</code></td><td>1 nodes</td></tr>
     </table>
   </div>
   <div class="card">
@@ -1136,8 +1185,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 7. Serving API ====== -->
-<h2 id="serve-api">7. Serving API</h2>
+<!-- ====== 8. Serving API ====== -->
+<h2 id="serve-api">8. Serving API</h2>
 <p>Serving API groups implementation around plans, personal, health, vault, mostly in plans/personal-health-vault/14-private-global-search.md, personal-health-vault/mg-01/06-incident-response-runbook.md, plans/personal-health-vault/00-vision-baseline-and-current-state.md. This section covers 27 nodes and 33 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -1470,8 +1519,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 8. Security & Global Graph ====== -->
-<h2 id="security-global">8. Security &amp; Global Graph</h2>
+<!-- ====== 9. Security & Global Graph ====== -->
+<h2 id="security-global">9. Security &amp; Global Graph</h2>
 <p>Security &amp; Global Graph groups implementation around vault, security, docs, lifecycle, mostly in docs/security/mg-03-vault-lifecycle-and-credential-behavior.md, superpowers/plans/2026-07-14-ticket4-multimodal-inference-engine.md, plans/personal-health-vault/03-vault-security-keys-and-biometrics.md. This section covers 60 nodes and 55 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -1816,70 +1865,62 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 9. Tests & Fixtures ====== -->
-<h2 id="tests-fixtures">9. Tests &amp; Fixtures</h2>
-<p>Tests &amp; Fixtures groups implementation around test, app, com, smartphoneaichat, mostly in data/conversation/InMemoryConversationRepositoryTest.kt, plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md, data/id/UuidIdGeneratorTest.kt. This section covers 36 nodes and 33 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 10. Tests & Fixtures ====== -->
+<h2 id="tests-fixtures">10. Tests &amp; Fixtures</h2>
+<p>Tests &amp; Fixtures groups implementation around verification, android, emulator, regressionmd, mostly in plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md, domain/service/ConversationTitleServiceTest.kt. This section covers 22 nodes and 20 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Tests &amp; Fixtures (36 nodes, 33 edges)
-    subgraph tests_fixtures_data_conversation_InMemoryConvers_cd1830ff["data/conversation/InMemoryConversationRepositoryTest.kt"]
-        app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e("InMemoryConversationRepositoryTest<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_conv_15981b87("delete_nonexistent_doesNotThrow()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_conv_747097e4("delete_removesConversation()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_conv_30b4cea3("delete_removesFromGetAll()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_conv_2b485229("getAll_returnsEmptyListWhenNoConversations()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_conv_bc4a3d5a("getById_returnsNoneWhenNoConversations()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_conv_ef75b777("getById_returnsNullForNonExistentId()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_conv_36ba4d82("save_overwritesExistingConversation()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_conv_eb38cae0("saveAndDeleteMultiple_getAllReturnsOnlyRemaining()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_conv_086c3bb9("saveMultiple_getAllReturnsAllInInsertionOrder()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_conv_6e40475b("saveThenGetAll_returnsSavedConversation()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_conv_93c74b4c("saveThenGetById_returnsConversation()<br/><small>data/conversation/InMemoryConversationRepositoryTest.kt</small>")
+    %% Section: Tests &amp; Fixtures (22 nodes, 20 edges)
+    subgraph tests_fixtures_domain_service_ConversationTitleS_4d1848ed["domain/service/ConversationTitleServiceTest.kt"]
+        users_peakysmokin14_dev_personal_projects_smartp_9d91bfa5("ConversationTitleServiceTest<br/><small>domain/service/ConversationTitleServiceTest.kt</small>")
+        users_peakysmokin14_dev_personal_projects_smartp_f4508653("emptyString_returnsEmptyString()<br/><small>domain/service/ConversationTitleServiceTest.kt</small>")
+        users_peakysmokin14_dev_personal_projects_smartp_8e2ae002("exactly40Chars_returnedVerbatim()<br/><small>domain/service/ConversationTitleServiceTest.kt</small>")
+        users_peakysmokin14_dev_personal_projects_smartp_3fb77ad1("exceeds40Chars_truncatedWithEllipsis()<br/><small>domain/service/ConversationTitleServiceTest.kt</small>")
+        users_peakysmokin14_dev_personal_projects_smartp_a02af25d("leadingAndTrailingWhitespace_trimmed()<br/><small>domain/service/ConversationTitleServiceTest.kt</small>")
+        users_peakysmokin14_dev_personal_projects_smartp_186c396c("shortTitle_returnedVerbatim()<br/><small>domain/service/ConversationTitleServiceTest.kt</small>")
+        users_peakysmokin14_dev_personal_projects_smartp_d13198b1("unicodeAtBoundary_truncatedAtCharBoundary()<br/><small>domain/service/ConversationTitleServiceTest.kt</small>")
+        users_peakysmokin14_dev_personal_projects_smartp_5905d893("whitespaceOnly_trimsToEmptyAndReturnsEmptyString()<br/><small>domain/service/ConversationTitleServiceTest.kt</small>")
+        users_peakysmokin14_dev_personal_projects_smartp_280f9639("ConversationTitleServiceTest.kt")
     end
-    subgraph tests_fixtures_data_id_UuidIdGeneratorTest_kt_a03a3a47["data/id/UuidIdGeneratorTest.kt"]
-        app_src_test_java_com_smartphoneaichat_data_id_u_c0432fad("FakeIdGeneratorTest<br/><small>data/id/UuidIdGeneratorTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_id_u_6174c25b("UuidIdGeneratorTest<br/><small>data/id/UuidIdGeneratorTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_id_u_1340fd21("generateConversationId_returnsNonNull()<br/><small>data/id/UuidIdGeneratorTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_id_u_85ab0bdb("generateConversationId_returnsUniqueIdsOnSuccessiveCalls()<br/><small>data/id/UuidIdGeneratorTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_id_u_969034c9("generateMessageId_returnsNonNull()<br/><small>data/id/UuidIdGeneratorTest.kt</small>")
-        app_src_test_java_com_smartphoneaichat_data_id_u_fc670128("generateMessageId_returnsUniqueIdsOnSuccessiveCalls()<br/><small>data/id/UuidIdGeneratorTest.kt</small>")
+    subgraph tests_fixtures_plans_personal_health_vault_20_an_2b3805c6["plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md"]
+        plans_personal_health_vault_20_android_verificat_d695e065("20-android-verification-emulator-and-ui...<br/><small>plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small>")
+        plans_personal_health_vault_20_android_verificat_dde70a22("Acceptance criteria<br/><small>plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small>")
+        plans_personal_health_vault_20_android_verificat_f68ecd38("Autonomous development workflow<br/><small>plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small>")
+        plans_personal_health_vault_20_android_verificat_966a5526("Dependencies<br/><small>plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small>")
+        plans_personal_health_vault_20_android_verificat_e663836a("Exit gate<br/><small>plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small>")
+        plans_personal_health_vault_20_android_verificat_57a95bcf("Implementation evidence — 2026-07-19<br/><small>plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small>")
+        plans_personal_health_vault_20_android_verificat_83cce55e("MG-20 — Android Verification, Emulator,...<br/><small>plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small>")
+        plans_personal_health_vault_20_android_verificat_5132e280("Outcome<br/><small>plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small>")
+        plans_personal_health_vault_20_android_verificat_c0d08cf7("Required verification ladder<br/><small>plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small>")
     end
-    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_15981b87
-    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_747097e4
-    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_30b4cea3
-    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_2b485229
-    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_bc4a3d5a
-    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_ef75b777
-    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_36ba4d82
-    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_eb38cae0
-    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_086c3bb9
-    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_6e40475b
-    app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e -->|method| app_src_test_java_com_smartphoneaichat_data_conv_93c74b4c
-    app_src_test_java_com_smartphoneaichat_data_id_u_c0432fad -->|method| app_src_test_java_com_smartphoneaichat_data_id_u_1340fd21
-    app_src_test_java_com_smartphoneaichat_data_id_u_c0432fad -->|method| app_src_test_java_com_smartphoneaichat_data_id_u_85ab0bdb
-    app_src_test_java_com_smartphoneaichat_data_id_u_c0432fad -->|method| app_src_test_java_com_smartphoneaichat_data_id_u_969034c9
-    app_src_test_java_com_smartphoneaichat_data_id_u_c0432fad -->|method| app_src_test_java_com_smartphoneaichat_data_id_u_fc670128
-    %% Omitted for readability: 18 nodes, 0 edges
-    class app_src_test_java_com_smartphoneaichat_data_conv_2e3b770e test;
-    class app_src_test_java_com_smartphoneaichat_data_conv_15981b87 test;
-    class app_src_test_java_com_smartphoneaichat_data_conv_747097e4 test;
-    class app_src_test_java_com_smartphoneaichat_data_conv_30b4cea3 test;
-    class app_src_test_java_com_smartphoneaichat_data_conv_2b485229 test;
-    class app_src_test_java_com_smartphoneaichat_data_conv_bc4a3d5a test;
-    class app_src_test_java_com_smartphoneaichat_data_conv_ef75b777 test;
-    class app_src_test_java_com_smartphoneaichat_data_conv_36ba4d82 test;
-    class app_src_test_java_com_smartphoneaichat_data_conv_eb38cae0 test;
-    class app_src_test_java_com_smartphoneaichat_data_conv_086c3bb9 test;
-    class app_src_test_java_com_smartphoneaichat_data_conv_6e40475b test;
-    class app_src_test_java_com_smartphoneaichat_data_conv_93c74b4c test;
-    class app_src_test_java_com_smartphoneaichat_data_id_u_c0432fad test;
-    class app_src_test_java_com_smartphoneaichat_data_id_u_6174c25b test;
-    class app_src_test_java_com_smartphoneaichat_data_id_u_1340fd21 test;
-    class app_src_test_java_com_smartphoneaichat_data_id_u_85ab0bdb test;
-    class app_src_test_java_com_smartphoneaichat_data_id_u_969034c9 test;
-    class app_src_test_java_com_smartphoneaichat_data_id_u_fc670128 test;
+    users_peakysmokin14_dev_personal_projects_smartp_9d91bfa5 -->|method| users_peakysmokin14_dev_personal_projects_smartp_f4508653
+    users_peakysmokin14_dev_personal_projects_smartp_9d91bfa5 -->|method| users_peakysmokin14_dev_personal_projects_smartp_8e2ae002
+    users_peakysmokin14_dev_personal_projects_smartp_9d91bfa5 -->|method| users_peakysmokin14_dev_personal_projects_smartp_3fb77ad1
+    users_peakysmokin14_dev_personal_projects_smartp_9d91bfa5 -->|method| users_peakysmokin14_dev_personal_projects_smartp_a02af25d
+    users_peakysmokin14_dev_personal_projects_smartp_9d91bfa5 -->|method| users_peakysmokin14_dev_personal_projects_smartp_186c396c
+    users_peakysmokin14_dev_personal_projects_smartp_9d91bfa5 -->|method| users_peakysmokin14_dev_personal_projects_smartp_d13198b1
+    users_peakysmokin14_dev_personal_projects_smartp_9d91bfa5 -->|method| users_peakysmokin14_dev_personal_projects_smartp_5905d893
+    %% Omitted for readability: 4 nodes, 0 edges
+    class users_peakysmokin14_dev_personal_projects_smartp_9d91bfa5 test;
+    class users_peakysmokin14_dev_personal_projects_smartp_f4508653 test;
+    class users_peakysmokin14_dev_personal_projects_smartp_8e2ae002 test;
+    class users_peakysmokin14_dev_personal_projects_smartp_3fb77ad1 test;
+    class users_peakysmokin14_dev_personal_projects_smartp_a02af25d test;
+    class users_peakysmokin14_dev_personal_projects_smartp_186c396c test;
+    class users_peakysmokin14_dev_personal_projects_smartp_d13198b1 test;
+    class users_peakysmokin14_dev_personal_projects_smartp_5905d893 test;
+    class users_peakysmokin14_dev_personal_projects_smartp_280f9639 test;
+    class plans_personal_health_vault_20_android_verificat_d695e065 concept;
+    class plans_personal_health_vault_20_android_verificat_dde70a22 concept;
+    class plans_personal_health_vault_20_android_verificat_f68ecd38 concept;
+    class plans_personal_health_vault_20_android_verificat_966a5526 concept;
+    class plans_personal_health_vault_20_android_verificat_e663836a concept;
+    class plans_personal_health_vault_20_android_verificat_57a95bcf concept;
+    class plans_personal_health_vault_20_android_verificat_83cce55e concept;
+    class plans_personal_health_vault_20_android_verificat_5132e280 concept;
+    class plans_personal_health_vault_20_android_verificat_c0d08cf7 concept;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -1903,110 +1944,14 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
-  <td><code>InMemoryConversationRepositoryTest.kt</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td><span class="tag tag-func">Test</span></td>
+  <td><code>20-android-verification-emulator-and-ui-regression.md</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>Verifies imports, entry points, or version behavior.</td>
+  <td>Documentation node describing 20-android-verification-emulator-and-ui-regression.md.</td>
 </tr>
 <tr>
   <td>2</td>
-  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>delete_nonexistent_doesNotThrow()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small><br><code>delete_removesConversation()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small><br><code>delete_removesFromGetAll()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small><br>+8 more</td>
-  <td>Verifies imports, entry points, or version behavior.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>.getAll_returnsEmptyListWhenNoConversations()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td>No direct outbound edge</td>
-  <td>.getAll_returnsEmptyListWhenNoConversations() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>.getById_returnsNoneWhenNoConversations()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td>No direct outbound edge</td>
-  <td>.getById_returnsNoneWhenNoConversations() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>.saveThenGetAll_returnsSavedConversation()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td>No direct outbound edge</td>
-  <td>.saveThenGetAll_returnsSavedConversation() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>.saveThenGetById_returnsConversation()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td>No direct outbound edge</td>
-  <td>.saveThenGetById_returnsConversation() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>.getById_returnsNullForNonExistentId()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td>No direct outbound edge</td>
-  <td>.getById_returnsNullForNonExistentId() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>.save_overwritesExistingConversation()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td>No direct outbound edge</td>
-  <td>.save_overwritesExistingConversation() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>.delete_removesConversation()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td>No direct outbound edge</td>
-  <td>.delete_removesConversation() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>.delete_removesFromGetAll()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td>No direct outbound edge</td>
-  <td>.delete_removesFromGetAll() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>.delete_nonexistent_doesNotThrow()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td>No direct outbound edge</td>
-  <td>.delete_nonexistent_doesNotThrow() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>.saveMultiple_getAllReturnsAllInInsertionOrder()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td>No direct outbound edge</td>
-  <td>.saveMultiple_getAllReturnsAllInInsertionOrder() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>.saveAndDeleteMultiple_getAllReturnsOnlyRemaining()</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td><code>InMemoryConversationRepositoryTest</code><br><small style="color:var(--muted)">data/conversation/InMemoryConversationRepositoryTest.kt</small></td>
-  <td>No direct outbound edge</td>
-  <td>.saveAndDeleteMultiple_getAllReturnsOnlyRemaining() node in data/conversation/InMemoryConversationRepositoryTest.kt.</td>
-</tr>
-<tr>
-  <td>14</td>
   <td><code>MG-20 — Android Verification, Emulator, and UI-Regression Workflow</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -2014,7 +1959,7 @@ flowchart LR
   <td>Documentation node describing MG-20 — Android Verification, Emulator, and UI-Regression Workflow.</td>
 </tr>
 <tr>
-  <td>15</td>
+  <td>3</td>
   <td><code>Outcome</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -2022,7 +1967,7 @@ flowchart LR
   <td>Documentation node describing Outcome.</td>
 </tr>
 <tr>
-  <td>16</td>
+  <td>4</td>
   <td><code>Dependencies</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -2030,7 +1975,7 @@ flowchart LR
   <td>Documentation node describing Dependencies.</td>
 </tr>
 <tr>
-  <td>17</td>
+  <td>5</td>
   <td><code>Why this exists</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -2038,7 +1983,7 @@ flowchart LR
   <td>Documentation node describing Why this exists.</td>
 </tr>
 <tr>
-  <td>18</td>
+  <td>6</td>
   <td><code>Required verification ladder</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -2046,7 +1991,7 @@ flowchart LR
   <td>Documentation node describing Required verification ladder.</td>
 </tr>
 <tr>
-  <td>19</td>
+  <td>7</td>
   <td><code>Test environment requirements</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -2054,7 +1999,7 @@ flowchart LR
   <td>Documentation node describing Test environment requirements.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>8</td>
   <td><code>Autonomous development workflow</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -2062,7 +2007,7 @@ flowchart LR
   <td>Documentation node describing Autonomous development workflow.</td>
 </tr>
 <tr>
-  <td>21</td>
+  <td>9</td>
   <td><code>Work packages</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -2070,7 +2015,7 @@ flowchart LR
   <td>Documentation node describing Work packages.</td>
 </tr>
 <tr>
-  <td>22</td>
+  <td>10</td>
   <td><code>Tests</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -2078,7 +2023,7 @@ flowchart LR
   <td>Documentation node describing Tests.</td>
 </tr>
 <tr>
-  <td>23</td>
+  <td>11</td>
   <td><code>Acceptance criteria</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -2086,7 +2031,7 @@ flowchart LR
   <td>Documentation node describing Acceptance criteria.</td>
 </tr>
 <tr>
-  <td>24</td>
+  <td>12</td>
   <td><code>Implementation evidence — 2026-07-19</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -2094,7 +2039,7 @@ flowchart LR
   <td>Documentation node describing Implementation evidence — 2026-07-19.</td>
 </tr>
 <tr>
-  <td>25</td>
+  <td>13</td>
   <td><code>Exit gate</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -2102,44 +2047,76 @@ flowchart LR
   <td>Documentation node describing Exit gate.</td>
 </tr>
 <tr>
-  <td>26</td>
-  <td><code>UuidIdGeneratorTest.kt</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td>14</td>
+  <td><code>ConversationTitleServiceTest.kt</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
   <td>Verifies imports, entry points, or version behavior.</td>
 </tr>
 <tr>
-  <td>27</td>
-  <td><code>FakeIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td>15</td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>generateConversationId_returnsNonNull()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small><br><code>generateConversationId_returnsUniqueIdsOnSuccessiveCalls()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small><br><code>generateMessageId_returnsNonNull()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small><br>+1 more</td>
+  <td><code>emptyString_returnsEmptyString()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small><br><code>exactly40Chars_returnedVerbatim()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small><br><code>exceeds40Chars_truncatedWithEllipsis()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small><br>+4 more</td>
   <td>Verifies imports, entry points, or version behavior.</td>
 </tr>
 <tr>
-  <td>28</td>
-  <td><code>.generateMessageId_returnsNonNull()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td>16</td>
+  <td><code>.shortTitle_returnedVerbatim()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
   <td><span class="tag tag-func">Test</span></td>
-  <td><code>FakeIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
   <td>No direct outbound edge</td>
-  <td>.generateMessageId_returnsNonNull() node in data/id/UuidIdGeneratorTest.kt.</td>
+  <td>.shortTitle_returnedVerbatim() node in domain/service/ConversationTitleServiceTest.kt.</td>
 </tr>
 <tr>
-  <td>29</td>
-  <td><code>.generateMessageId_returnsUniqueIdsOnSuccessiveCalls()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td>17</td>
+  <td><code>.exactly40Chars_returnedVerbatim()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
   <td><span class="tag tag-func">Test</span></td>
-  <td><code>FakeIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
   <td>No direct outbound edge</td>
-  <td>.generateMessageId_returnsUniqueIdsOnSuccessiveCalls() node in data/id/UuidIdGeneratorTest.kt.</td>
+  <td>.exactly40Chars_returnedVerbatim() node in domain/service/ConversationTitleServiceTest.kt.</td>
 </tr>
 <tr>
-  <td>30</td>
-  <td><code>.generateConversationId_returnsNonNull()</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td>18</td>
+  <td><code>.exceeds40Chars_truncatedWithEllipsis()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
   <td><span class="tag tag-func">Test</span></td>
-  <td><code>FakeIdGeneratorTest</code><br><small style="color:var(--muted)">data/id/UuidIdGeneratorTest.kt</small></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
   <td>No direct outbound edge</td>
-  <td>.generateConversationId_returnsNonNull() node in data/id/UuidIdGeneratorTest.kt.</td>
+  <td>.exceeds40Chars_truncatedWithEllipsis() node in domain/service/ConversationTitleServiceTest.kt.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>.emptyString_returnsEmptyString()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.emptyString_returnsEmptyString() node in domain/service/ConversationTitleServiceTest.kt.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>.whitespaceOnly_trimsToEmptyAndReturnsEmptyString()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.whitespaceOnly_trimsToEmptyAndReturnsEmptyString() node in domain/service/ConversationTitleServiceTest.kt.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>.leadingAndTrailingWhitespace_trimmed()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.leadingAndTrailingWhitespace_trimmed() node in domain/service/ConversationTitleServiceTest.kt.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>.unicodeAtBoundary_truncatedAtCharBoundary()</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>ConversationTitleServiceTest</code><br><small style="color:var(--muted)">domain/service/ConversationTitleServiceTest.kt</small></td>
+  <td>No direct outbound edge</td>
+  <td>.unicodeAtBoundary_truncatedAtCharBoundary() node in domain/service/ConversationTitleServiceTest.kt.</td>
 </tr>
 </table>
 
@@ -2148,20 +2125,19 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>data/conversation/InMemoryConversationRepositoryTest.kt</code></td><td>13 nodes</td></tr>
-<tr><td><code>plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</code></td><td>12 nodes</td></tr>
-<tr><td><code>data/id/UuidIdGeneratorTest.kt</code></td><td>11 nodes</td></tr>
+      <tr><td><code>plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</code></td><td>13 nodes</td></tr>
+<tr><td><code>domain/service/ConversationTitleServiceTest.kt</code></td><td>9 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: method x19, contains x14. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x13, method x7. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
-<!-- ====== 10. Questions for Owner Review ====== -->
-<h2 id="questions-for-owner-review">10. Questions for Owner Review</h2>
+<!-- ====== 11. Questions for Owner Review ====== -->
+<h2 id="questions-for-owner-review">11. Questions for Owner Review</h2>
 <p>Questions for Owner Review groups implementation around review, vault, health, questionsmd, mostly in plans/personal-health-vault/REVIEW_QUESTIONS.md. This section covers 36 nodes and 35 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2500,8 +2476,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 11. Vision Baseline and Current-State Gap ====== -->
-<h2 id="vision-baseline-and-current-state-gap">11. Vision Baseline and Current-State Gap</h2>
+<!-- ====== 12. Vision Baseline and Current-State Gap ====== -->
+<h2 id="vision-baseline-and-current-state-gap">12. Vision Baseline and Current-State Gap</h2>
 <p>Vision Baseline and Current-State Gap groups implementation around baseline, vision, current, plans, mostly in plans/personal-health-vault/00-vision-baseline-and-current-state.md. This section covers 15 nodes and 14 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2710,8 +2686,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 12. MG-19 — Local-First Data, Optional Cloud, Sync, and Recovery Boundary ====== -->
-<h2 id="mg-19-local-first-data-optional-cloud-sync-and-r">12. MG-19 — Local-First Data, Optional Cloud, Sync, and Recovery Boundary</h2>
+<!-- ====== 13. MG-19 — Local-First Data, Optional Cloud, Sync, and Recovery Boundary ====== -->
+<h2 id="mg-19-local-first-data-optional-cloud-sync-and-r">13. MG-19 — Local-First Data, Optional Cloud, Sync, and Recovery Boundary</h2>
 <p>MG-19 — Local-First Data, Optional Cloud, Sync, and Recovery Boundary groups implementation around data, local, first, sync, mostly in plans/personal-health-vault/19-local-first-data-sync-and-recovery-boundary.md. This section covers 14 nodes and 13 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2909,20 +2885,22 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 13. README.md ====== -->
-<h2 id="readme-md">13. README.md</h2>
-<p>README.md groups implementation around plans, personal, health, vault, mostly in plans/personal-health-vault/TRACEABILITY.md, plans/personal-health-vault/DECISIONS.md, plans/personal-health-vault/UI_DESIGN_PROMPT.md. This section covers 13 nodes and 12 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 14. README.md ====== -->
+<h2 id="readme-md">14. README.md</h2>
+<p>README.md groups implementation around health, plans, personal, vault, mostly in plans/personal-health-vault/REFERENCES.md, plans/personal-health-vault/DECISIONS.md, plans/personal-health-vault/UI_DESIGN_PROMPT.md. This section covers 14 nodes and 13 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: README.md (13 nodes, 12 edges)
-    subgraph readme_md_plans_personal_health_vault_TRACEABILI_e6c12cfb["plans/personal-health-vault/TRACEABILITY.md"]
-        plans_personal_health_vault_traceability_master_6bda6f2a("Master Requirement Traceability<br/><small>plans/personal-health-vault/TRACEABILITY.md</small>")
-        plans_personal_health_vault_traceability_0b486a0e("TRACEABILITY.md")
-        plans_personal_health_vault_traceability_complet_f1c45676("Completion rule<br/><small>plans/personal-health-vault/TRACEABILITY.md</small>")
-        plans_personal_health_vault_traceability_cross_c_e2a318ac("Cross-cutting requirement coverage<br/><small>plans/personal-health-vault/TRACEABILITY.md</small>")
-        plans_personal_health_vault_traceability_current_9fc407b1("Current implementation evidence — 2026-...<br/><small>plans/personal-health-vault/TRACEABILITY.md</small>")
+    %% Section: README.md (14 nodes, 13 edges)
+    subgraph readme_md_plans_personal_health_vault_REFERENCES_317e5e53["plans/personal-health-vault/REFERENCES.md"]
+        plans_personal_health_vault_references_official_cf92ae0d("Official Reference Baseline<br/><small>plans/personal-health-vault/REFERENCES.md</small>")
+        plans_personal_health_vault_references_665173c7("REFERENCES.md")
+        plans_personal_health_vault_references_android_s_96590bb6("Android security and identity<br/><small>plans/personal-health-vault/REFERENCES.md</small>")
+        plans_personal_health_vault_references_emergency_638b7433("Emergency passes<br/><small>plans/personal-health-vault/REFERENCES.md</small>")
+        plans_personal_health_vault_references_health_co_e5af2578("Health Connect and Google Play<br/><small>plans/personal-health-vault/REFERENCES.md</small>")
+        plans_personal_health_vault_references_health_pr_d02d578a("Health privacy and medical-function bou...<br/><small>plans/personal-health-vault/REFERENCES.md</small>")
+        plans_personal_health_vault_references_india_fir_880c2dd7("India-first planning<br/><small>plans/personal-health-vault/REFERENCES.md</small>")
     end
     subgraph readme_md_plans_personal_health_vault_DECISIONS_5a5a1a56["plans/personal-health-vault/DECISIONS.md"]
         plans_personal_health_vault_decisions_1907d385("DECISIONS.md")
@@ -2934,32 +2912,33 @@ flowchart LR
         plans_personal_health_vault_ui_design_prompt_ui_3acf5d0f("UI Design Generation Prompt<br/><small>plans/personal-health-vault/UI_DESIGN_PROMPT.md</small>")
     end
     plans_personal_health_vault_02_architecture_pivo_7228cecb("02-architecture-pivot-and-app-shell.md")
-    plans_personal_health_vault_20_android_verificat_d695e065("20-android-verification-emulator-and-ui...<br/><small>plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small>")
     plans_personal_health_vault_readme_eb40feed("README.md")
     plans_personal_health_vault_02_architecture_pivo_7228cecb -->|references| plans_personal_health_vault_readme_eb40feed
-    plans_personal_health_vault_20_android_verificat_d695e065 -->|references| plans_personal_health_vault_readme_eb40feed
     plans_personal_health_vault_decisions_1907d385 -->|references| plans_personal_health_vault_readme_eb40feed
-    plans_personal_health_vault_readme_eb40feed -->|references| plans_personal_health_vault_traceability_0b486a0e
+    plans_personal_health_vault_readme_eb40feed -->|references| plans_personal_health_vault_references_665173c7
     plans_personal_health_vault_readme_eb40feed -->|references| plans_personal_health_vault_ui_design_prompt_5f35e819
     plans_personal_health_vault_decisions_1907d385 -->|contains| plans_personal_health_vault_decisions_decision_r_7c28e9f9
     plans_personal_health_vault_decisions_decision_r_7c28e9f9 -->|contains| plans_personal_health_vault_decisions_decision_r_cae110de
-    plans_personal_health_vault_traceability_0b486a0e -->|contains| plans_personal_health_vault_traceability_master_6bda6f2a
-    plans_personal_health_vault_traceability_master_6bda6f2a -->|contains| plans_personal_health_vault_traceability_complet_f1c45676
-    plans_personal_health_vault_traceability_master_6bda6f2a -->|contains| plans_personal_health_vault_traceability_cross_c_e2a318ac
-    plans_personal_health_vault_traceability_master_6bda6f2a -->|contains| plans_personal_health_vault_traceability_current_9fc407b1
+    plans_personal_health_vault_references_665173c7 -->|contains| plans_personal_health_vault_references_official_cf92ae0d
+    plans_personal_health_vault_references_official_cf92ae0d -->|contains| plans_personal_health_vault_references_android_s_96590bb6
+    plans_personal_health_vault_references_official_cf92ae0d -->|contains| plans_personal_health_vault_references_emergency_638b7433
+    plans_personal_health_vault_references_official_cf92ae0d -->|contains| plans_personal_health_vault_references_health_co_e5af2578
+    plans_personal_health_vault_references_official_cf92ae0d -->|contains| plans_personal_health_vault_references_health_pr_d02d578a
+    plans_personal_health_vault_references_official_cf92ae0d -->|contains| plans_personal_health_vault_references_india_fir_880c2dd7
     plans_personal_health_vault_ui_design_prompt_5f35e819 -->|contains| plans_personal_health_vault_ui_design_prompt_ui_3acf5d0f
-    class plans_personal_health_vault_traceability_master_6bda6f2a concept;
-    class plans_personal_health_vault_traceability_0b486a0e concept;
-    class plans_personal_health_vault_traceability_complet_f1c45676 concept;
-    class plans_personal_health_vault_traceability_cross_c_e2a318ac concept;
-    class plans_personal_health_vault_traceability_current_9fc407b1 concept;
+    class plans_personal_health_vault_references_official_cf92ae0d concept;
+    class plans_personal_health_vault_references_665173c7 concept;
+    class plans_personal_health_vault_references_android_s_96590bb6 concept;
+    class plans_personal_health_vault_references_emergency_638b7433 concept;
+    class plans_personal_health_vault_references_health_co_e5af2578 concept;
+    class plans_personal_health_vault_references_health_pr_d02d578a concept;
+    class plans_personal_health_vault_references_india_fir_880c2dd7 concept;
     class plans_personal_health_vault_decisions_1907d385 concept;
     class plans_personal_health_vault_decisions_decision_r_7c28e9f9 concept;
     class plans_personal_health_vault_decisions_decision_r_cae110de concept;
     class plans_personal_health_vault_ui_design_prompt_5f35e819 concept;
     class plans_personal_health_vault_ui_design_prompt_ui_3acf5d0f concept;
     class plans_personal_health_vault_02_architecture_pivo_7228cecb concept;
-    class plans_personal_health_vault_20_android_verificat_d695e065 concept;
     class plans_personal_health_vault_readme_eb40feed concept;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
@@ -2992,14 +2971,6 @@ flowchart LR
 </tr>
 <tr>
   <td>2</td>
-  <td><code>20-android-verification-emulator-and-ui-regression.md</code><br><small style="color:var(--muted)">plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 20-android-verification-emulator-and-ui-regression.md.</td>
-</tr>
-<tr>
-  <td>3</td>
   <td><code>DECISIONS.md</code><br><small style="color:var(--muted)">plans/personal-health-vault/DECISIONS.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -3007,7 +2978,7 @@ flowchart LR
   <td>Documentation node describing DECISIONS.md.</td>
 </tr>
 <tr>
-  <td>4</td>
+  <td>3</td>
   <td><code>Decision Register</code><br><small style="color:var(--muted)">plans/personal-health-vault/DECISIONS.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -3015,7 +2986,7 @@ flowchart LR
   <td>Documentation node describing Decision Register.</td>
 </tr>
 <tr>
-  <td>5</td>
+  <td>4</td>
   <td><code>Decision record template</code><br><small style="color:var(--muted)">plans/personal-health-vault/DECISIONS.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -3023,7 +2994,7 @@ flowchart LR
   <td>Documentation node describing Decision record template.</td>
 </tr>
 <tr>
-  <td>6</td>
+  <td>5</td>
   <td><code>README.md</code><br><small style="color:var(--muted)">plans/personal-health-vault/README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -3031,47 +3002,63 @@ flowchart LR
   <td>Documentation node describing README.md.</td>
 </tr>
 <tr>
-  <td>7</td>
-  <td><code>TRACEABILITY.md</code><br><small style="color:var(--muted)">plans/personal-health-vault/TRACEABILITY.md</small></td>
+  <td>6</td>
+  <td><code>REFERENCES.md</code><br><small style="color:var(--muted)">plans/personal-health-vault/REFERENCES.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>Documentation node describing TRACEABILITY.md.</td>
+  <td>Documentation node describing REFERENCES.md.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>Official Reference Baseline</code><br><small style="color:var(--muted)">plans/personal-health-vault/REFERENCES.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Official Reference Baseline.</td>
 </tr>
 <tr>
   <td>8</td>
-  <td><code>Master Requirement Traceability</code><br><small style="color:var(--muted)">plans/personal-health-vault/TRACEABILITY.md</small></td>
+  <td><code>Android security and identity</code><br><small style="color:var(--muted)">plans/personal-health-vault/REFERENCES.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>Documentation node describing Master Requirement Traceability.</td>
+  <td>Documentation node describing Android security and identity.</td>
 </tr>
 <tr>
   <td>9</td>
-  <td><code>Cross-cutting requirement coverage</code><br><small style="color:var(--muted)">plans/personal-health-vault/TRACEABILITY.md</small></td>
+  <td><code>Health Connect and Google Play</code><br><small style="color:var(--muted)">plans/personal-health-vault/REFERENCES.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>Documentation node describing Cross-cutting requirement coverage.</td>
+  <td>Documentation node describing Health Connect and Google Play.</td>
 </tr>
 <tr>
   <td>10</td>
-  <td><code>Completion rule</code><br><small style="color:var(--muted)">plans/personal-health-vault/TRACEABILITY.md</small></td>
+  <td><code>Emergency passes</code><br><small style="color:var(--muted)">plans/personal-health-vault/REFERENCES.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>Documentation node describing Completion rule.</td>
+  <td>Documentation node describing Emergency passes.</td>
 </tr>
 <tr>
   <td>11</td>
-  <td><code>Current implementation evidence — 2026-07-20</code><br><small style="color:var(--muted)">plans/personal-health-vault/TRACEABILITY.md</small></td>
+  <td><code>Health privacy and medical-function boundaries</code><br><small style="color:var(--muted)">plans/personal-health-vault/REFERENCES.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>Documentation node describing Current implementation evidence — 2026-07-20.</td>
+  <td>Documentation node describing Health privacy and medical-function boundaries.</td>
 </tr>
 <tr>
   <td>12</td>
+  <td><code>India-first planning</code><br><small style="color:var(--muted)">plans/personal-health-vault/REFERENCES.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing India-first planning.</td>
+</tr>
+<tr>
+  <td>13</td>
   <td><code>UI_DESIGN_PROMPT.md</code><br><small style="color:var(--muted)">plans/personal-health-vault/UI_DESIGN_PROMPT.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -3079,7 +3066,7 @@ flowchart LR
   <td>Documentation node describing UI_DESIGN_PROMPT.md.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>14</td>
   <td><code>UI Design Generation Prompt</code><br><small style="color:var(--muted)">plans/personal-health-vault/UI_DESIGN_PROMPT.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -3093,23 +3080,22 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>plans/personal-health-vault/TRACEABILITY.md</code></td><td>5 nodes</td></tr>
+      <tr><td><code>plans/personal-health-vault/REFERENCES.md</code></td><td>7 nodes</td></tr>
 <tr><td><code>plans/personal-health-vault/DECISIONS.md</code></td><td>3 nodes</td></tr>
 <tr><td><code>plans/personal-health-vault/UI_DESIGN_PROMPT.md</code></td><td>2 nodes</td></tr>
 <tr><td><code>plans/personal-health-vault/02-architecture-pivot-and-app-shell.md</code></td><td>1 nodes</td></tr>
-<tr><td><code>plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md</code></td><td>1 nodes</td></tr>
 <tr><td><code>plans/personal-health-vault/README.md</code></td><td>1 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x7, references x5. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x9, references x4. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
-<!-- ====== 14. MG-01 — Product, Safety, Privacy, and Regulatory Baseline ====== -->
-<h2 id="mg-01-product-safety-privacy-and-regulatory-base">14. MG-01 — Product, Safety, Privacy, and Regulatory Baseline</h2>
+<!-- ====== 15. MG-01 — Product, Safety, Privacy, and Regulatory Baseline ====== -->
+<h2 id="mg-01-product-safety-privacy-and-regulatory-base">15. MG-01 — Product, Safety, Privacy, and Regulatory Baseline</h2>
 <p>MG-01 — Product, Safety, Privacy, and Regulatory Baseline groups implementation around product, safety, regulatory, plans, mostly in plans/personal-health-vault/01-product-safety-and-regulatory-baseline.md. This section covers 11 nodes and 10 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -3274,46 +3260,53 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 15. MG-02 — Architecture Pivot and Modular Application Shell ====== -->
-<h2 id="mg-02-architecture-pivot-and-modular-application">15. MG-02 — Architecture Pivot and Modular Application Shell</h2>
-<p>MG-02 — Architecture Pivot and Modular Application Shell groups implementation around architecture, pivot, plans, personal, mostly in plans/personal-health-vault/02-architecture-pivot-and-app-shell.md. This section covers 11 nodes and 10 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 16. Other ====== -->
+<h2 id="other">16. Other</h2>
+<p>Other groups implementation around health, vault, personal, plans, mostly in plans/personal-health-vault/02-architecture-pivot-and-app-shell.md, plans/personal-health-vault/04-encrypted-persistence-and-recovery.md, plans/personal-health-vault/09-reports-document-timeline-and-ocr.md. This section covers 285 nodes and 211 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: MG-02 — Architecture Pivot and Modular Application Shell (11 nodes, 10 edges)
+    %% Section: Other (285 nodes, 211 edges)
+    subgraph other_External_generated_9e8859fa["External / generated"]
+        users_peakysmokin14_dev_personal_projects_smartp_06d40714("Boolean")
+        users_peakysmokin14_dev_personal_projects_smartp_32702752("Boolean")
+        users_peakysmokin14_dev_personal_projects_smartp_9cdcc5d4("Boolean")
+        users_peakysmokin14_dev_personal_projects_smartp_c83eecbb("Boolean")
+        users_peakysmokin14_dev_personal_projects_smartp_9e450605("Boolean")
+        users_peakysmokin14_dev_personal_projects_smartp_6909edb3("Class")
+        users_peakysmokin14_dev_personal_projects_smartp_00e48850("File")
+        users_peakysmokin14_dev_personal_projects_smartp_1bd7c52d("List")
+        users_peakysmokin14_dev_personal_projects_smartp_54a33c75("List")
+        users_peakysmokin14_dev_personal_projects_smartp_bb7f654b("List")
+        users_peakysmokin14_dev_personal_projects_smartp_13edc926("List")
+        users_peakysmokin14_dev_personal_projects_smartp_65dc09b9("List")
+    end
     plans_personal_health_vault_02_architecture_pivo_82000323("MG-02 — Architecture Pivot and Modular...<br/><small>plans/personal-health-vault/02-architecture-pivot-and-app-shell.md</small>")
-    plans_personal_health_vault_02_architecture_pivo_b43fa2a6("Acceptance criteria<br/><small>plans/personal-health-vault/02-architecture-pivot-and-app-shell.md</small>")
-    plans_personal_health_vault_02_architecture_pivo_4f30b5cb("Dependencies<br/><small>plans/personal-health-vault/02-architecture-pivot-and-app-shell.md</small>")
-    plans_personal_health_vault_02_architecture_pivo_e275cd71("Exit gate<br/><small>plans/personal-health-vault/02-architecture-pivot-and-app-shell.md</small>")
-    plans_personal_health_vault_02_architecture_pivo_a42485fa("Implementation evidence — 2026-07-19<br/><small>plans/personal-health-vault/02-architecture-pivot-and-app-shell.md</small>")
-    plans_personal_health_vault_02_architecture_pivo_0237587a("Migration notes<br/><small>plans/personal-health-vault/02-architecture-pivot-and-app-shell.md</small>")
-    plans_personal_health_vault_02_architecture_pivo_008097e7("Outcome<br/><small>plans/personal-health-vault/02-architecture-pivot-and-app-shell.md</small>")
-    plans_personal_health_vault_02_architecture_pivo_8d090f2d("Scope<br/><small>plans/personal-health-vault/02-architecture-pivot-and-app-shell.md</small>")
-    plans_personal_health_vault_02_architecture_pivo_1a0088d7("Target boundaries<br/><small>plans/personal-health-vault/02-architecture-pivot-and-app-shell.md</small>")
-    plans_personal_health_vault_02_architecture_pivo_aaeb4475("Tests<br/><small>plans/personal-health-vault/02-architecture-pivot-and-app-shell.md</small>")
-    plans_personal_health_vault_02_architecture_pivo_3124ce96("Work packages<br/><small>plans/personal-health-vault/02-architecture-pivot-and-app-shell.md</small>")
-    plans_personal_health_vault_02_architecture_pivo_82000323 -->|contains| plans_personal_health_vault_02_architecture_pivo_b43fa2a6
-    plans_personal_health_vault_02_architecture_pivo_82000323 -->|contains| plans_personal_health_vault_02_architecture_pivo_4f30b5cb
-    plans_personal_health_vault_02_architecture_pivo_82000323 -->|contains| plans_personal_health_vault_02_architecture_pivo_e275cd71
-    plans_personal_health_vault_02_architecture_pivo_82000323 -->|contains| plans_personal_health_vault_02_architecture_pivo_a42485fa
-    plans_personal_health_vault_02_architecture_pivo_82000323 -->|contains| plans_personal_health_vault_02_architecture_pivo_0237587a
-    plans_personal_health_vault_02_architecture_pivo_82000323 -->|contains| plans_personal_health_vault_02_architecture_pivo_008097e7
-    plans_personal_health_vault_02_architecture_pivo_82000323 -->|contains| plans_personal_health_vault_02_architecture_pivo_8d090f2d
-    plans_personal_health_vault_02_architecture_pivo_82000323 -->|contains| plans_personal_health_vault_02_architecture_pivo_1a0088d7
-    plans_personal_health_vault_02_architecture_pivo_82000323 -->|contains| plans_personal_health_vault_02_architecture_pivo_aaeb4475
-    plans_personal_health_vault_02_architecture_pivo_82000323 -->|contains| plans_personal_health_vault_02_architecture_pivo_3124ce96
+    plans_personal_health_vault_04_encrypted_persist_5c40985f("MG-04 — Encrypted Persistence, File Vau...<br/><small>plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small>")
+    plans_personal_health_vault_06_navigation_home_a_e8fc3f0c("MG-06 — Navigation, Home Dashboard, and...<br/><small>plans/personal-health-vault/06-navigation-home-and-design-system.md</small>")
+    plans_personal_health_vault_07_emergency_card_an_8ca02af0("MG-07 — Emergency Card and External Eme...<br/><small>plans/personal-health-vault/07-emergency-card-and-external-access.md</small>")
+    plans_personal_health_vault_09_reports_document_6c037e74("MG-09 — Medical Reports, Document Timel...<br/><small>plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small>")
+    plans_personal_health_vault_16_ai_assistance_and_d11c0390("MG-16 — AI Assistance, Grounding, and C...<br/><small>plans/personal-health-vault/16-ai-assistance-and-clinical-safety.md</small>")
+    %% Omitted for readability: 267 nodes, 0 edges
+    class users_peakysmokin14_dev_personal_projects_smartp_06d40714 klass;
+    class users_peakysmokin14_dev_personal_projects_smartp_32702752 klass;
+    class users_peakysmokin14_dev_personal_projects_smartp_9cdcc5d4 klass;
+    class users_peakysmokin14_dev_personal_projects_smartp_c83eecbb klass;
+    class users_peakysmokin14_dev_personal_projects_smartp_9e450605 klass;
+    class users_peakysmokin14_dev_personal_projects_smartp_6909edb3 klass;
+    class users_peakysmokin14_dev_personal_projects_smartp_00e48850 klass;
+    class users_peakysmokin14_dev_personal_projects_smartp_1bd7c52d klass;
+    class users_peakysmokin14_dev_personal_projects_smartp_54a33c75 klass;
+    class users_peakysmokin14_dev_personal_projects_smartp_bb7f654b klass;
+    class users_peakysmokin14_dev_personal_projects_smartp_13edc926 klass;
+    class users_peakysmokin14_dev_personal_projects_smartp_65dc09b9 klass;
     class plans_personal_health_vault_02_architecture_pivo_82000323 concept;
-    class plans_personal_health_vault_02_architecture_pivo_b43fa2a6 concept;
-    class plans_personal_health_vault_02_architecture_pivo_4f30b5cb concept;
-    class plans_personal_health_vault_02_architecture_pivo_e275cd71 concept;
-    class plans_personal_health_vault_02_architecture_pivo_a42485fa concept;
-    class plans_personal_health_vault_02_architecture_pivo_0237587a concept;
-    class plans_personal_health_vault_02_architecture_pivo_008097e7 concept;
-    class plans_personal_health_vault_02_architecture_pivo_8d090f2d concept;
-    class plans_personal_health_vault_02_architecture_pivo_1a0088d7 concept;
-    class plans_personal_health_vault_02_architecture_pivo_aaeb4475 concept;
-    class plans_personal_health_vault_02_architecture_pivo_3124ce96 concept;
+    class plans_personal_health_vault_04_encrypted_persist_5c40985f concept;
+    class plans_personal_health_vault_06_navigation_home_a_e8fc3f0c concept;
+    class plans_personal_health_vault_07_emergency_card_an_8ca02af0 concept;
+    class plans_personal_health_vault_09_reports_document_6c037e74 concept;
+    class plans_personal_health_vault_16_ai_assistance_and_d11c0390 concept;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -3423,6 +3416,158 @@ flowchart LR
   <td>No direct outbound edge</td>
   <td>Documentation node describing Exit gate.</td>
 </tr>
+<tr>
+  <td>12</td>
+  <td><code>04-encrypted-persistence-and-recovery.md</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 04-encrypted-persistence-and-recovery.md.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>MG-04 — Encrypted Persistence, File Vault, Backup, and Recovery</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing MG-04 — Encrypted Persistence, File Vault, Backup, and Recovery.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>Outcome</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Outcome.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>Dependencies</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Dependencies.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>Scope</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Scope.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>Core schema conventions</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Core schema conventions.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>File-vault rules</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing File-vault rules.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>Work packages</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Work packages.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Tests</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Tests.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>Acceptance criteria</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Acceptance criteria.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>Exit gate</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Exit gate.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>09-reports-document-timeline-and-ocr.md</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 09-reports-document-timeline-and-ocr.md.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>MG-09 — Medical Reports, Document Timeline, and OCR</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing MG-09 — Medical Reports, Document Timeline, and OCR.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>Outcome</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Outcome.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>Dependencies</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Dependencies.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>Domain model</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Domain model.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>Ingestion paths</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Ingestion paths.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>Work packages</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Work packages.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>Safety and privacy rules</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Safety and privacy rules.</td>
+</tr>
 </table>
 
 <div class="grid">
@@ -3431,401 +3576,40 @@ flowchart LR
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>plans/personal-health-vault/02-architecture-pivot-and-app-shell.md</code></td><td>11 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x10. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 16. Other ====== -->
-<h2 id="other">16. Other</h2>
-<p>Other groups implementation around health, vault, personal, plans, mostly in plans/personal-health-vault/04-encrypted-persistence-and-recovery.md, plans/personal-health-vault/09-reports-document-timeline-and-ocr.md, plans/personal-health-vault/16-ai-assistance-and-clinical-safety.md. This section covers 272 nodes and 203 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: Other (272 nodes, 203 edges)
-    subgraph other_External_generated_9e8859fa["External / generated"]
-        users_peakysmokin14_dev_personal_projects_smartp_06d40714("Boolean")
-        users_peakysmokin14_dev_personal_projects_smartp_32702752("Boolean")
-        users_peakysmokin14_dev_personal_projects_smartp_9cdcc5d4("Boolean")
-        users_peakysmokin14_dev_personal_projects_smartp_c83eecbb("Boolean")
-        users_peakysmokin14_dev_personal_projects_smartp_9e450605("Boolean")
-        users_peakysmokin14_dev_personal_projects_smartp_6909edb3("Class")
-        users_peakysmokin14_dev_personal_projects_smartp_00e48850("File")
-        users_peakysmokin14_dev_personal_projects_smartp_1bd7c52d("List")
-        users_peakysmokin14_dev_personal_projects_smartp_54a33c75("List")
-        users_peakysmokin14_dev_personal_projects_smartp_bb7f654b("List")
-        users_peakysmokin14_dev_personal_projects_smartp_13edc926("List")
-        users_peakysmokin14_dev_personal_projects_smartp_65dc09b9("List")
-    end
-    plans_personal_health_vault_04_encrypted_persist_5c40985f("MG-04 — Encrypted Persistence, File Vau...<br/><small>plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small>")
-    plans_personal_health_vault_06_navigation_home_a_e8fc3f0c("MG-06 — Navigation, Home Dashboard, and...<br/><small>plans/personal-health-vault/06-navigation-home-and-design-system.md</small>")
-    plans_personal_health_vault_07_emergency_card_an_8ca02af0("MG-07 — Emergency Card and External Eme...<br/><small>plans/personal-health-vault/07-emergency-card-and-external-access.md</small>")
-    plans_personal_health_vault_08_medications_presc_8e3f0f75("MG-08 — Medication, Prescription, and P...<br/><small>plans/personal-health-vault/08-medications-prescriptions-and-providers.md</small>")
-    plans_personal_health_vault_09_reports_document_6c037e74("MG-09 — Medical Reports, Document Timel...<br/><small>plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small>")
-    plans_personal_health_vault_16_ai_assistance_and_d11c0390("MG-16 — AI Assistance, Grounding, and C...<br/><small>plans/personal-health-vault/16-ai-assistance-and-clinical-safety.md</small>")
-    %% Omitted for readability: 254 nodes, 0 edges
-    class users_peakysmokin14_dev_personal_projects_smartp_06d40714 klass;
-    class users_peakysmokin14_dev_personal_projects_smartp_32702752 klass;
-    class users_peakysmokin14_dev_personal_projects_smartp_9cdcc5d4 klass;
-    class users_peakysmokin14_dev_personal_projects_smartp_c83eecbb klass;
-    class users_peakysmokin14_dev_personal_projects_smartp_9e450605 klass;
-    class users_peakysmokin14_dev_personal_projects_smartp_6909edb3 klass;
-    class users_peakysmokin14_dev_personal_projects_smartp_00e48850 klass;
-    class users_peakysmokin14_dev_personal_projects_smartp_1bd7c52d klass;
-    class users_peakysmokin14_dev_personal_projects_smartp_54a33c75 klass;
-    class users_peakysmokin14_dev_personal_projects_smartp_bb7f654b klass;
-    class users_peakysmokin14_dev_personal_projects_smartp_13edc926 klass;
-    class users_peakysmokin14_dev_personal_projects_smartp_65dc09b9 klass;
-    class plans_personal_health_vault_04_encrypted_persist_5c40985f concept;
-    class plans_personal_health_vault_06_navigation_home_a_e8fc3f0c concept;
-    class plans_personal_health_vault_07_emergency_card_an_8ca02af0 concept;
-    class plans_personal_health_vault_08_medications_presc_8e3f0f75 concept;
-    class plans_personal_health_vault_09_reports_document_6c037e74 concept;
-    class plans_personal_health_vault_16_ai_assistance_and_d11c0390 concept;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>04-encrypted-persistence-and-recovery.md</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 04-encrypted-persistence-and-recovery.md.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>MG-04 — Encrypted Persistence, File Vault, Backup, and Recovery</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing MG-04 — Encrypted Persistence, File Vault, Backup, and Recovery.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>Outcome</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Outcome.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>Dependencies</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Dependencies.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>Scope</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Scope.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>Core schema conventions</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Core schema conventions.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>File-vault rules</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing File-vault rules.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>Work packages</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Work packages.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>Tests</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Tests.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>Acceptance criteria</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Acceptance criteria.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>Exit gate</code><br><small style="color:var(--muted)">plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Exit gate.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>09-reports-document-timeline-and-ocr.md</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 09-reports-document-timeline-and-ocr.md.</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>MG-09 — Medical Reports, Document Timeline, and OCR</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing MG-09 — Medical Reports, Document Timeline, and OCR.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>Outcome</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Outcome.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>Dependencies</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Dependencies.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>Domain model</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Domain model.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>Ingestion paths</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Ingestion paths.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>Work packages</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Work packages.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>Safety and privacy rules</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Safety and privacy rules.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>Tests</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Tests.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>Acceptance criteria</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Acceptance criteria.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>Exit gate</code><br><small style="color:var(--muted)">plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Exit gate.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>16-ai-assistance-and-clinical-safety.md</code><br><small style="color:var(--muted)">plans/personal-health-vault/16-ai-assistance-and-clinical-safety.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 16-ai-assistance-and-clinical-safety.md.</td>
-</tr>
-<tr>
-  <td>24</td>
-  <td><code>MG-16 — AI Assistance, Grounding, and Clinical Safety</code><br><small style="color:var(--muted)">plans/personal-health-vault/16-ai-assistance-and-clinical-safety.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing MG-16 — AI Assistance, Grounding, and Clinical Safety.</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td><code>Outcome</code><br><small style="color:var(--muted)">plans/personal-health-vault/16-ai-assistance-and-clinical-safety.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Outcome.</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td><code>Dependencies</code><br><small style="color:var(--muted)">plans/personal-health-vault/16-ai-assistance-and-clinical-safety.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Dependencies.</td>
-</tr>
-<tr>
-  <td>27</td>
-  <td><code>Capability boundaries</code><br><small style="color:var(--muted)">plans/personal-health-vault/16-ai-assistance-and-clinical-safety.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Capability boundaries.</td>
-</tr>
-<tr>
-  <td>28</td>
-  <td><code>AI architecture</code><br><small style="color:var(--muted)">plans/personal-health-vault/16-ai-assistance-and-clinical-safety.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing AI architecture.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>Model lifecycle</code><br><small style="color:var(--muted)">plans/personal-health-vault/16-ai-assistance-and-clinical-safety.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Model lifecycle.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>Work packages</code><br><small style="color:var(--muted)">plans/personal-health-vault/16-ai-assistance-and-clinical-safety.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Work packages.</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</code></td><td>11 nodes</td></tr>
+<tr><td><code>plans/personal-health-vault/04-encrypted-persistence-and-recovery.md</code></td><td>11 nodes</td></tr>
 <tr><td><code>plans/personal-health-vault/09-reports-document-timeline-and-ocr.md</code></td><td>11 nodes</td></tr>
 <tr><td><code>plans/personal-health-vault/16-ai-assistance-and-clinical-safety.md</code></td><td>11 nodes</td></tr>
 <tr><td><code>plans/personal-health-vault/06-navigation-home-and-design-system.md</code></td><td>10 nodes</td></tr>
 <tr><td><code>plans/personal-health-vault/07-emergency-card-and-external-access.md</code></td><td>10 nodes</td></tr>
 <tr><td><code>plans/personal-health-vault/08-medications-prescriptions-and-providers.md</code></td><td>10 nodes</td></tr>
 <tr><td><code>plans/personal-health-vault/10-vitals-allergies-immunizations-and-trends.md</code></td><td>10 nodes</td></tr>
-<tr><td><code>plans/personal-health-vault/11-symptoms-mood-appointments-and-visit-prep.md</code></td><td>10 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x203. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x211. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
-<h2 id="hyperedges">Group Relationships (Hyperedges)</h2>
-<div class="grid">
-
-  <div class="card">
-    <h4>Clean Architecture Layer Dependencies</h4>
-    <p><code>participate_in</code> — 4 participants</p>
-    <ul>
-      <li><code>chatui_state</code></li>
-      <li><code>chat_viewmodel</code></li>
-      <li><code>isp_interfaces</code></li>
-      <li><code>litert_inference_engine</code></li>
-    </ul>
-  </div>
-  <div class="card">
-    <h4>Six Migration Phases from Monolith to Clean Architecture</h4>
-    <p><code>participate_in</code> — 6 participants</p>
-    <ul>
-      <li><code>phase0_id_generator_value_objects</code></li>
-      <li><code>phase1_package_structure_interfaces</code></li>
-      <li><code>phase2_conversation_encapsulation</code></li>
-      <li><code>phase3_use_cases</code></li>
-      <li><code>phase4_dependency_injection</code></li>
-      <li>... and 1 more</li>
-    </ul>
-  </div>
-  <div class="card">
-    <h4>ISP Interface Triad (InferenceEngine, ModelFileManager, ConversationRepository)</h4>
-    <p><code>participate_in</code> — 3 participants</p>
-    <ul>
-      <li><code>inference_engine</code></li>
-      <li><code>model_file_manager</code></li>
-      <li><code>conversation_repository</code></li>
-    </ul>
-  </div>
-</div>
-<hr>
 <h2 id="stats">Project Statistics</h2>
 
 <div class="grid">
   <div class="card">
     <h4>Graph</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>Nodes</td><td>1575</td></tr>
-      <tr><td>Edges</td><td>2264</td></tr>
-      <tr><td>Hyperedges</td><td>3</td></tr>
-      <tr><td>Communities</td><td>156</td></tr>
+      <tr><td>Nodes</td><td>1468</td></tr>
+      <tr><td>Edges</td><td>2137</td></tr>
+      <tr><td>Hyperedges</td><td>0</td></tr>
+      <tr><td>Communities</td><td>164</td></tr>
       <tr><td>Documented Sections</td><td>15</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Edge Confidence</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>EXTRACTED</td><td>1967</td></tr>
-      <tr><td>INFERRED</td><td>297</td></tr>
+      <tr><td>EXTRACTED</td><td>1915</td></tr>
+      <tr><td>INFERRED</td><td>222</td></tr>
       <tr><td>AMBIGUOUS</td><td>0</td></tr>
     </table>
   </div>
@@ -3833,7 +3617,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>main — Architecture Documentation</p>
-  <p>Generated: 2026-07-20 18:29 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-07-25 14:26 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->

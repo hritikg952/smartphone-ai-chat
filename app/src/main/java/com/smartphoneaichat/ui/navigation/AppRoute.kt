@@ -11,8 +11,12 @@ enum class AppRoute(
     Onboarding("onboarding", "Onboarding", false),
     Unlock("unlock", "Unlock", false),
     Home("home", "Home", true),
+    Records("records", "Records", true),
+    Add("add", "Add", true),
+    Insights("insights", "Insights", true),
+    Profile("profile", "Profile", true),
     Profiles("profiles", "Profiles", true),
-    Emergency("emergency", "Emergency", true),
+    Emergency("emergency", "Emergency", false),
     Medications("medications", "Medications", true),
     Reports("reports", "Reports", true),
     Vitals("vitals", "Vitals", true),
@@ -26,6 +30,7 @@ enum class AppRoute(
 
     companion object {
         val protectedRoutes: List<AppRoute> = entries.filter { it.requiresUnlockedVault }
+        val primaryRoutes = listOf(Home, Records, Add, Insights, Profile)
 
         fun fromPath(path: String?): AppRoute? = entries.singleOrNull { it.path == path }
     }

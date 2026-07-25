@@ -8,6 +8,14 @@ Allow one vault owner to manage their own and authorized dependents’ records w
 
 MG-01, MG-03, MG-04; decision D-009.
 
+## Current prototype status — 2026-07-25
+
+The self-profile foundation is implemented: first-run initialization, authorized
+session context, scoped in-memory prototype repositories, consent/audit
+contracts, and switch invalidation seams exist. D-009 keeps dependents,
+guardianship evidence, and multi-profile switching deferred; the unchecked
+acceptance criteria remain the release-level completion definition.
+
 ## Domain model
 
 - `Profile`: ID, display name, relationship, date of birth/date precision, optional demographic fields, avatar reference, status.
@@ -48,4 +56,3 @@ Roles/capabilities must be explicit: vault owner, self profile, caregiver editor
 ## Exit gate
 
 No feature may use unscoped repository methods or global cached health state.
-

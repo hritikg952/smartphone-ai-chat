@@ -9,11 +9,11 @@
     <string name="onboarding_private_body">Health records remain on this device during the private prototype.</string>
     <string name="onboarding_control_title">You stay in control</string>
     <string name="onboarding_control_body">Review information before it becomes part of your vault.</string>
-    <string name="onboarding_prototype_notice">Private prototype: secure vault encryption is still being built. Use test data for now.</string>
+    <string name="onboarding_prototype_notice">Private prototype: records are encrypted locally. Recovery, rotation, and biometric access are not available.</string>
     <string name="onboarding_get_started">Get started</string>
     <string name="onboarding_footer">English only · Stored on this device</string>
     <string name="credentials_title">Set up local access</string>
-    <string name="credentials_subtitle">Choose prototype access details. Secure credential protection will be added with the vault security work.</string>
+    <string name="credentials_subtitle">Choose local access details for this encrypted prototype vault.</string>
     <string name="credentials_username">Username</string>
     <string name="credentials_password">Password</string>
     <string name="credentials_recovery_warning">Recovery and key rotation are unavailable in this prototype. If you lose your password, this vault cannot be recovered.</string>

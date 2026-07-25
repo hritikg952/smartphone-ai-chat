@@ -154,5 +154,13 @@
   "152": "Color.kt",
   "153": "Type.kt",
   "154": "build.gradle.kts",
-  "155": "settings.gradle.kts"
+  "155": "settings.gradle.kts",
+  "156": "ChatViewModel God Class",
+  "157": "ChatUiState Data Class",
+  "158": "CI/CD Release Pipeline",
+  "159": "HuggingFace Model Download Pipeline",
+  "160": "LiteRT-LM On-Device LLM Runtime",
+  "161": "MVVM with ChatViewModel and ChatUiState",
+  "162": "SharedFlow-based AppNotificationManager",
+  "163": "StateFlow/MutableStateFlow State Management"
 }

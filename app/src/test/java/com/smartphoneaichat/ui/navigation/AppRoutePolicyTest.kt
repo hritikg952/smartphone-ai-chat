@@ -7,6 +7,30 @@ import org.junit.jupiter.api.Test
 class AppRoutePolicyTest {
 
     @Test
+    fun primaryRoutesExposeTheHealthVaultInformationArchitecture() {
+        assertEquals(
+            listOf(
+                AppRoute.Home,
+                AppRoute.Records,
+                AppRoute.Add,
+                AppRoute.Insights,
+                AppRoute.Profile,
+            ),
+            AppRoute.primaryRoutes,
+        )
+    }
+
+    @Test
+    fun lockedSessionCanReachPublicEmergencyPlaceholderWithoutUnlockingVault() {
+        val lockedSession = AppSessionState(
+            hasCompletedOnboarding = true,
+            isVaultUnlocked = false,
+        )
+
+        assertEquals(AppRoute.Emergency, AppRoutePolicy.resolve(AppRoute.Emergency, lockedSession))
+    }
+
+    @Test
     fun lockedSessionRedirectsEveryProtectedRouteToUnlock() {
         val lockedSession = AppSessionState(
             hasCompletedOnboarding = true,

@@ -2,7 +2,7 @@
 
 **Status:** Implementation-ready planning baseline; MG-01 governance review deferred
 
-**Repository snapshot:** 2026-07-19 on `codex/health-vault-mg-01-baseline`
+**Repository snapshot:** 2026-07-25; MG-02 through MG-06 prototype work is implemented.
 
 **Product scope:** English-only self-profile, private local-only prototype; no enforced minimum age
 
@@ -60,8 +60,8 @@ journey is still an AI chat/scanner prototype, not a health vault.
 | Area | Current implementation | Evidence | Health-vault implication |
 |---|---|---|---|
 | Application identity | Package/application ID `com.smartphoneaichat`; visible label “AI Chat” | [`app/build.gradle.kts`](../../app/build.gradle.kts), [`strings.xml`](../../app/src/main/res/values/strings.xml) | Rename visible identity in MG-02; package decision remains D-002 |
-| App shell | One `MainActivity`, Compose `NavHost`, bottom navigation | [`MainActivity.kt`](../../app/src/main/java/com/smartphoneaichat/MainActivity.kt) | Retain single-activity Compose approach; replace destinations/session model |
-| Routes | Chat, Scanner, and placeholder Medicine Data | [`Screen.kt`](../../app/src/main/java/com/smartphoneaichat/ui/navigation/Screen.kt) | These are legacy routes, not the approved vault information architecture |
+| App shell | One `MainActivity`, Compose `NavHost`, guarded `VaultShell`, adaptive bottom navigation/rail | [`PersonalHealthVaultApp.kt`](../../app/src/main/java/com/smartphoneaichat/ui/app/PersonalHealthVaultApp.kt) | Retain the single-activity Compose approach; feature destinations stay typed and lock-safe. |
+| Routes | Home, Records, Add, Insights, and Profile are primary; remaining health routes are safe placeholders | [`AppRoute.kt`](../../app/src/main/java/com/smartphoneaichat/ui/navigation/AppRoute.kt) | Legacy Chat/Scanner/Medicine Data routes are not part of the active vault information architecture. |
 | Dependency composition | Application-owned lazy `AppContainer`; manual factories | [`App.kt`](../../app/src/main/java/com/smartphoneaichat/App.kt), [`AppContainer.kt`](../../app/src/main/java/com/smartphoneaichat/di/AppContainer.kt) | Retain constructor injection; define explicit lifetimes and feature boundaries |
 | Presentation state | `ChatViewModel` owns conversations, models, downloads, attachments, dialogs, and notifications | [`ChatViewModel.kt`](../../app/src/main/java/com/smartphoneaichat/presentation/viewmodel/ChatViewModel.kt) | Do not turn it into an app-wide vault ViewModel; isolate behind legacy boundary |
 | Persistence | Conversations use `InMemoryConversationRepository` | [`InMemoryConversationRepository.kt`](../../app/src/main/java/com/smartphoneaichat/data/conversation/InMemoryConversationRepository.kt) | No durable structured health storage exists |
