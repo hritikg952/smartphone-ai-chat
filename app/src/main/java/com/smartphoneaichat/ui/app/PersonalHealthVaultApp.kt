@@ -8,23 +8,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.smartphoneaichat.R
-import com.smartphoneaichat.presentation.onboarding.OnboardingStep
-import com.smartphoneaichat.presentation.onboarding.OnboardingUiState
-import com.smartphoneaichat.presentation.session.AppSessionState
-import com.smartphoneaichat.presentation.security.VaultAccessError
-import com.smartphoneaichat.presentation.security.VaultAccessUiState
-import com.smartphoneaichat.ui.screens.OnboardingScreen
-import com.smartphoneaichat.ui.screens.CredentialsSetupScreen
-import com.smartphoneaichat.ui.screens.UnlockScreen
-import com.smartphoneaichat.ui.screens.HomeScreen
-import com.smartphoneaichat.ui.screens.FeaturePlaceholderScreen
-import com.smartphoneaichat.ui.navigation.AppRoute
-import com.smartphoneaichat.ui.navigation.AppRoutePolicy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.smartphoneaichat.R
+import com.smartphoneaichat.presentation.onboarding.OnboardingStep
+import com.smartphoneaichat.presentation.onboarding.OnboardingUiState
+import com.smartphoneaichat.presentation.security.VaultAccessError
+import com.smartphoneaichat.presentation.security.VaultAccessUiState
+import com.smartphoneaichat.presentation.session.AppSessionState
+import com.smartphoneaichat.ui.navigation.AppRoute
+import com.smartphoneaichat.ui.navigation.AppRoutePolicy
+import com.smartphoneaichat.ui.screens.CredentialsSetupScreen
+import com.smartphoneaichat.ui.screens.HomeScreen
+import com.smartphoneaichat.ui.screens.OnboardingScreen
+import com.smartphoneaichat.ui.screens.UnlockScreen
+import com.smartphoneaichat.ui.screens.VaultDestinationScreen
 import com.smartphoneaichat.ui.theme.DarkBackground
 import com.smartphoneaichat.ui.theme.SmartphoneAIChatTheme
 
@@ -41,6 +41,7 @@ fun PersonalHealthVaultApp(
     onUsernameChanged: (String) -> Unit = {},
     onPasswordChanged: (String) -> Unit = {},
     onCompleteOnboarding: () -> Unit = {},
+    selectedProfileLabel: String = "Self profile",
 ) {
     SmartphoneAIChatTheme {
         val navController = rememberNavController()
@@ -50,6 +51,19 @@ fun PersonalHealthVaultApp(
         val currentEntry by navController.currentBackStackEntryAsState()
         val currentRoute = AppRoute.fromPath(currentEntry?.destination?.route)
         val accessError = vaultAccessState.error.toMessage()
+        val navigateSafely: (AppRoute) -> Unit = { requestedRoute ->
+            val safeRoute = AppRoutePolicy.resolve(requestedRoute, sessionState)
+            navController.navigate(safeRoute.path) {
+                if (safeRoute in AppRoute.primaryRoutes) {
+                    popUpTo(AppRoute.Home.path) {
+                        inclusive = false
+                        saveState = true
+                    }
+                    restoreState = true
+                }
+                launchSingleTop = true
+            }
+        }
 
         LaunchedEffect(sessionState, currentRoute) {
             val safeRoute = AppRoutePolicy.resolve(currentRoute, sessionState)
@@ -61,58 +75,60 @@ fun PersonalHealthVaultApp(
             }
         }
 
-        Surface(
-            modifier = modifier.fillMaxSize(),
-            color = DarkBackground,
-        ) {
-            NavHost(
-                navController = navController,
-                startDestination = startRoute.path,
-            ) {
-                composable(AppRoute.Onboarding.path) {
-                    when (onboardingState.step) {
-                        OnboardingStep.Welcome -> OnboardingScreen(onGetStarted = onGetStarted)
-                        OnboardingStep.Credentials -> CredentialsSetupScreen(
-                            username = vaultAccessState.username,
-                            password = vaultAccessState.password,
-                            canComplete = vaultAccessState.canSubmit,
-                            errorMessage = accessError,
-                            onUsernameChanged = onUsernameChanged,
-                            onPasswordChanged = onPasswordChanged,
-                            onComplete = onCompleteOnboarding,
-                        )
-                    }
-                }
-                composable(AppRoute.Unlock.path) {
-                    UnlockScreen(
-                        username = vaultAccessState.username,
-                        password = vaultAccessState.password,
-                        canUnlock = vaultAccessState.canSubmit,
-                        errorMessage = accessError,
-                        onUsernameChanged = onUsernameChanged,
-                        onPasswordChanged = onPasswordChanged,
-                        onUnlock = onUnlock,
-                    )
-                }
-                composable(AppRoute.Home.path) {
-                    HomeScreen(
-                        onNavigate = { requestedRoute ->
-                            val safeRoute = AppRoutePolicy.resolve(requestedRoute, sessionState)
-                            navController.navigate(safeRoute.path) { launchSingleTop = true }
-                        },
-                        onLock = onLock,
-                    )
-                }
-                AppRoute.protectedRoutes
-                    .filterNot { it == AppRoute.Home }
-                    .forEach { route ->
-                        composable(route.path) {
-                            FeaturePlaceholderScreen(
-                                route = route,
-                                onBack = navController::popBackStack,
+        Surface(modifier = modifier.fillMaxSize(), color = DarkBackground) {
+            val destinations: @Composable (Modifier) -> Unit = { contentModifier ->
+                NavHost(
+                    navController = navController,
+                    startDestination = startRoute.path,
+                    modifier = contentModifier,
+                ) {
+                    composable(AppRoute.Onboarding.path) {
+                        when (onboardingState.step) {
+                            OnboardingStep.Welcome -> OnboardingScreen(onGetStarted = onGetStarted)
+                            OnboardingStep.Credentials -> CredentialsSetupScreen(
+                                username = vaultAccessState.username,
+                                password = vaultAccessState.password,
+                                canComplete = vaultAccessState.canSubmit,
+                                errorMessage = accessError,
+                                onUsernameChanged = onUsernameChanged,
+                                onPasswordChanged = onPasswordChanged,
+                                onComplete = onCompleteOnboarding,
                             )
                         }
                     }
+                    composable(AppRoute.Unlock.path) {
+                        UnlockScreen(
+                            username = vaultAccessState.username,
+                            password = vaultAccessState.password,
+                            canUnlock = vaultAccessState.canSubmit,
+                            errorMessage = accessError,
+                            onUsernameChanged = onUsernameChanged,
+                            onPasswordChanged = onPasswordChanged,
+                            onUnlock = onUnlock,
+                        )
+                    }
+                    composable(AppRoute.Home.path) { HomeScreen(onNavigate = navigateSafely) }
+                    composable(AppRoute.Emergency.path) {
+                        VaultDestinationScreen(AppRoute.Emergency)
+                    }
+                    AppRoute.protectedRoutes.filterNot { it == AppRoute.Home }.forEach { route ->
+                        composable(route.path) {
+                            VaultDestinationScreen(route, onNavigate = navigateSafely)
+                        }
+                    }
+                }
+            }
+
+            if (currentRoute?.requiresUnlockedVault == true && sessionState.isVaultUnlocked) {
+                VaultShell(
+                    currentRoute = requireNotNull(currentRoute),
+                    profileLabel = selectedProfileLabel,
+                    onNavigate = navigateSafely,
+                    onLock = onLock,
+                    content = destinations,
+                )
+            } else {
+                destinations(Modifier)
             }
         }
     }

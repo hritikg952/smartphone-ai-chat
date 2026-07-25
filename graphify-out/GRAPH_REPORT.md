@@ -1,16 +1,16 @@
-# Graph Report - main  (2026-07-20)
+# Graph Report - main  (2026-07-25)
 
 ## Corpus Check
-- 157 files · ~58,427 words
+- 171 files · ~61,904 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1575 nodes · 2264 edges · 156 communities (100 shown, 56 thin omitted)
-- Extraction: 87% EXTRACTED · 13% INFERRED · 0% AMBIGUOUS · INFERRED: 297 edges (avg confidence: 0.8)
+- 1468 nodes · 2137 edges · 164 communities (99 shown, 65 thin omitted)
+- Extraction: 90% EXTRACTED · 10% INFERRED · 0% AMBIGUOUS · INFERRED: 222 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c04f1203`
+- Built from commit: `f08231b3`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -34,6 +34,10 @@
 - [[_COMMUNITY_Download Model Tests|Download Model Tests]]
 - [[_COMMUNITY_Conversation Title Service|Conversation Title Service]]
 - [[_COMMUNITY_OpenCode Plugin Config|OpenCode Plugin Config]]
+- [[_COMMUNITY_Color Theme|Color Theme]]
+- [[_COMMUNITY_Typography|Typography]]
+- [[_COMMUNITY_App Build Config|App Build Config]]
+- [[_COMMUNITY_Settings Config|Settings Config]]
 - [[_COMMUNITY_Questions for Owner Review|Questions for Owner Review]]
 - [[_COMMUNITY_ScannerViewModel|ScannerViewModel]]
 - [[_COMMUNITY_MG-03 vault lifecycle and credential behavior|MG-03 vault lifecycle and credential behavior]]
@@ -161,196 +165,203 @@
 - [[_COMMUNITY_Boolean|Boolean]]
 - [[_COMMUNITY_Modifier|Modifier]]
 - [[_COMMUNITY_String|String]]
+- [[_COMMUNITY_ChatViewModel God Class|ChatViewModel God Class]]
+- [[_COMMUNITY_ChatUiState Data Class|ChatUiState Data Class]]
+- [[_COMMUNITY_CICD Release Pipeline|CI/CD Release Pipeline]]
+- [[_COMMUNITY_HuggingFace Model Download Pipeline|HuggingFace Model Download Pipeline]]
+- [[_COMMUNITY_LiteRT-LM On-Device LLM Runtime|LiteRT-LM On-Device LLM Runtime]]
+- [[_COMMUNITY_MVVM with ChatViewModel and ChatUiState|MVVM with ChatViewModel and ChatUiState]]
+- [[_COMMUNITY_SharedFlow-based AppNotificationManager|SharedFlow-based AppNotificationManager]]
+- [[_COMMUNITY_StateFlowMutableStateFlow State Management|StateFlow/MutableStateFlow State Management]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `MessageText` - 49 edges
-2. `MessageText` - 45 edges
-3. `Message` - 33 edges
-4. `ChatViewModel` - 32 edges
-5. `ConversationId` - 29 edges
-6. `AppSessionState` - 24 edges
-7. `SendMessageUseCaseTest` - 24 edges
-8. `DefaultVaultSession` - 23 edges
-9. `MessageId` - 21 edges
-10. `PersonalHealthVaultApp()` - 21 edges
+1. `AuthorizedSessionContext` - 54 edges
+2. `MessageText` - 50 edges
+3. `ChatViewModel` - 30 edges
+4. `AppSessionState` - 24 edges
+5. `SendMessageUseCaseTest` - 24 edges
+6. `DefaultVaultSession` - 23 edges
+7. `PersonalHealthVaultApp()` - 22 edges
+8. `ConversationTest` - 19 edges
+9. `ChatViewModelTest` - 18 edges
+10. `Message` - 17 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Architecture HTML Document` --semantically_similar_to--> `Architecture Markdown Document`  [INFERRED] [semantically similar]
-  ARCHITECTURE.html → ARCHITECTURE.md
-- `create()` --references--> `ConversationId Inline Value Class`  [EXTRACTED]
-  app/src/main/java/com/smartphoneaichat/domain/model/Conversation.kt → ARCHITECTURE.md
 - `PersonalHealthVaultApp()` --calls--> `SmartphoneAIChatTheme()`  [INFERRED]
   app/src/main/java/com/smartphoneaichat/ui/app/PersonalHealthVaultApp.kt → app/src/main/java/com/smartphoneaichat/ui/theme/Theme.kt
-- `Agent Guide` --references--> `CI/CD Release Pipeline`  [EXTRACTED]
-  AGENTS.md → .github/workflows/release.yml
-- `Architecture Markdown Document` --references--> `HuggingFace Model Download Pipeline`  [EXTRACTED]
-  ARCHITECTURE.md → AGENTS.md
+- `PersonalHealthVaultApp()` --calls--> `VaultShell()`  [INFERRED]
+  app/src/main/java/com/smartphoneaichat/ui/app/PersonalHealthVaultApp.kt → app/src/main/java/com/smartphoneaichat/ui/app/VaultShell.kt
+- `PersonalHealthVaultApp()` --calls--> `CredentialsSetupScreen()`  [INFERRED]
+  app/src/main/java/com/smartphoneaichat/ui/app/PersonalHealthVaultApp.kt → app/src/main/java/com/smartphoneaichat/ui/screens/CredentialsSetupScreen.kt
+- `PersonalHealthVaultApp()` --calls--> `HomeScreen()`  [INFERRED]
+  app/src/main/java/com/smartphoneaichat/ui/app/PersonalHealthVaultApp.kt → app/src/main/java/com/smartphoneaichat/ui/screens/HomeScreen.kt
+- `PersonalHealthVaultApp()` --calls--> `OnboardingScreen()`  [INFERRED]
+  app/src/main/java/com/smartphoneaichat/ui/app/PersonalHealthVaultApp.kt → app/src/main/java/com/smartphoneaichat/ui/screens/OnboardingScreen.kt
 
 ## Import Cycles
 - None detected.
 
-## Hyperedges (group relationships)
-- **Clean Architecture Layer Dependencies** — chatui_state, chat_viewmodel, isp_interfaces, litert_inference_engine [INFERRED 0.85]
-- **Six Migration Phases from Monolith to Clean Architecture** — phase0_id_generator_value_objects, phase1_package_structure_interfaces, phase2_conversation_encapsulation, phase3_use_cases, phase4_dependency_injection, phase5_conversation_repository [EXTRACTED 1.00]
-- **ISP Interface Triad (InferenceEngine, ModelFileManager, ConversationRepository)** — inference_engine, model_file_manager, conversation_repository [EXTRACTED 1.00]
-
-## Communities (156 total, 56 thin omitted)
+## Communities (164 total, 65 thin omitted)
 
 ### Community 0 - "Message Sending & Streaming"
-Cohesion: 0.15
-Nodes (4): MessageText, ConversationTitleService, MessageTextTest, ConversationTitleServiceTest
+Cohesion: 0.13
+Nodes (8): HealthVaultAppContainer, AuditRepository, ConsentRepository, Boolean, Int, List, Long, String
 
 ### Community 1 - "Conversation Repository"
-Cohesion: 0.15
-Nodes (4): InMemoryConversationRepository, Conversation, create(), ConversationRepository
-
-### Community 2 - "Architecture Docs & Design Rationale"
-Cohesion: 0.06
-Nodes (49): Agent Guide, Architecture HTML Document, Architecture Markdown Document, ChatViewModel God Class, ChatViewModelFactory, ChatUiState Data Class, Clean Architecture Refactoring, Code Review Issues (+41 more)
+Cohesion: 0.17
+Nodes (9): AuthorizedSessionContext, Boolean, String, ProfileCapability, ProfileRole, FailingHealthRecordRepository, List, String (+1 more)
 
 ### Community 3 - "Model File Management"
-Cohesion: 0.09
-Nodes (6): HuggingFaceModelFileManager, ModelInfo, ModelFileManager, DownloadModelUseCaseTest, LoadModelUseCaseTest, Engine
+Cohesion: 0.18
+Nodes (6): InMemoryProfileRepository, Boolean, DateOfBirthPrecision, Profile, ProfileStatus, ProfileRepository
+
+### Community 4 - "Download & Load Use Cases"
+Cohesion: 0.20
+Nodes (6): InMemoryAuditRepository, InMemoryConsentRepository, Long, String, ConsentService, ConsentAndAuditTest
 
 ### Community 5 - "App Entry & Engine Init"
-Cohesion: 0.06
-Nodes (20): AppContainer, ChatViewModelFactory, Class, T, ScannerViewModelFactory, MainActivity, Boolean, Class (+12 more)
+Cohesion: 0.11
+Nodes (12): MainActivity, Boolean, Class, StateFlow, String, T, VaultAccessError, VaultAccessUiState (+4 more)
 
 ### Community 6 - "Notifications & Chat Input"
-Cohesion: 0.06
-Nodes (31): AppNotificationEvent, AppNotificationManager, Error, Success, ChatBubble(), ChatInput(), Int, Modifier (+23 more)
+Cohesion: 0.08
+Nodes (22): ChatInput(), Int, Modifier, ThumbnailPlaceholder(), ActionChip(), ChatScreen(), Boolean, String (+14 more)
 
 ### Community 7 - "ViewModel & State Flow"
-Cohesion: 0.05
-Nodes (11): modelInfoById(), ChatViewModel, StateFlow, String, Job, HuggingFaceModelFileManager, ModelInfo, modelInfoById() (+3 more)
-
-### Community 8 - "Message Model & Attachments"
-Cohesion: 0.07
-Nodes (3): Message, ConversationTest, ConversationTest
+Cohesion: 0.09
+Nodes (5): Engine, HuggingFaceModelFileManager, ModelFileManager, DownloadModelUseCaseTest, LoadModelUseCaseTest
 
 ### Community 9 - "ID Generation"
-Cohesion: 0.17
-Nodes (3): UuidIdGenerator, IdGenerator, FakeIdGenerator
+Cohesion: 0.21
+Nodes (10): AuditEvent, AuditEventType, AuditOutcome, ConsentDataCategory, ConsentPurpose, ConsentRecipient, Boolean, Long (+2 more)
 
 ### Community 10 - "Project Docs & CI/CD"
 Cohesion: 0.06
-Nodes (35): AesGcmVaultCipher, ByteArray, CharArray, String, AlreadyExists, Encrypted, InvalidCiphertext, InvalidCredentials (+27 more)
+Nodes (33): AesGcmVaultCipher, ByteArray, AlreadyExists, Encrypted, InvalidCiphertext, InvalidCredentials, KeyInvalidated, Locked (+25 more)
 
-### Community 13 - "UI State Tests"
-Cohesion: 0.19
-Nodes (3): ChatUiState, ChatUiStateTest, ChatUiStateTest
+### Community 11 - "Repository Tests"
+Cohesion: 0.21
+Nodes (5): ProfileStateInvalidator, StateFlow, ProfileSessionCoordinator, String, ProfileSessionCoordinatorTest
 
 ### Community 14 - "UI Components"
-Cohesion: 0.05
-Nodes (24): DefaultVaultSession, ByteArray, StateFlow, T, DefaultAppSessionStore, hasVaultEnvelope(), Boolean, StateFlow (+16 more)
+Cohesion: 0.06
+Nodes (20): DefaultVaultSession, ByteArray, StateFlow, T, DefaultAppSessionStore, hasVaultEnvelope(), Boolean, StateFlow (+12 more)
 
 ### Community 15 - "Load Model Tests"
-Cohesion: 0.07
-Nodes (27): App, ByteArray, String, VaultStorageCoordinator, Boolean, ByteArray, PrototypeVaultBackupPolicy, HealthVaultAppContainer (+19 more)
+Cohesion: 0.17
+Nodes (13): Boolean, ByteArray, PrototypeVaultBackupPolicy, Disabled, Exported, InvalidBackup, Boolean, ByteArray (+5 more)
 
 ### Community 16 - "Download Model Tests"
-Cohesion: 0.09
-Nodes (5): File, SendMessageUseCaseTest, MessageText, MessageTextTest, ConversationTitleServiceTest
+Cohesion: 0.16
+Nodes (3): File, SendMessageUseCaseTest, MessageText
 
 ### Community 17 - "Conversation Title Service"
-Cohesion: 0.12
-Nodes (23): Path, replaceFile(), b64(), decode(), decodePayload(), DocumentIndexEntry, encode(), Boolean (+15 more)
+Cohesion: 0.08
+Nodes (30): Path, replaceFile(), b64(), decode(), decodePayload(), DocumentIndexEntry, encode(), Boolean (+22 more)
+
+### Community 18 - "OpenCode Plugin Config"
+Cohesion: 0.25
+Nodes (5): Int, List, ConsentReceipt, Boolean, Long
+
+### Community 20 - "Color Theme"
+Cohesion: 0.43
+Nodes (3): DefaultVaultKeyManager, CharArray, String
+
+### Community 21 - "Typography"
+Cohesion: 0.33
+Nodes (4): HealthRecordRepository, Int, List, String
+
+### Community 22 - "App Build Config"
+Cohesion: 0.43
+Nodes (4): DefaultSelfProfileInitializer, Long, String, SelfProfileInitializer
 
 ### Community 24 - "Questions for Owner Review"
 Cohesion: 0.06
 Nodes (35): Q-001: What is the initial intended use?, Q-002: Who is the first target user?, Q-003: Where will the first public version launch?, Q-004: What should the application be called?, Q-005: Should the MVP be local-only?, Q-006: How should users recover a vault?, Q-007: What should unlock the vault?, Q-008: Should Android system backup be disabled initially? (+27 more)
 
 ### Community 25 - "ScannerViewModel"
-Cohesion: 0.08
-Nodes (14): AndroidViewModel, CaptureStatus, ScannerUiState, Bitmap, Boolean, File, StateFlow, String (+6 more)
+Cohesion: 0.06
+Nodes (19): AndroidViewModel, Class, T, ScannerViewModelFactory, CaptureStatus, ScannerUiState, Bitmap, Boolean (+11 more)
 
 ### Community 26 - "MG-03 vault lifecycle and credential behavior"
 Cohesion: 0.08
 Nodes (25): App data cleared from Android settings, App killed by the OS, App uninstall and reinstall on the same phone, App update, Backgrounding or switching away, Creating credentials, Credential behavior, Current access model (+17 more)
 
 ### Community 27 - ".createProvisionedFixture"
-Cohesion: 0.17
-Nodes (9): DefaultVaultKeyManager, DefaultVaultKeyManagerTest, FixedRandomBytes, Boolean, ByteArray, Int, ProvisionedFixture, RecordingKeyEnvelopeCipher (+1 more)
+Cohesion: 0.22
+Nodes (7): DefaultVaultKeyManagerTest, FixedRandomBytes, Boolean, ByteArray, Int, ProvisionedFixture, RecordingKeyEnvelopeCipher
 
 ### Community 28 - "EncryptedHealthRecordRepository"
-Cohesion: 0.22
-Nodes (10): b64(), decode(), EncryptedHealthRecordRepository, Boolean, Int, List, Path, String (+2 more)
+Cohesion: 0.20
+Nodes (9): b64(), decode(), Boolean, Int, List, String, StoredHealthRecord, unb64() (+1 more)
 
 ### Community 29 - "Personal Health Vault — Agent Guide"
 Cohesion: 0.10
 Nodes (18): Architecture and Key Ownership, Message and Inference Flow, Model Lifecycle, Overview, Personal Health Vault — Agent Guide, Personal Health Vault wrap-up, Project Setup, State, Conversations, and Notifications (+10 more)
 
 ### Community 30 - "MessageId"
-Cohesion: 0.14
-Nodes (4): MessageId, MessageIdTest, Parcelable, MessageIdTest
+Cohesion: 0.33
+Nodes (3): MessageId, Parcelable, MessageIdTest
 
 ### Community 32 - "Pbkdf2AuthenticationGateway"
 Cohesion: 0.19
 Nodes (11): Boolean, ByteArray, CharArray, Int, String, Pbkdf2AuthenticationGateway, AuthenticationGateway, Boolean (+3 more)
 
 ### Community 33 - "HealthRecordRepository.kt"
-Cohesion: 0.21
-Nodes (11): Deleted, HealthRecordDeleteResult, HealthRecordRepository, HealthRecordSaveResult, Int, List, String, Locked (+3 more)
+Cohesion: 0.39
+Nodes (7): Deleted, HealthRecordDeleteResult, HealthRecordSaveResult, Locked, NotFound, Saved, Unavailable
 
 ### Community 34 - "FakeInferenceEngine"
-Cohesion: 0.20
-Nodes (5): SendMessageUseCase, FakeInferenceEngine, ByteArray, Flow, String
+Cohesion: 0.15
+Nodes (7): Flow, String, SendMessageUseCase, FakeInferenceEngine, ByteArray, Flow, String
 
 ### Community 35 - "FailingHealthRecordRepository"
-Cohesion: 0.19
-Nodes (8): FailingHealthRecordRepository, IncrementingRandomBytes, ByteArray, Int, List, Path, String, VaultStorageCoordinatorTest
+Cohesion: 0.13
+Nodes (14): ByteArray, String, VaultStorageCoordinator, Imported, Locked, TooLarge, Unavailable, UnsupportedType (+6 more)
 
 ### Community 36 - "Vision Baseline and Current-State Gap"
 Cohesion: 0.13
 Nodes (15): Approved prototype boundary, Assets worth retaining, Baseline completion record, Components to isolate, replace, or remove, Current repository baseline, Explicit non-goals, Gap and ownership matrix, Migration invariants (+7 more)
 
 ### Community 37 - "AppSessionState"
-Cohesion: 0.31
-Nodes (4): PersonalHealthVaultAppTest, AppSessionState, Modifier, PersonalHealthVaultApp()
-
-### Community 38 - "ConversationId"
-Cohesion: 0.23
-Nodes (3): ConversationId, ConversationIdTest, ConversationIdTest
+Cohesion: 0.24
+Nodes (6): PersonalHealthVaultAppTest, AppSessionState, Modifier, String, PersonalHealthVaultApp(), toMessage()
 
 ### Community 39 - ".createCipher"
 Cohesion: 0.20
-Nodes (8): EncryptedHealthRecordRepositoryTest, IncrementingRandomBytes, Boolean, ByteArray, Int, Path, String, Long
-
-### Community 40 - "ConversationId Inline Value Class"
-Cohesion: 0.23
-Nodes (3): ConversationId Inline Value Class, InMemoryConversationRepository, ConversationRepository
+Nodes (10): EncryptedHealthRecordRepository, Path, EncryptedHealthRecordRepositoryTest, IncrementingRandomBytes, Boolean, ByteArray, Int, Long (+2 more)
 
 ### Community 41 - "IdGenerator"
 Cohesion: 0.16
-Nodes (4): MessageId Inline Value Class, UuidIdGenerator, IdGenerator, FakeIdGenerator
+Nodes (3): UuidIdGenerator, IdGenerator, FakeIdGenerator
 
 ### Community 42 - "MG-19 — Local-First Data, Optional Cloud, Sync, and Recovery Boundary"
 Cohesion: 0.14
 Nodes (13): Acceptance criteria, AI/RAG data requirements, Android-to-web mental model, Dependencies, Exit gate, Future service options, MG-19 — Local-First Data, Optional Cloud, Sync, and Recovery Boundary, Outcome (+5 more)
 
 ### Community 43 - "StoredKeyEnvelope"
-Cohesion: 0.24
-Nodes (7): ByteArray, ByteArray, StoredKeyEnvelope, VaultKeyEnvelopeCipher, VaultKeyEnvelopeUnavailableException, VaultWrappingKeyInvalidatedException, Exception
+Cohesion: 0.29
+Nodes (6): ByteArray, StoredKeyEnvelope, VaultKeyEnvelopeCipher, VaultKeyEnvelopeUnavailableException, VaultWrappingKeyInvalidatedException, Exception
 
 ### Community 44 - "README.md"
-Cohesion: 0.15
-Nodes (7): Decision record template, Decision Register, Completion rule, Cross-cutting requirement coverage, Current implementation evidence — 2026-07-20, Master Requirement Traceability, UI Design Generation Prompt
+Cohesion: 0.14
+Nodes (9): Decision record template, Decision Register, Android security and identity, Emergency passes, Health Connect and Google Play, Health privacy and medical-function boundaries, India-first planning, Official Reference Baseline (+1 more)
 
 ### Community 46 - "HealthRecord"
-Cohesion: 0.23
-Nodes (6): Any, HealthRecord, HealthRecordProvenance, HealthRecordWrite, Boolean, Int
+Cohesion: 0.22
+Nodes (5): Any, HealthRecordProvenance, HealthRecordWrite, Boolean, Int
 
 ### Community 47 - "StoredVault"
-Cohesion: 0.24
-Nodes (3): SharedPreferencesVaultSecurityStorage, StoredVault, VaultSecurityStorage
+Cohesion: 0.23
+Nodes (4): SharedPreferencesVaultSecurityStorage, StoredVault, VaultSecurityStorage, TestVaultSecurityStorage
 
 ### Community 48 - "MG-20 — Android Verification, Emulator, and UI-Regression Workflow"
-Cohesion: 0.17
+Cohesion: 0.15
 Nodes (12): Acceptance criteria, Autonomous development workflow, Dependencies, Exit gate, Implementation evidence — 2026-07-19, MG-20 — Android Verification, Emulator, and UI-Regression Workflow, Outcome, Required verification ladder (+4 more)
 
 ### Community 49 - "InferenceEngine"
-Cohesion: 0.24
-Nodes (6): InferenceEngine, Boolean, ByteArray, Flow, String, AppContainer
+Cohesion: 0.31
+Nodes (5): InferenceEngine, Boolean, ByteArray, Flow, String
 
 ### Community 50 - "Global Constraints"
 Cohesion: 0.18
@@ -377,8 +388,8 @@ Cohesion: 0.18
 Nodes (10): Acceptance criteria, AI architecture, Capability boundaries, Dependencies, Exit gate, MG-16 — AI Assistance, Grounding, and Clinical Safety, Model lifecycle, Outcome (+2 more)
 
 ### Community 57 - "AndroidKeystoreVaultKeyEnvelopeCipher"
-Cohesion: 0.31
-Nodes (4): AndroidKeystoreVaultKeyEnvelopeCipher, Boolean, KeyStore, SecretKey
+Cohesion: 0.26
+Nodes (5): AndroidKeystoreVaultKeyEnvelopeCipher, Boolean, ByteArray, KeyStore, SecretKey
 
 ### Community 58 - "OnboardingViewModel"
 Cohesion: 0.22
@@ -449,8 +460,8 @@ Cohesion: 0.25
 Nodes (5): AndroidSecureRandomBytes, ByteArray, Int, Int, RandomBytes
 
 ### Community 76 - ".invoke"
-Cohesion: 0.29
-Nodes (3): Attachment, Flow, String
+Cohesion: 0.15
+Nodes (4): Attachment, ChatViewModel, StateFlow, Job
 
 ### Community 77 - "Figma Design Context and Plan Alignment"
 Cohesion: 0.25
@@ -458,15 +469,15 @@ Nodes (7): Confirmed visual direction, Design-system handoff to Compose, Figma D
 
 ### Community 78 - "Personal Health Vault — Master Implementation Planning Set"
 Cohesion: 0.25
-Nodes (8): Current implementation status — 2026-07-20, Delivery sequence, How to use each plan later, Legacy ticket disposition, Mini-goal index, Non-negotiable product principles, Personal Health Vault — Master Implementation Planning Set, Supporting control documents
+Nodes (8): Current implementation status — 2026-07-25, Delivery sequence, How to use each plan later, Legacy ticket disposition, Mini-goal index, Non-negotiable product principles, Personal Health Vault — Master Implementation Planning Set, Supporting control documents
 
 ### Community 79 - "Conversation"
-Cohesion: 0.43
-Nodes (3): ChatRole, Conversation, create()
+Cohesion: 0.21
+Nodes (8): ChatRole, ConversationItem(), Boolean, List, Modifier, SidebarContent(), Conversation, create()
 
 ### Community 80 - "FeaturePlaceholderScreen"
-Cohesion: 0.33
-Nodes (4): AppRoute, AppRoutePolicy, FeaturePlaceholderScreen(), Modifier
+Cohesion: 0.19
+Nodes (12): String, VaultContent(), VaultNavigationBar(), VaultNavigationRail(), VaultShell(), VaultTopAppBar(), AppRoute, AppRoutePolicy (+4 more)
 
 ### Community 81 - "MG-04 encrypted persistence lifecycle"
 Cohesion: 0.29
@@ -484,13 +495,9 @@ Nodes (7): Evidence record, Exercise requirement, Incident-Response Runbook, Res
 Cohesion: 0.29
 Nodes (7): Authoritative references checked 2026-07-19, Counsel and reviewer sign-off record, Distribution baseline, Google Play evidence map, India review checklist, Sign-off statement, Store Compliance and Reviewer Sign-off
 
-### Community 85 - "Official Reference Baseline"
-Cohesion: 0.29
-Nodes (6): Android security and identity, Emergency passes, Health Connect and Google Play, Health privacy and medical-function boundaries, India-first planning, Official Reference Baseline
-
 ### Community 86 - "SidebarContent"
 Cohesion: 0.40
-Nodes (5): ConversationItem(), Boolean, List, Modifier, SidebarContent()
+Nodes (3): App, Application, AppContainer
 
 ### Community 87 - "CredentialsSetupScreen"
 Cohesion: 0.40
@@ -556,10 +563,22 @@ Nodes (5): Data Processing Inventory, External processor register, Field-level i
 Cohesion: 0.50
 Nodes (3): BottomNavigationBar(), Modifier, NavController
 
+### Community 109 - "DownloadModelUseCase"
+Cohesion: 0.40
+Nodes (4): Completion rule, Cross-cutting requirement coverage, Current implementation evidence — 2026-07-20, Master Requirement Traceability
+
+### Community 112 - "HomeScreen"
+Cohesion: 0.33
+Nodes (10): Empty, Error, HomeScreen(), HomeSection(), HomeSectionState, HomeUiState, Modifier, String (+2 more)
+
+### Community 114 - "DownloadModelUseCase"
+Cohesion: 0.23
+Nodes (4): String, ModelInfo, modelInfoById(), DownloadModelUseCase
+
 ## Knowledge Gaps
-- **369 isolated node(s):** `HealthRecordProvenance`, `ChatRole`, `OnboardingStep`, `CaptureStatus`, `1. Collect evidence` (+364 more)
+- **369 isolated node(s):** `AuditEventType`, `AuditOutcome`, `HealthRecordProvenance`, `ChatRole`, `ProfileStatus` (+364 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **56 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **65 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Work-memory lessons
 
@@ -569,17 +588,17 @@ Nodes (3): BottomNavigationBar(), Modifier, NavController
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `HealthVaultAppContainer` connect `Load Model Tests` to `Conversation Title Service`, `Project Docs & CI/CD`, `UI Components`, `HealthRecordRepository.kt`?**
-  _High betweenness centrality (0.129) - this node is a cross-community bridge._
-- **Why does `PersonalHealthVaultApp()` connect `AppSessionState` to `UnlockScreen`, `App Entry & Engine Init`, `toMessage`, `FeaturePlaceholderScreen`, `HomeScreen`, `SmartphoneAIChatTheme`, `CredentialsSetupScreen`, `OnboardingBenefit`, `OnboardingViewModel`?**
-  _High betweenness centrality (0.116) - this node is a cross-community bridge._
-- **Why does `AppContainer` connect `InferenceEngine` to `ConversationId Inline Value Class`, `IdGenerator`, `ViewModel & State Flow`, `Load Model Tests`?**
-  _High betweenness centrality (0.110) - this node is a cross-community bridge._
+- **Why does `HealthVaultAppContainer` connect `Message Sending & Streaming` to `Model File Management`, `FailingHealthRecordRepository`, `Project Docs & CI/CD`, `UI Components`, `Load Model Tests`, `Conversation Title Service`, `Typography`, `SidebarContent`, `App Build Config`?**
+  _High betweenness centrality (0.183) - this node is a cross-community bridge._
+- **Why does `App` connect `SidebarContent` to `Message Sending & Streaming`?**
+  _High betweenness centrality (0.143) - this node is a cross-community bridge._
+- **Why does `AppContainer` connect `SidebarContent` to `ConversationId Inline Value Class`, `InferenceEngine`, `ViewModel & State Flow`, `IdGenerator`?**
+  _High betweenness centrality (0.143) - this node is a cross-community bridge._
+- **Are the 2 inferred relationships involving `AuthorizedSessionContext` (e.g. with `.performAccess()` and `.context_allowsOnlyDeclaredCapabilitiesForItsSelectedProfile()`) actually correct?**
+  _`AuthorizedSessionContext` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 47 inferred relationships involving `MessageText` (e.g. with `.attachImage()` and `.receiveCapturedImage()`) actually correct?**
   _`MessageText` has 47 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 42 inferred relationships involving `MessageText` (e.g. with `.attachImage()` and `.sendMessage()`) actually correct?**
-  _`MessageText` has 42 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 28 inferred relationships involving `Message` (e.g. with `.invoke()` and `.attachImage()`) actually correct?**
-  _`Message` has 28 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 2 inferred relationships involving `ChatViewModel` (e.g. with `.create()` and `.create()`) actually correct?**
-  _`ChatViewModel` has 2 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 17 inferred relationships involving `AppSessionState` (e.g. with `.completedLockedSessionDisplaysUnlock()` and `.completedUnlockedSessionDisplaysHome()`) actually correct?**
+  _`AppSessionState` has 17 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `AuditEventType`, `AuditOutcome`, `HealthRecordProvenance` to the rest of the system?**
+  _371 weakly-connected nodes found - possible documentation gaps or missing edges._

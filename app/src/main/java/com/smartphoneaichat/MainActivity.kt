@@ -38,6 +38,13 @@ class MainActivity : ComponentActivity() {
             val onboardingState by onboardingViewModel.state.collectAsStateWithLifecycle()
             val vaultAccessState by vaultAccessViewModel.state.collectAsStateWithLifecycle()
             val sessionState by appSessionStore.state.collectAsStateWithLifecycle()
+            val selectedProfileContext by container.profileSessionCoordinator.currentContext
+                .collectAsStateWithLifecycle()
+            val selectedProfileLabel = selectedProfileContext?.let { context ->
+                container.profileRepository.get(context)?.let { profile ->
+                    "${profile.displayName} · ${profile.relationship.name.lowercase()}"
+                }
+            } ?: "Self profile"
             PersonalHealthVaultApp(
                 sessionState = sessionState,
                 onboardingState = onboardingState,
@@ -48,6 +55,7 @@ class MainActivity : ComponentActivity() {
                 onCompleteOnboarding = vaultAccessViewModel::createVault,
                 onUnlock = vaultAccessViewModel::unlockVault,
                 onLock = vaultAccessViewModel::lockVault,
+                selectedProfileLabel = selectedProfileLabel,
             )
         }
     }

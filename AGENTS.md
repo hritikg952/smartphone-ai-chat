@@ -41,7 +41,8 @@ Build commands:
 | Area | Responsibility |
 |---|---|
 | `MainActivity.kt` | Enables secure-window rendering, edge-to-edge UI, creates app/session/access ViewModels, renders `PersonalHealthVaultApp`, and locks the vault on backgrounding. |
-| `ui/app/PersonalHealthVaultApp.kt` | Resolves safe destinations for onboarding, unlock, home, and protected placeholder routes from session state. |
+| `ui/app/PersonalHealthVaultApp.kt` | Resolves safe destinations for onboarding, unlock, and the unlocked vault shell from session state. |
+| `ui/app/VaultShell.kt` | Owns the adaptive primary navigation bar/rail, selected-profile indicator, and lock affordance for unlocked routes. |
 | `presentation/session/` | Defines startup session state and the pure onboarding/unlock/home destination resolver. |
 | `presentation/onboarding/` | Owns the welcome-to-credentials onboarding transition. |
 | `di/AppContainer.kt` | Composes concrete repositories, the LiteRT engine, title service, and use cases. |
@@ -119,7 +120,9 @@ Available models are declared in `domain/model/ModelInfo.kt`:
 
 ## UI and Compose Conventions
 
-`PersonalHealthVaultApp` is the application root. It consumes session state plus `OnboardingUiState` and keeps navigation decisions outside individual screens. The retained `ChatScreen` still owns its legacy Compose-only state but is no longer the startup destination.
+`PersonalHealthVaultApp` is the application root. It consumes session state plus `OnboardingUiState` and keeps navigation decisions outside individual screens. `VaultShell` is rendered only after a route has passed the session guard; it exposes the typed Home, Records, Add, Insights, and Profile destinations as a bottom bar on compact screens and a rail at 600 dp or wider. Settings is nested under Profile. The retained `ChatScreen` still owns its legacy Compose-only state but is no longer the startup destination.
+
+Home must keep feature sections independent: an unavailable medication, records, vitals, or appointment section cannot blank the rest of Home. Until its owning feature exists, render a safe empty/loading/error state rather than invented clinical data. Show the selected profile relationship in the shell on every protected destination; current storage supports only the self profile despite the future-ready UI contract.
 
 - Keep the UI strictly dark through `SmartphoneAIChatTheme`, colors in `ui/theme/Color.kt`, and typography in `ui/theme/Type.kt`.
 - Public reusable composables accept a `Modifier` parameter when they expose layout customization; application-root composables that fill the surface are exceptions.
@@ -147,5 +150,7 @@ Coverage currently includes:
 - In-memory conversation repository and UUID ID generator behavior.
 - Vault key/session/cipher behavior, encrypted record/document persistence,
   record/document rollback, disabled backup policy, and app session locking.
+- Typed vault navigation, primary-destination semantics, selected-profile visibility,
+  and safe Home/destination rendering.
 
 Use `FakeInferenceEngine` and `FakeIdGenerator` for deterministic domain/presentation tests; prefer them over wiring LiteRT or network/file I/O into unit tests. Add or update focused tests whenever changing state transitions, aggregate behavior, or use-case contracts.

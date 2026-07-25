@@ -3,6 +3,7 @@ package com.smartphoneaichat.ui.app
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performScrollTo
@@ -85,7 +86,8 @@ class PersonalHealthVaultAppTest {
             )
         }
 
-        composeRule.onNodeWithText("Health Vault Home").assertIsDisplayed()
+        composeRule.onNodeWithText("Home").assertIsDisplayed()
+        composeRule.onNodeWithText("Self profile").assertIsDisplayed()
         composeRule.onNodeWithText("Unlock your vault").assertDoesNotExist()
     }
 
@@ -127,11 +129,11 @@ class PersonalHealthVaultAppTest {
         composeRule.onNodeWithText("Password").performTextInput("vault-pass")
         composeRule.onNodeWithText("Create vault").performClick()
 
-        composeRule.onNodeWithText("Health Vault Home").assertIsDisplayed()
+        composeRule.onNodeWithText("Home").assertIsDisplayed()
     }
 
     @Test
-    fun unlockedUserCanOpenFeatureRouteAndReturnHome() {
+    fun unlockedUserCanOpenPrimaryDestination() {
         composeRule.setContent {
             PersonalHealthVaultApp(
                 sessionState = AppSessionState(
@@ -141,11 +143,9 @@ class PersonalHealthVaultAppTest {
             )
         }
 
-        composeRule.onNodeWithText("Medications").performClick()
-        composeRule.onNodeWithText("Medications").assertIsDisplayed()
-        composeRule.onNodeWithText("Back").performClick()
-
-        composeRule.onNodeWithText("Health Vault Home").assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("Records").performClick()
+        composeRule.onNodeWithText("This area is ready for its health-record feature. No health information is shown here yet.")
+            .assertIsDisplayed()
     }
 
     @Test
@@ -165,14 +165,14 @@ class PersonalHealthVaultAppTest {
             )
         }
 
-        composeRule.onNodeWithText("Lock vault").performClick()
+        composeRule.onNodeWithContentDescription("Lock vault").performClick()
 
         composeRule.onNodeWithText("Unlock your vault").assertIsDisplayed()
-        composeRule.onNodeWithText("Health Vault Home").assertDoesNotExist()
+        composeRule.onNodeWithText("Home").assertDoesNotExist()
     }
 
     @Test
-    fun everyTopLevelFeatureRouteIsAddressable() {
+    fun everyPrimaryDestinationIsAddressable() {
         composeRule.setContent {
             PersonalHealthVaultApp(
                 sessionState = AppSessionState(
@@ -182,15 +182,29 @@ class PersonalHealthVaultAppTest {
             )
         }
 
-        AppRoute.protectedRoutes
+        AppRoute.primaryRoutes
             .filterNot { it == AppRoute.Home }
             .forEach { route ->
-                composeRule.onNodeWithText(route.displayName)
-                    .performScrollTo()
-                    .performClick()
-                composeRule.onNodeWithText(route.displayName).assertIsDisplayed()
-                composeRule.onNodeWithText("Back").performClick()
-                composeRule.onNodeWithText("Health Vault Home").assertIsDisplayed()
+                composeRule.onNodeWithContentDescription(route.displayName).performClick()
+                composeRule.onNodeWithText(
+                    "This area is ready for its health-record feature. No health information is shown here yet.",
+                ).assertIsDisplayed()
             }
+    }
+
+    @Test
+    fun profileDestinationProvidesSettingsNavigation() {
+        composeRule.setContent {
+            PersonalHealthVaultApp(
+                sessionState = AppSessionState(
+                    hasCompletedOnboarding = true,
+                    isVaultUnlocked = true,
+                ),
+            )
+        }
+
+        composeRule.onNodeWithContentDescription("Profile").performClick()
+        composeRule.onNodeWithText("Open Settings").performClick()
+        composeRule.onNodeWithText("Settings").assertIsDisplayed()
     }
 }
