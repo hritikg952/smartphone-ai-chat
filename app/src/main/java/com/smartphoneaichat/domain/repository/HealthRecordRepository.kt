@@ -22,4 +22,9 @@ interface HealthRecordRepository {
     fun get(context: AuthorizedSessionContext, id: String): HealthRecord?
     fun list(context: AuthorizedSessionContext, limit: Int, offset: Int = 0): List<HealthRecord>
     fun delete(context: AuthorizedSessionContext, id: String): HealthRecordDeleteResult
+    fun deleteIfType(
+        context: AuthorizedSessionContext,
+        id: String,
+        expectedType: String,
+    ): HealthRecordDeleteResult
 }

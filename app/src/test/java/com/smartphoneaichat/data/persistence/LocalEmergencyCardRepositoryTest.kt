@@ -26,7 +26,7 @@ class LocalEmergencyCardRepositoryTest {
         val restarted = LocalEmergencyCardRepository(tempDir, signer)
         assertEquals(EmergencyCardReadResult.Available(projection), restarted.publicCard())
 
-        Files.writeString(tempDir.resolve("emergency-card.v1"), "tampered")
+        Files.write(tempDir.resolve("emergency-card.v1"), "tampered".encodeToByteArray())
         assertEquals(EmergencyCardReadResult.Unavailable, restarted.publicCard())
 
         restarted.publish(context(), projection)

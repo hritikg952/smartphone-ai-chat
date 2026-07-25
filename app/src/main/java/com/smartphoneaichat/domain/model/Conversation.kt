@@ -3,6 +3,7 @@ package com.smartphoneaichat.domain.model
 import com.smartphoneaichat.domain.model.value.ConversationId
 import com.smartphoneaichat.domain.model.value.MessageId
 
+@ConsistentCopyVisibility
 data class Conversation private constructor(
     val id: ConversationId,
     val title: String,

@@ -25,20 +25,26 @@ import java.util.Base64
 class EncryptedMedicationRepository(
     private val records: HealthRecordRepository,
 ) : MedicationRepository {
-    override fun save(context: AuthorizedSessionContext, regimen: MedicationRegimen): HealthRecordSaveResult =
-        records.save(context, regimen.toRecord())
+    override fun save(context: AuthorizedSessionContext, regimen: MedicationRegimen): HealthRecordSaveResult {
+        val existing = records.get(context, regimen.id)
+        if (existing != null && existing.type != TYPE) return HealthRecordSaveResult.Unavailable
+        return records.save(context, regimen.toRecord())
+    }
 
     override fun get(context: AuthorizedSessionContext, id: String): MedicationRegimen? =
-        records.get(context, id)?.takeIf { it.type == TYPE }?.let(MedicationRecordCodec::decodeRegimen)
+        records.get(context, id)?.takeIf { it.type == TYPE }?.let { record ->
+            MedicationRecordCodec.decodeRegimen(record.plaintext)
+        }
 
     override fun list(context: AuthorizedSessionContext): List<MedicationRegimen> =
         records.list(context, limit = MAX_RECORDS).asSequence()
             .filter { it.type == TYPE }
-            .mapNotNull(MedicationRecordCodec::decodeRegimen)
+            .mapNotNull { record -> MedicationRecordCodec.decodeRegimen(record.plaintext) }
             .sortedWith(compareBy<MedicationRegimen> { it.status != MedicationStatus.Active }.thenBy { it.label.lowercase() })
             .toList()
 
-    override fun delete(context: AuthorizedSessionContext, id: String): HealthRecordDeleteResult = records.delete(context, id)
+    override fun delete(context: AuthorizedSessionContext, id: String): HealthRecordDeleteResult =
+        records.deleteIfType(context, id, TYPE)
 
     private fun MedicationRegimen.toRecord() = HealthRecordWrite(
         id = id, profileId = profileId, type = TYPE, schemaVersion = SCHEMA_VERSION,
@@ -56,20 +62,26 @@ class EncryptedMedicationRepository(
 class EncryptedProviderRepository(
     private val records: HealthRecordRepository,
 ) : ProviderRepository {
-    override fun save(context: AuthorizedSessionContext, provider: Provider): HealthRecordSaveResult =
-        records.save(context, provider.toRecord())
+    override fun save(context: AuthorizedSessionContext, provider: Provider): HealthRecordSaveResult {
+        val existing = records.get(context, provider.id)
+        if (existing != null && existing.type != TYPE) return HealthRecordSaveResult.Unavailable
+        return records.save(context, provider.toRecord())
+    }
 
     override fun get(context: AuthorizedSessionContext, id: String): Provider? =
-        records.get(context, id)?.takeIf { it.type == TYPE }?.let(MedicationRecordCodec::decodeProvider)
+        records.get(context, id)?.takeIf { it.type == TYPE }?.let { record ->
+            MedicationRecordCodec.decodeProvider(record.plaintext)
+        }
 
     override fun list(context: AuthorizedSessionContext): List<Provider> =
         records.list(context, limit = MAX_RECORDS).asSequence()
             .filter { it.type == TYPE }
-            .mapNotNull(MedicationRecordCodec::decodeProvider)
+            .mapNotNull { record -> MedicationRecordCodec.decodeProvider(record.plaintext) }
             .sortedBy { it.name.lowercase() }
             .toList()
 
-    override fun delete(context: AuthorizedSessionContext, id: String): HealthRecordDeleteResult = records.delete(context, id)
+    override fun delete(context: AuthorizedSessionContext, id: String): HealthRecordDeleteResult =
+        records.deleteIfType(context, id, TYPE)
 
     private fun Provider.toRecord() = HealthRecordWrite(
         id = id, profileId = profileId, type = TYPE, schemaVersion = SCHEMA_VERSION,
@@ -116,7 +128,7 @@ private object MedicationRecordCodec {
     }.getOrNull()
 
     private fun fields(vararg values: String): ByteArray = values.joinToString("\t") { it.b64() }.encodeToByteArray()
-    private fun read(bytes: ByteArray): List<String> = bytes.decodeToString().split("\t").map(String::unb64)
+    private fun read(bytes: ByteArray): List<String> = bytes.decodeToString().split("\t").map { it.unb64() }
     private fun String.b64(): String = Base64.getUrlEncoder().withoutPadding().encodeToString(encodeToByteArray())
     private fun String.unb64(): String = Base64.getUrlDecoder().decode(this).decodeToString()
     private fun scheduleKind(schedule: MedicationSchedule) = when (schedule) {

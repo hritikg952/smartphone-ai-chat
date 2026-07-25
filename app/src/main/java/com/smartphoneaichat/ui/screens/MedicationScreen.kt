@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -19,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.heading
@@ -35,14 +35,16 @@ import com.smartphoneaichat.presentation.medication.MedicationUiState
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.DayOfWeek
+import kotlinx.coroutines.launch
 
 @Composable
 fun MedicationScreen(
     state: MedicationUiState,
-    onSaveMedication: (MedicationRegimen) -> Unit,
-    onSaveProvider: (Provider) -> Unit,
+    onSaveMedication: suspend (MedicationRegimen) -> Boolean,
+    onSaveProvider: suspend (Provider) -> Boolean,
     modifier: Modifier = Modifier,
 ) {
+    val scope = rememberCoroutineScope()
     var editing by remember { mutableStateOf<MedicationRegimen?>(null) }
     var label by remember { mutableStateOf("") }
     var doseAmount by remember { mutableStateOf("1") }
@@ -63,7 +65,10 @@ fun MedicationScreen(
     var providerSpecialty by remember { mutableStateOf("") }
     var providerFacility by remember { mutableStateOf("") }
     var providerContact by remember { mutableStateOf("") }
+    var editingProvider by remember { mutableStateOf<Provider?>(null) }
     var error by remember { mutableStateOf<String?>(null) }
+    var isSavingMedication by remember { mutableStateOf(false) }
+    var isSavingProvider by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(24.dp),
@@ -119,7 +124,7 @@ fun MedicationScreen(
             val startDate = runCatching { LocalDate.parse(startDateText) }.getOrNull()
             val endDate = endDateText.trim().takeIf { it.isNotEmpty() }?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
             if (label.isBlank() || route.isBlank() || form.isBlank() ||
-                startDate == null || (endDateText.isNotBlank() && endDate == null) || (startDate != null && endDate != null && endDate.isBefore(startDate)) ||
+                startDate == null || (endDateText.isNotBlank() && endDate == null) || (endDate != null && endDate.isBefore(startDate)) ||
                 ((scheduleKind == "Daily" || scheduleKind == "Weekly") && (scheduleTimes.isNullOrEmpty() || scheduleTimes.distinct().size != scheduleTimes.size)) ||
                 (scheduleKind == "Weekly" && days.isNullOrEmpty()) ||
                 ((scheduleKind == "As needed" || scheduleKind == "Complex") && instruction.isBlank())
@@ -133,15 +138,26 @@ fun MedicationScreen(
                     "Complex" -> UnsupportedMedicationSchedule(instruction.trim())
                     else -> DailyMedicationSchedule(requireNotNull(scheduleTimes), instruction.trim())
                 }
-                onSaveMedication(MedicationRegimen(
+                val draft = MedicationRegimen(
                     id = existing?.id.orEmpty(), profileId = "pending", label = label.trim(), indication = indication.trim().ifBlank { null }, doseAmount = doseAmount.trim(), doseUnit = doseUnit.trim(),
                     route = route.trim(), form = form.trim(), startDate = requireNotNull(startDate), endDate = endDate, status = status,
                     providerId = selectedProviderId, source = "Manual entry", notes = notes.trim(), schedule = schedule,
                     createdAtEpochMillis = existing?.createdAtEpochMillis ?: 0,
-                ))
-                editing = null; label = ""; indication = ""; notes = ""; instruction = ""; selectedProviderId = null; status = MedicationStatus.Active; scheduleKind = "Daily"; startDateText = LocalDate.now().toString(); endDateText = ""; error = null
+                )
+                isSavingMedication = true
+                scope.launch {
+                    try {
+                        if (onSaveMedication(draft)) {
+                            editing = null; label = ""; indication = ""; notes = ""; instruction = ""; selectedProviderId = null; status = MedicationStatus.Active; scheduleKind = "Daily"; startDateText = LocalDate.now().toString(); endDateText = ""; error = null
+                        } else {
+                            error = "Medication could not be saved."
+                        }
+                    } finally {
+                        isSavingMedication = false
+                    }
+                }
             }
-        }) { Text(if (editing == null) "Save medication" else "Save changes") }
+        }, enabled = !isSavingMedication) { Text(if (isSavingMedication) "Saving…" else if (editing == null) "Save medication" else "Save changes") }
 
         Text("Your medications", style = MaterialTheme.typography.titleLarge)
         if (state.regimens.isEmpty()) Text("No medications added yet.")
@@ -164,10 +180,33 @@ fun MedicationScreen(
         OutlinedTextField(providerContact, { providerContact = it }, Modifier.fillMaxWidth(), label = { Text("Contact (optional)") })
         OutlinedButton(onClick = {
             if (providerName.isNotBlank()) {
-                onSaveProvider(Provider(id = "", profileId = "pending", name = providerName.trim(), specialty = providerSpecialty.trim(), facility = providerFacility.trim(), contact = providerContact.trim()))
-                providerName = ""; providerSpecialty = ""; providerFacility = ""; providerContact = ""
+                val existing = editingProvider
+                val draft = Provider(
+                    id = existing?.id.orEmpty(), profileId = "pending", name = providerName.trim(), specialty = providerSpecialty.trim(),
+                    facility = providerFacility.trim(), contact = providerContact.trim(), createdAtEpochMillis = existing?.createdAtEpochMillis ?: 0,
+                )
+                isSavingProvider = true
+                scope.launch {
+                    try {
+                        if (onSaveProvider(draft)) {
+                            editingProvider = null; providerName = ""; providerSpecialty = ""; providerFacility = ""; providerContact = ""
+                        } else {
+                            error = "Provider could not be saved."
+                        }
+                    } finally {
+                        isSavingProvider = false
+                    }
+                }
             }
-        }) { Text("Save provider") }
-        state.providers.forEach { Text("${it.name}${it.specialty.takeIf(String::isNotBlank)?.let { specialty -> " · $specialty" }.orEmpty()}") }
+        }, enabled = !isSavingProvider) { Text(if (isSavingProvider) "Saving…" else if (editingProvider == null) "Save provider" else "Save provider changes") }
+        state.providers.forEach { provider ->
+            Text(
+                "${provider.name}${provider.specialty.takeIf(String::isNotBlank)?.let { specialty -> " · $specialty" }.orEmpty()}",
+                Modifier.fillMaxWidth().clickable {
+                    editingProvider = provider; providerName = provider.name; providerSpecialty = provider.specialty
+                    providerFacility = provider.facility; providerContact = provider.contact
+                },
+            )
+        }
     }
 }

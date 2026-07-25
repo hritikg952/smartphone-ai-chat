@@ -75,6 +75,12 @@ class VaultStorageCoordinatorTest {
 
         override fun delete(context: AuthorizedSessionContext, id: String): HealthRecordDeleteResult =
             HealthRecordDeleteResult.NotFound
+
+        override fun deleteIfType(
+            context: AuthorizedSessionContext,
+            id: String,
+            expectedType: String,
+        ): HealthRecordDeleteResult = HealthRecordDeleteResult.NotFound
     }
 
     private fun context(): AuthorizedSessionContext = AuthorizedSessionContext(

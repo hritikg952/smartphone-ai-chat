@@ -64,11 +64,30 @@ class EncryptedHealthRecordRepository(
     }
 
     override fun delete(context: AuthorizedSessionContext, id: String): HealthRecordDeleteResult {
+        return deleteMatching(context, id, expectedType = null)
+    }
+
+    override fun deleteIfType(
+        context: AuthorizedSessionContext,
+        id: String,
+        expectedType: String,
+    ): HealthRecordDeleteResult {
+        require(expectedType.isNotBlank())
+        return deleteMatching(context, id, expectedType)
+    }
+
+    private fun deleteMatching(
+        context: AuthorizedSessionContext,
+        id: String,
+        expectedType: String?,
+    ): HealthRecordDeleteResult {
         context.requireAccess(context.profileId, ProfileCapability.Delete)
         return runCatching {
             val stored = loadStoredRecords()
+            val match = stored.firstOrNull { it.profileId == context.profileId && it.id == id }
+                ?: return HealthRecordDeleteResult.NotFound
+            if (expectedType != null && match.type != expectedType) return HealthRecordDeleteResult.NotFound
             val updated = stored.filterNot { it.profileId == context.profileId && it.id == id }
-            if (updated.size == stored.size) return HealthRecordDeleteResult.NotFound
             if (writeRecords(updated)) {
                 HealthRecordDeleteResult.Deleted
             } else {

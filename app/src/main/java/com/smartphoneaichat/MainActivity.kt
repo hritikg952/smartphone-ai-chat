@@ -87,8 +87,8 @@ class MainActivity : ComponentActivity() {
                 onConfirmEmergencyPublish = { emergencyCardViewModel.confirmPublish(selectedProfileContext) },
                 onRevokeEmergencyCard = { emergencyCardViewModel.revoke(selectedProfileContext) },
                 medicationState = medicationState,
-                onSaveMedication = { regimen -> selectedProfileContext?.let { medicationViewModel.saveRegimen(it, regimen) } },
-                onSaveProvider = { provider -> selectedProfileContext?.let { medicationViewModel.saveProvider(it, provider) } },
+                onSaveMedication = { regimen -> selectedProfileContext?.let { medicationViewModel.saveRegimen(it, regimen) } ?: false },
+                onSaveProvider = { provider -> selectedProfileContext?.let { medicationViewModel.saveProvider(it, provider) } ?: false },
             )
         }
     }

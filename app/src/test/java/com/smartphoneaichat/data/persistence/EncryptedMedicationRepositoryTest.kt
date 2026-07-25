@@ -10,6 +10,7 @@ import com.smartphoneaichat.domain.model.MedicationStatus
 import com.smartphoneaichat.domain.model.ProfileCapability
 import com.smartphoneaichat.domain.model.ProfileRole
 import com.smartphoneaichat.domain.repository.HealthRecordSaveResult
+import com.smartphoneaichat.domain.repository.HealthRecordDeleteResult
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
@@ -34,6 +35,21 @@ class EncryptedMedicationRepositoryTest {
 
         assertEquals(listOf("Vitamin D3"), repository.list(context("self")).map { it.label })
         assertEquals(emptyList<MedicationRegimen>(), repository.list(context("other")))
+    }
+
+    @Test
+    fun delete_doesNotRemoveAProviderThroughTheMedicationRepository() {
+        val session = DefaultVaultSession().also { it.unlock(ByteArray(32) { 7 }) }
+        val records = EncryptedHealthRecordRepository(directory, AesGcmVaultCipher(session, FixedRandomBytes()))
+        val medications = EncryptedMedicationRepository(records)
+        val providers = EncryptedProviderRepository(records)
+        val provider = com.smartphoneaichat.domain.model.Provider(
+            id = "provider-1", profileId = "self", name = "Dr. Lee", createdAtEpochMillis = 10, updatedAtEpochMillis = 10,
+        )
+
+        assertEquals(HealthRecordSaveResult.Saved, providers.save(context("self"), provider))
+        assertEquals(HealthRecordDeleteResult.NotFound, medications.delete(context("self"), provider.id))
+        assertEquals("Dr. Lee", providers.get(context("self"), provider.id)?.name)
     }
 
     private fun regimen(label: String, profileId: String, updatedAt: Long) = MedicationRegimen(

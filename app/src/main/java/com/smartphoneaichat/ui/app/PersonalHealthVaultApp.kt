@@ -54,8 +54,8 @@ fun PersonalHealthVaultApp(
     onConfirmEmergencyPublish: () -> Unit = {},
     onRevokeEmergencyCard: () -> Unit = {},
     medicationState: MedicationUiState = MedicationUiState(),
-    onSaveMedication: (MedicationRegimen) -> Unit = {},
-    onSaveProvider: (Provider) -> Unit = {},
+    onSaveMedication: suspend (MedicationRegimen) -> Boolean = { false },
+    onSaveProvider: suspend (Provider) -> Boolean = { false },
 ) {
     SmartphoneAIChatTheme {
         val navController = rememberNavController()

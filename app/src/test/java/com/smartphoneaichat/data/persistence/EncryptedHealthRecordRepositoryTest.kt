@@ -117,6 +117,24 @@ class EncryptedHealthRecordRepositoryTest {
         assertEquals("not-a-valid-record", String(Files.readAllBytes(tempDir.resolve("health-records.v1"))))
     }
 
+    @Test
+    fun deleteIfType_usesDeleteCapabilityAndDoesNotRemoveAnotherRecordType() {
+        val repository = EncryptedHealthRecordRepository(
+            rootDirectory = tempDir,
+            cipher = createCipher(unlocked = true),
+        )
+        repository.save(context("profile-a"), record("provider-1", "profile-a", 100, "provider"))
+
+        assertEquals(
+            HealthRecordDeleteResult.NotFound,
+            repository.deleteIfType(deleteOnlyContext("profile-a"), "provider-1", expectedType = "medication-regimen"),
+        )
+        assertEquals(
+            HealthRecordDeleteResult.Deleted,
+            repository.deleteIfType(deleteOnlyContext("profile-a"), "provider-1", expectedType = "note"),
+        )
+    }
+
     private fun createCipher(unlocked: Boolean): AesGcmVaultCipher {
         val session = DefaultVaultSession()
         if (unlocked) session.unlock(ByteArray(32) { 4 })
@@ -148,6 +166,14 @@ class EncryptedHealthRecordRepositoryTest {
         sessionId = "session-$profileId",
         role = ProfileRole.Self,
         capabilities = ProfileCapability.entries.toSet(),
+    )
+
+    private fun deleteOnlyContext(profileId: String): AuthorizedSessionContext = AuthorizedSessionContext(
+        actorId = "owner",
+        profileId = profileId,
+        sessionId = "delete-$profileId",
+        role = ProfileRole.Self,
+        capabilities = setOf(ProfileCapability.Delete),
     )
 
     private class IncrementingRandomBytes : RandomBytes {
