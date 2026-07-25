@@ -1,4 +1,4 @@
-name: Build Release APK
+name: Build Unsigned Release APK
 
 on:
   push:
@@ -20,11 +20,11 @@ jobs:
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x gradlew
 
-      - name: Build release APK
+      - name: Build unsigned release APK
         run: ./gradlew assembleRelease
 
-      - name: Upload APK artifact
+      - name: Upload unsigned APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-apk
-          path: app/build/outputs/apk/release/app-release.apk
+          name: app-release-unsigned-apk
+          path: app/build/outputs/apk/release/app-release-unsigned.apk
