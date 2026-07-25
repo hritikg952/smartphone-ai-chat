@@ -1,4 +1,4 @@
-name: Build Unsigned Release APK
+name: Build Installable APK
 
 on:
   push:
@@ -20,11 +20,20 @@ jobs:
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x gradlew
 
-      - name: Build unsigned release APK
-        run: ./gradlew assembleRelease
+      # The release variant is intentionally unsigned until production signing
+      # credentials are configured. Build debug here so the artifact can be
+      # downloaded and installed directly on a test device.
+      - name: Build installable debug APK
+        run: ./gradlew assembleDebug
 
-      - name: Upload unsigned APK artifact
+      - name: Verify APK is signed and installable
+        run: |
+          APK=app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose "$APK"
+
+      - name: Upload installable APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-unsigned-apk
-          path: app/build/outputs/apk/release/app-release-unsigned.apk
+          name: app-debug-installable-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
