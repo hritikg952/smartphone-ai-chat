@@ -49,7 +49,7 @@ This matrix ensures every requirement in the supplied master development plan ha
 
 A master requirement is complete only when its primary plan exit gate is closed, supporting-plan dependencies are complete, and the proof target is stored with the release evidence. A checked UI box without data lifecycle, security, and failure-path proof does not satisfy traceability.
 
-## Current implementation evidence — 2026-07-20
+## Current implementation evidence — 2026-07-26
 
 | Implemented seam | Owning plan | Evidence | Remaining boundary |
 |---|---|---|---|
@@ -67,3 +67,4 @@ A master requirement is complete only when its primary plan exit gate is closed,
 | Adaptive vault shell | MG-06 | Typed primary routes, route-policy tests, Compose navigation semantics, selected-profile indication, and independently empty Home sections keep unfinished features reachable without fabricated clinical data. | Records, emergency projection, appointments, insights, and profile-management content remain owned by later milestones. |
 | Name-only emergency card | MG-07 | `LocalEmergencyCardRepositoryTest`, `EmergencyCardPublisherTest`, `EmergencyCardScreenTest`, and the existing emergency route-policy test cover public projection persistence/integrity, explicit refresh, locked rendering, and vault-route isolation. | Clinical/contact fields, device offline/large-font/key-invalidation verification, calling, external shares, Wallet, widgets, and dependent profiles remain open. |
 | Android connected-test lane | MG-20 | Full `connectedDebugAndroidTest` suite passes ten tests on `Pixel_10(AVD) - 17`; visual onboarding smoke was inspected. | AVD specification, scripts, retained regression artifacts, CI, and physical-device matrix remain open. |
+| Offline medication/provider prototype | MG-08 | `EncryptedMedicationRepositoryTest`, `EncryptedHealthRecordRepositoryTest`, and `MedicationScheduleMaterializerTest` cover encrypted persistence, typed-delete isolation, daily/PRN/DST materialization, and profile-scoped repository behavior; `assembleDebug` and `testDebugUnitTest` pass. | Append-only correction history, state-machine/duplicate/property/UI coverage, adherence/reminders, prescription documents, drug-reference data, interactions, export/search, and clinician review remain open. |

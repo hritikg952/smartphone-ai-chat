@@ -8,6 +8,26 @@ Provide an auditable medication regimen with current schedule, chronological cha
 
 MG-04 through MG-06; D-012 before authoritative drug monographs/interactions.
 
+## Current prototype implementation — 2026-07-26
+
+Implemented offline, encrypted slice:
+
+- Manual, self-profile medication regimens with dose, route, form, indication,
+  dates, status, notes, source, and an optional provider link.
+- Manual providers with specialty, facility, and contact details; both record
+  types are persisted through typed repositories over encrypted health records.
+- Daily, weekly, as-needed, and explicit unsupported-complex instructions.
+  Today materializes active daily/weekly occurrences only, using device time
+  zone rules including DST gap normalization.
+- Editable medication and provider forms, a Today summary on Home, save-failure
+  feedback, profile-switch-safe state publication, and duplicate-save guards.
+- Unit verification: `assembleDebug` and `testDebugUnitTest` pass.
+
+This is intentionally not the MG-08 exit gate. Direct replacement is used for
+edits; there is no append-only regimen event history, dose/adherence logging,
+prescription-document link, drug reference/interactions, export/search index,
+or clinician-reviewed scenario suite.
+
 ## Domain model
 
 - `MedicationConcept`: normalized ingredient/product identifiers plus user-entered label.
@@ -58,4 +78,3 @@ MG-04 through MG-06; D-012 before authoritative drug monographs/interactions.
 ## Exit gate
 
 A clinician/pharmacist-reviewed scenario suite and security tests pass; no known schedule rule silently produces unsafe occurrences.
-
