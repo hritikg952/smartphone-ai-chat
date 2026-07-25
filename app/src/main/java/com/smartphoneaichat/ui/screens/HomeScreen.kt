@@ -1,74 +1,79 @@
 package com.smartphoneaichat.ui.screens
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.smartphoneaichat.R
-import com.smartphoneaichat.ui.theme.DarkBackground
-import com.smartphoneaichat.ui.theme.TextPrimary
-import com.smartphoneaichat.ui.theme.TextSecondary
-import com.smartphoneaichat.ui.theme.AccentBlue
 import com.smartphoneaichat.ui.navigation.AppRoute
+
+/** Independent presentation states prevent one unavailable feature from blanking Home. */
+sealed interface HomeSectionState {
+    data object Empty : HomeSectionState
+    data object Loading : HomeSectionState
+    data class Error(val message: String) : HomeSectionState
+}
+
+data class HomeUiState(
+    val medication: HomeSectionState = HomeSectionState.Empty,
+    val recentRecords: HomeSectionState = HomeSectionState.Empty,
+    val vitals: HomeSectionState = HomeSectionState.Empty,
+    val appointments: HomeSectionState = HomeSectionState.Empty,
+)
 
 /** Initial safe landing surface for an unlocked vault. */
 @Composable
 fun HomeScreen(
     onNavigate: (AppRoute) -> Unit,
-    onLock: () -> Unit,
+    state: HomeUiState = HomeUiState(),
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(DarkBackground)
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 24.dp, vertical = 56.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+            .padding(24.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text(
-            text = stringResource(R.string.home_title),
-            color = TextPrimary,
-            style = MaterialTheme.typography.displayLarge,
+            text = "Home",
+            modifier = Modifier.semantics { heading() },
+            style = MaterialTheme.typography.headlineLarge,
         )
         Text(
-            text = stringResource(R.string.home_subtitle),
-            modifier = Modifier.padding(bottom = 20.dp),
-            color = TextSecondary,
+            text = "Your health records stay organized here. Each section will become available as its feature is added.",
             style = MaterialTheme.typography.bodyLarge,
         )
-        Button(
-            onClick = onLock,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = AccentBlue,
-                contentColor = DarkBackground,
-            ),
-        ) {
-            Text("Lock vault")
-        }
-        AppRoute.protectedRoutes
-            .filterNot { it == AppRoute.Home }
-            .forEach { route ->
-                Button(
-                    onClick = { onNavigate(route) },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = AccentBlue.copy(alpha = 0.16f),
-                        contentColor = TextPrimary,
-                    ),
-                ) {
-                    Text(route.displayName)
-                }
-            }
+        HomeSection("Emergency information", "No emergency card is configured.", onNavigate, AppRoute.Emergency)
+        HomeSection("Today", sectionText("Medication schedule", state.medication), onNavigate, AppRoute.Medications)
+        HomeSection("Recent records", sectionText("No health records yet", state.recentRecords), onNavigate, AppRoute.Records)
+        HomeSection("Latest vitals", sectionText("No measurements yet", state.vitals), onNavigate, AppRoute.Vitals)
+        HomeSection("Appointments and permissions", sectionText("No appointments or integration warnings", state.appointments), onNavigate, AppRoute.Profile)
     }
+}
+
+@Composable
+private fun HomeSection(title: String, body: String, onNavigate: (AppRoute) -> Unit, destination: AppRoute) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(text = title, style = MaterialTheme.typography.titleLarge)
+        Text(text = body, style = MaterialTheme.typography.bodyMedium)
+        OutlinedButton(onClick = { onNavigate(destination) }) {
+            Text("Open ${destination.displayName}")
+        }
+    }
+}
+
+private fun sectionText(emptyText: String, state: HomeSectionState): String = when (state) {
+    HomeSectionState.Empty -> emptyText
+    HomeSectionState.Loading -> "Loading…"
+    is HomeSectionState.Error -> state.message
 }

@@ -8,6 +8,16 @@ Replace the chat-first interface with an accessible, adaptive health-vault shell
 
 MG-02, MG-05.
 
+## Current prototype status — 2026-07-25
+
+The shell scope is implemented pending Gradle verification with typed Home, Records, Add, Insights, and
+Profile destinations; Settings remains nested. Locked routes are redirected
+before content renders, compact layouts use a navigation bar and expanded
+layouts use a rail, and Home uses independently safe empty states rather than
+invented clinical data. Current profile storage remains self-only, emergency
+projection is not configured, and feature data/AI insights remain owned by
+MG-07 onward.
+
 ## Information architecture
 
 Primary destinations: Home, Records, Add, Insights, and Profile/Settings. Records groups medications, reports, vitals, allergies, immunizations, providers, journal, and insurance. Search is globally reachable. Assistant is a secondary capability, never the landing screen or sole way to access data.
@@ -53,4 +63,3 @@ Primary destinations: Home, Records, Add, Insights, and Profile/Settings. Record
 ## Exit gate
 
 The shell can host every feature plan without duplicating navigation, security, accessibility, or status semantics.
-

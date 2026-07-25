@@ -5,13 +5,13 @@
     "semantic_hash": "2bffcf9dc5701114d97f5dc5e7c50482"
   },
   "app/build.gradle.kts": {
-    "mtime": 1784571934.0492342,
+    "mtime": 1784977104.9821584,
     "ast_hash": "75f9d1903bff3c71b7a067b641009b7c",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/MainActivity.kt": {
-    "mtime": 1784566153.7524161,
-    "ast_hash": "06cf5e0e6432d49fb1afaea8d4e1868a",
+    "mtime": 1784977808.380106,
+    "ast_hash": "4f48fe455ef41b392eb5b75e505017fc",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/conversation/InMemoryConversationRepository.kt": {
@@ -230,7 +230,7 @@
     "semantic_hash": "3066d12d310598b8e112ad2772da0cd2"
   },
   "app/src/test/java/com/smartphoneaichat/domain/usecase/SendMessageUseCaseTest.kt": {
-    "mtime": 1784468833.2028222,
+    "mtime": 1784977104.989261,
     "ast_hash": "15cec349a5bd3a90e03ca2dfc8313915",
     "semantic_hash": ""
   },
@@ -260,118 +260,118 @@
     "semantic_hash": "40674b97a6fbcf2c30e0868b624305c0"
   },
   ".github/workflows/release.yml": {
-    "mtime": 1782548632.2121143,
-    "ast_hash": "f6281c8ff1660b4aa92d8b0e402bdba5",
-    "semantic_hash": "f6281c8ff1660b4aa92d8b0e402bdba5"
+    "mtime": 1784985082.0127199,
+    "ast_hash": "d847bea0c52f257730b47dc9a76e3200",
+    "semantic_hash": ""
   },
   "AGENTS.md": {
-    "mtime": 1784572018.8575058,
-    "ast_hash": "70d18db56e4b04669e2341674b7e1d55",
+    "mtime": 1784989563.0449903,
+    "ast_hash": "0001108bf33944591f8c521ae299f639",
     "semantic_hash": ""
   },
   "app/src/androidTest/java/com/smartphoneaichat/HealthVaultDependencyLifetimeTest.kt": {
-    "mtime": 1784483200.7277052,
+    "mtime": 1784977104.9824207,
     "ast_hash": "9b01e7495d2f0cf5d5535c72485b5d34",
     "semantic_hash": ""
   },
   "app/src/androidTest/java/com/smartphoneaichat/MainActivityNavigationTest.kt": {
-    "mtime": 1784567127.657635,
+    "mtime": 1784977104.982536,
     "ast_hash": "66e20e84ca5bb03e21f1514ca999d017",
     "semantic_hash": ""
   },
   "app/src/androidTest/java/com/smartphoneaichat/data/security/AndroidVaultSecurityAdaptersTest.kt": {
-    "mtime": 1784565784.8967152,
+    "mtime": 1784977104.982709,
     "ast_hash": "15b3ebea8526f56fee2764a9f9874d3b",
     "semantic_hash": ""
   },
   "app/src/androidTest/java/com/smartphoneaichat/ui/app/PersonalHealthVaultAppTest.kt": {
-    "mtime": 1784567638.296876,
-    "ast_hash": "c67851d106bb25be78cbc7c18b643be7",
+    "mtime": 1784989513.0063467,
+    "ast_hash": "7b4d2ce88d5248f98f34bbacaec54e80",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/App.kt": {
-    "mtime": 1784483764.8709679,
+    "mtime": 1784977104.9833508,
     "ast_hash": "b95f07302d99b8d650687b2f6c0aca8c",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/persistence/DefaultVaultStorageCoordinator.kt": {
-    "mtime": 1784571841.538728,
-    "ast_hash": "5e73370240c4e5fd2865b74e4de351c9",
+    "mtime": 1784977399.8349252,
+    "ast_hash": "7b9c38461457a28d107a48af5eab1468",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/persistence/EncryptedHealthRecordRepository.kt": {
-    "mtime": 1784572108.0197904,
-    "ast_hash": "6bb3295952527546f23582a26ff0718c",
+    "mtime": 1784977371.5914414,
+    "ast_hash": "918c9da137e9243124c0cd8ed794c8f5",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/persistence/FileReplacement.kt": {
-    "mtime": 1784572107.859396,
+    "mtime": 1784977104.9838517,
     "ast_hash": "4aa9edf997f8b5d9fcd8a5bf9c6113c4",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/persistence/LocalEncryptedDocumentStore.kt": {
-    "mtime": 1784572108.0996304,
-    "ast_hash": "210bf4a7df6e6ded5b0cb1af524f82a2",
+    "mtime": 1784977386.910932,
+    "ast_hash": "077845badcd8713ab5ffca71275438c5",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/persistence/PrototypeVaultBackupPolicy.kt": {
-    "mtime": 1784571876.908777,
+    "mtime": 1784977104.9841194,
     "ast_hash": "6e16da512cc87fb51fc0ab32d1247747",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/security/AesGcmVaultCipher.kt": {
-    "mtime": 1784565688.5858872,
+    "mtime": 1784977104.9842699,
     "ast_hash": "fa2851b327d14fb0e9f093bc33ae3e99",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/security/AndroidKeystoreVaultKeyEnvelopeCipher.kt": {
-    "mtime": 1784567779.81088,
+    "mtime": 1784977104.9843736,
     "ast_hash": "427025f3e4bd85132cff91a97bfbedd7",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/security/AndroidSecureRandomBytes.kt": {
-    "mtime": 1784565834.1220071,
+    "mtime": 1784977104.9844735,
     "ast_hash": "df840e449cd9605e6473eaf2d051013a",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/security/DefaultVaultKeyManager.kt": {
-    "mtime": 1784567588.978629,
+    "mtime": 1784977104.9845836,
     "ast_hash": "c94d20520a7805bab3b248f06ac44646",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/security/DefaultVaultSession.kt": {
-    "mtime": 1784567411.4949868,
+    "mtime": 1784977104.9846828,
     "ast_hash": "0686d41fec39a55dcc4ad35a1181ddc5",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/security/Pbkdf2AuthenticationGateway.kt": {
-    "mtime": 1784566153.4244914,
+    "mtime": 1784977104.9847944,
     "ast_hash": "890c8719ef8ac9838411aa0eb55355ca",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/security/SharedPreferencesVaultSecurityStorage.kt": {
-    "mtime": 1784565834.2020233,
+    "mtime": 1784977104.9849176,
     "ast_hash": "10771e2799be17654833ad7193b57ae1",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/security/VaultSecurityStorage.kt": {
-    "mtime": 1784567588.8943071,
+    "mtime": 1784977104.9850132,
     "ast_hash": "35383f033b04bf5f629c25457e0a9174",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/session/DefaultAppSessionStore.kt": {
-    "mtime": 1784567540.3317525,
+    "mtime": 1784977104.9851484,
     "ast_hash": "8db2b750cae8ddfcf8b7bc07f6fbaf05",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/data/session/SharedPreferencesOnboardingStatusStorage.kt": {
-    "mtime": 1784483227.8590875,
+    "mtime": 1784977104.9852538,
     "ast_hash": "4b5b8b772a642387bf8bf395878af80d",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/di/HealthVaultAppContainer.kt": {
-    "mtime": 1784571902.311394,
-    "ast_hash": "75b3633cc44f835d20c60e95c794072e",
+    "mtime": 1784977808.296802,
+    "ast_hash": "a0928cc17483ef7f455161d436ad61f2",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/di/ScannerViewModelFactory.kt": {
@@ -380,62 +380,62 @@
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/domain/model/AppSessionState.kt": {
-    "mtime": 1784482896.9510057,
+    "mtime": 1784977104.985467,
     "ast_hash": "67b8710d2a0c08ed7aac7f2eeaf15243",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/domain/model/HealthRecord.kt": {
-    "mtime": 1784572107.9395978,
+    "mtime": 1784977104.985559,
     "ast_hash": "b07f3ab80c69922e8fc8877f9d7a43b9",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/domain/model/VaultSecurityModels.kt": {
-    "mtime": 1784565688.3484564,
+    "mtime": 1784977104.9856696,
     "ast_hash": "b868f41cafb3e5e49c2d339b19283d91",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/domain/repository/AppSessionStore.kt": {
-    "mtime": 1784567540.2478578,
+    "mtime": 1784977104.9858027,
     "ast_hash": "2886ccc1d3cdd1442787dd2360d8acc7",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/domain/repository/EncryptedDocumentStore.kt": {
-    "mtime": 1784571813.5202584,
-    "ast_hash": "ee35516ce67ae698b0bafdbb2766d096",
+    "mtime": 1784977371.50967,
+    "ast_hash": "466851cf27d07d4030b43220ec3b38c6",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/domain/repository/HealthRecordRepository.kt": {
-    "mtime": 1784571662.6791437,
-    "ast_hash": "e4dceb9c33a842547c63aaceed16c5e9",
+    "mtime": 1784977371.4279916,
+    "ast_hash": "d992921e8080efca293b4f377b1ad868",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/domain/repository/VaultBackupPolicy.kt": {
-    "mtime": 1784571876.829792,
+    "mtime": 1784977104.9861877,
     "ast_hash": "08cbb3372c6f935f07955aa64699630d",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/domain/repository/VaultSecurity.kt": {
-    "mtime": 1784565748.0556507,
+    "mtime": 1784977104.986285,
     "ast_hash": "d586b9bedce35d37d747d162c14d399b",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/domain/repository/VaultStorageCoordinator.kt": {
-    "mtime": 1784571829.7529843,
+    "mtime": 1784977104.986376,
     "ast_hash": "60280a561522648bd75852eee714341a",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/presentation/onboarding/OnboardingViewModel.kt": {
-    "mtime": 1784567638.1344619,
+    "mtime": 1784977104.9865193,
     "ast_hash": "9d9bffa2f0fc8d4b1ce9ed33eb1c8030",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/presentation/security/VaultAccessViewModel.kt": {
-    "mtime": 1784567779.727591,
-    "ast_hash": "9bb6e0b0a19dc0097b08fb54df0cc24b",
+    "mtime": 1784977823.6323166,
+    "ast_hash": "a2fd42c7532783c11397c61e8d7bdf09",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/presentation/session/AppSessionNavigation.kt": {
-    "mtime": 1784482897.2629054,
+    "mtime": 1784977104.986836,
     "ast_hash": "794451aa005a6788e97f6e2d35c092a5",
     "semantic_hash": ""
   },
@@ -450,8 +450,8 @@
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/ui/app/PersonalHealthVaultApp.kt": {
-    "mtime": 1784567659.2604904,
-    "ast_hash": "1777158bfe3a02f3d9ebf381419dcf28",
+    "mtime": 1784989490.9942143,
+    "ast_hash": "21eb36792e12dfe7aaf7f76fb5d2d22c",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/ui/components/BottomNavigationBar.kt": {
@@ -460,8 +460,8 @@
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/ui/navigation/AppRoute.kt": {
-    "mtime": 1784483433.6949983,
-    "ast_hash": "1362a24ef134becb470caedf91c2dbf7",
+    "mtime": 1784989374.0512788,
+    "ast_hash": "3a0dc6aac86ca5105b2d4bbdda7aaeb0",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/ui/navigation/Screen.kt": {
@@ -470,22 +470,22 @@
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/ui/screens/CredentialsSetupScreen.kt": {
-    "mtime": 1784567638.3818095,
+    "mtime": 1784977104.9872742,
     "ast_hash": "20d5b86e60159ea8a06788ab3899211b",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/ui/screens/FeaturePlaceholderScreen.kt": {
-    "mtime": 1784483433.6086528,
+    "mtime": 1784977104.987407,
     "ast_hash": "5c85750aa31e7ad00b5861e2dbe1bb95",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/ui/screens/HomeScreen.kt": {
-    "mtime": 1784483574.060378,
-    "ast_hash": "614b1a33367fa2d25f872e5a810f3b4b",
+    "mtime": 1784989423.2777402,
+    "ast_hash": "46684682de1eb1638d8ad856579b6512",
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/ui/screens/OnboardingScreen.kt": {
-    "mtime": 1784469361.248064,
+    "mtime": 1784977104.9876485,
     "ast_hash": "69250df6f439d54d7c2b445c80fc62a4",
     "semantic_hash": ""
   },
@@ -495,107 +495,107 @@
     "semantic_hash": ""
   },
   "app/src/main/java/com/smartphoneaichat/ui/screens/UnlockScreen.kt": {
-    "mtime": 1784567638.4650466,
+    "mtime": 1784977104.987767,
     "ast_hash": "61284b687bff1cb1dce7272e7a5f66a5",
     "semantic_hash": ""
   },
   "app/src/test/java/com/smartphoneaichat/data/persistence/EncryptedHealthRecordRepositoryTest.kt": {
-    "mtime": 1784571638.5918362,
-    "ast_hash": "9fd352bde18cb23e6ca48ecfc1ec1cd6",
+    "mtime": 1784977494.6566775,
+    "ast_hash": "51f0255a7045aeb579e4bd0ae40377d6",
     "semantic_hash": ""
   },
   "app/src/test/java/com/smartphoneaichat/data/persistence/LocalEncryptedDocumentStoreTest.kt": {
-    "mtime": 1784571703.0855398,
-    "ast_hash": "e8081a3d920b543bf6d5181298b5e2d0",
+    "mtime": 1784977464.3805566,
+    "ast_hash": "5f02ed0b6687054f3ed96b3b1e8d7d20",
     "semantic_hash": ""
   },
   "app/src/test/java/com/smartphoneaichat/data/persistence/PrototypeVaultBackupPolicyTest.kt": {
-    "mtime": 1784571859.062631,
+    "mtime": 1784977104.9885004,
     "ast_hash": "e12526c31b01917ef13b0ffbd297c374",
     "semantic_hash": ""
   },
   "app/src/test/java/com/smartphoneaichat/data/persistence/VaultStorageCoordinatorTest.kt": {
-    "mtime": 1784571787.7767465,
-    "ast_hash": "c1c6525c78752c6d3217e482020e7496",
+    "mtime": 1784977475.005705,
+    "ast_hash": "d0525b5161f674ceaffa9a79c44bb2fd",
     "semantic_hash": ""
   },
   "app/src/test/java/com/smartphoneaichat/data/security/AesGcmVaultCipherTest.kt": {
-    "mtime": 1784565638.9796748,
+    "mtime": 1784977104.9887543,
     "ast_hash": "840a742a232cefbb5ca9bf055d0ea57e",
     "semantic_hash": ""
   },
   "app/src/test/java/com/smartphoneaichat/data/security/DefaultVaultKeyManagerTest.kt": {
-    "mtime": 1784567552.8203826,
+    "mtime": 1784977104.9888628,
     "ast_hash": "7f8525898eef6f69ccd195ba850b1e4e",
     "semantic_hash": ""
   },
   "app/src/test/java/com/smartphoneaichat/data/security/DefaultVaultSessionTest.kt": {
-    "mtime": 1784567396.2070289,
+    "mtime": 1784977104.988965,
     "ast_hash": "f0c1d2243de9572cfc38ec30979a9a2e",
     "semantic_hash": ""
   },
   "app/src/test/java/com/smartphoneaichat/data/session/DefaultAppSessionStoreTest.kt": {
-    "mtime": 1784567166.3981633,
+    "mtime": 1784977104.9890902,
     "ast_hash": "3c3d4107fd56903336621df8be39af67",
     "semantic_hash": ""
   },
   "app/src/test/java/com/smartphoneaichat/presentation/onboarding/OnboardingViewModelTest.kt": {
-    "mtime": 1784469813.3133996,
+    "mtime": 1784977104.9894152,
     "ast_hash": "f0964fbb2f626f0f1d507d1f484b417f",
     "semantic_hash": ""
   },
   "app/src/test/java/com/smartphoneaichat/presentation/security/VaultAccessViewModelTest.kt": {
-    "mtime": 1784567753.5500288,
+    "mtime": 1784977104.9895618,
     "ast_hash": "ad5dead13fe1670fec9dd283e7a944ad",
     "semantic_hash": ""
   },
   "app/src/test/java/com/smartphoneaichat/presentation/session/AppDestinationResolverTest.kt": {
-    "mtime": 1784468897.0180337,
+    "mtime": 1784977104.9896855,
     "ast_hash": "16e2de0e7a00dddc17531f37d3f72b7a",
     "semantic_hash": ""
   },
   "app/src/test/java/com/smartphoneaichat/ui/navigation/AppRoutePolicyTest.kt": {
-    "mtime": 1784483809.4505854,
-    "ast_hash": "88ce09aa9901c9369753a04b85d79a30",
+    "mtime": 1784989355.313101,
+    "ast_hash": "d5d9c1b94846a3db575346aaa68dfc2f",
     "semantic_hash": ""
   },
   ".codex/skills/health-vault-wrap-up/SKILL.md": {
-    "mtime": 1784405899.528981,
+    "mtime": 1784977104.9816196,
     "ast_hash": "48f69b4f0199d152a25903a813eb75f3",
     "semantic_hash": ""
   },
   ".codex/skills/health-vault-wrap-up/agents/openai.yaml": {
-    "mtime": 1784405825.5642707,
+    "mtime": 1784977104.9817593,
     "ast_hash": "18be69c15992594e1d9a3ec50715174e",
     "semantic_hash": ""
   },
   "docs/architecture/0001-health-vault-application-shell.md": {
-    "mtime": 1784484785.5913594,
+    "mtime": 1784977104.9900022,
     "ast_hash": "24f55e828465a69e56de487f3a7f8083",
     "semantic_hash": ""
   },
   "docs/architecture/0002-vault-cryptographic-boundary.md": {
-    "mtime": 1784567337.6304853,
+    "mtime": 1784977104.9901223,
     "ast_hash": "4aed75a8e0e5717d56c8cf2cd870e818",
     "semantic_hash": ""
   },
   "docs/architecture/0003-encrypted-persistence-boundary.md": {
-    "mtime": 1784571962.0843987,
+    "mtime": 1784977104.990234,
     "ast_hash": "bf975617d66901558e798e3c8d66273d",
     "semantic_hash": ""
   },
   "docs/security/mg-03-threat-model.md": {
-    "mtime": 1784567638.54998,
+    "mtime": 1784977104.9903963,
     "ast_hash": "55d72f06f74682c51072529bfa54a1aa",
     "semantic_hash": ""
   },
   "docs/security/mg-03-vault-lifecycle-and-credential-behavior.md": {
-    "mtime": 1784572057.5356417,
+    "mtime": 1784977104.990539,
     "ast_hash": "5d4bbaca060f48985f21c25077ef514a",
     "semantic_hash": ""
   },
   "docs/security/mg-04-persistence-lifecycle.md": {
-    "mtime": 1784571962.1653695,
+    "mtime": 1784977104.9906492,
     "ast_hash": "bd4a3c48fb517540ca2972e35e5d46de",
     "semantic_hash": ""
   },
@@ -615,17 +615,17 @@
     "semantic_hash": ""
   },
   "plans/personal-health-vault/00-vision-baseline-and-current-state.md": {
-    "mtime": 1784468575.5427728,
-    "ast_hash": "58601eabc4ff7a34ece72449b54a5166",
+    "mtime": 1784989574.7944708,
+    "ast_hash": "f1b557632017db85e907ba3a362c0de8",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/01-product-safety-and-regulatory-baseline.md": {
-    "mtime": 1784468555.6568613,
+    "mtime": 1784977104.9962232,
     "ast_hash": "3be7c1dc026477338fd5e4b4a87d6ee6",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/02-architecture-pivot-and-app-shell.md": {
-    "mtime": 1784484689.500204,
+    "mtime": 1784977104.996399,
     "ast_hash": "ed3769aff8b9d540ff2e36f062c99df5",
     "semantic_hash": ""
   },
@@ -635,7 +635,7 @@
     "semantic_hash": ""
   },
   "plans/personal-health-vault/04-encrypted-persistence-and-recovery.md": {
-    "mtime": 1784571980.9373138,
+    "mtime": 1784977104.9965603,
     "ast_hash": "cf0bc9e9bf26bd420e8653619765c6dc",
     "semantic_hash": ""
   },
@@ -710,48 +710,48 @@
     "semantic_hash": ""
   },
   "plans/personal-health-vault/19-local-first-data-sync-and-recovery-boundary.md": {
-    "mtime": 1784572018.7757955,
+    "mtime": 1784977104.9967196,
     "ast_hash": "2a1dba60c9d4cb033ef727e11d63d1e7",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/20-android-verification-emulator-and-ui-regression.md": {
-    "mtime": 1784484590.776231,
+    "mtime": 1784977104.9968767,
     "ast_hash": "f6d3864cbc560e9118420699bd7c3bc3",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/DECISIONS.md": {
-    "mtime": 1784571962.002536,
+    "mtime": 1784977104.997041,
     "ast_hash": "72d7ac2b5f32e2870f810478d97de8d5",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/FIGMA_DESIGN_CONTEXT.md": {
-    "mtime": 1784405353.6965387,
-    "ast_hash": "d400fb0c12f6eeade76033f3786d7b75",
+    "mtime": 1784989552.2401755,
+    "ast_hash": "1b9079b01f90d952148cea9bcb43cedb",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/PROTOTYPE_FAST_TRACK.md": {
-    "mtime": 1784572052.4732203,
+    "mtime": 1784977104.9971914,
     "ast_hash": "a7eb2407616c44dd520557de802d9a62",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/README.md": {
-    "mtime": 1784572018.6954622,
-    "ast_hash": "f43d595e20f94d381321815df4a55005",
+    "mtime": 1784989552.1569853,
+    "ast_hash": "162b046d63475d933f1d57cb30152552",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/REFERENCES.md": {
-    "mtime": 1784415838.4328961,
+    "mtime": 1784977104.9975379,
     "ast_hash": "e5e8c7be16931cbb0d61b847e211cd17",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/REVIEW_QUESTIONS.md": {
-    "mtime": 1784468629.5734355,
+    "mtime": 1784977104.9977093,
     "ast_hash": "e939ab57afb9913ca830ae2ea569337c",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/TRACEABILITY.md": {
-    "mtime": 1784572035.2491817,
-    "ast_hash": "951baf03ba6111c550f015a1f2261e8b",
+    "mtime": 1784989552.3228557,
+    "ast_hash": "790450ff619886a4a58228f8c3b68baa",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/UI_DESIGN_PROMPT.md": {
@@ -760,48 +760,123 @@
     "semantic_hash": ""
   },
   "plans/personal-health-vault/mg-01/01-intended-use-and-claims.md": {
-    "mtime": 1784468629.4025328,
+    "mtime": 1784977104.9980338,
     "ast_hash": "aa0b3a28febe633cce0bda00b739976e",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/mg-01/02-data-processing-inventory.md": {
-    "mtime": 1784467007.1948614,
+    "mtime": 1784977104.998149,
     "ast_hash": "6f7db76965c3d35af35f0a6186addb35",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/mg-01/03-feature-risk-and-clinical-safety.md": {
-    "mtime": 1784467007.2781494,
+    "mtime": 1784977104.9982631,
     "ast_hash": "01cd75700359fb7e73f4516753c66ee7",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/mg-01/04-consent-privacy-retention-and-rights.md": {
-    "mtime": 1784467007.3605542,
+    "mtime": 1784977104.9983816,
     "ast_hash": "1e69484809782fa7081e5bb1156d0f6e",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/mg-01/05-vendor-assessment-template.md": {
-    "mtime": 1784467007.442654,
+    "mtime": 1784977104.9984884,
     "ast_hash": "71c40ceb02f9e32277056411419e2fef",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/mg-01/06-incident-response-runbook.md": {
-    "mtime": 1784467007.5256524,
+    "mtime": 1784977104.9986095,
     "ast_hash": "2a7294bdb59a24230966ae13b92a1a53",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/mg-01/07-store-compliance-and-signoff.md": {
-    "mtime": 1784468629.4875128,
+    "mtime": 1784977104.9987173,
     "ast_hash": "a944a48778e7a376980912941b76c264",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/mg-01/README.md": {
-    "mtime": 1784468555.7415037,
+    "mtime": 1784977104.9988186,
     "ast_hash": "2b318d45d5275f789229db4f87f2dfc5",
     "semantic_hash": ""
   },
   "plans/personal-health-vault/personal-health-vault-dashboard.html": {
-    "mtime": 1784484616.9193714,
+    "mtime": 1784977104.999029,
     "ast_hash": "7f16ffed7360345f59b711c3f3ce19be",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/smartphoneaichat/data/governance/InMemoryGovernanceRepositories.kt": {
+    "mtime": 1784977727.1919134,
+    "ast_hash": "fde145595b396acd8cdb38e07da15089",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/model/GovernanceModels.kt": {
+    "mtime": 1784977562.7192924,
+    "ast_hash": "bf34422b04657dc22ef669fbc87d8d1b",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/model/Profile.kt": {
+    "mtime": 1784977282.644222,
+    "ast_hash": "1c1031b272cb747a8faf8b41c8e984c7",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/model/ProfileAccessModels.kt": {
+    "mtime": 1784977269.1958942,
+    "ast_hash": "69474dfa81a0c9b180e9576de0c596e3",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/repository/GovernanceRepositories.kt": {
+    "mtime": 1784977727.1078858,
+    "ast_hash": "266c1402cb4e984b6bcf9432f43d3a34",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/session/ProfileSessionCoordinator.kt": {
+    "mtime": 1784977658.076008,
+    "ast_hash": "67734dad804978a4975b6663b1de9968",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/usecase/ConsentService.kt": {
+    "mtime": 1784977608.0612664,
+    "ast_hash": "7e8252c1b8cb077be98fae494d8a08df",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/smartphoneaichat/domain/usecase/SelfProfileInitializer.kt": {
+    "mtime": 1784977727.2758198,
+    "ast_hash": "72e98040d65372e4f214279e6083c1b9",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/smartphoneaichat/ui/app/VaultShell.kt": {
+    "mtime": 1784989529.7281656,
+    "ast_hash": "e43b3bf0af5c995c148fc2438f39153c",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/smartphoneaichat/ui/screens/VaultDestinationScreen.kt": {
+    "mtime": 1784989403.6742296,
+    "ast_hash": "b5cb407d56e3078cb6abce3f9400c4dc",
+    "semantic_hash": ""
+  },
+  "app/src/test/java/com/smartphoneaichat/domain/governance/ConsentAndAuditTest.kt": {
+    "mtime": 1784977562.6366732,
+    "ast_hash": "1f1f1d6948de5d605074ae4869f9fd01",
+    "semantic_hash": ""
+  },
+  "app/src/test/java/com/smartphoneaichat/domain/model/ProfileAccessTest.kt": {
+    "mtime": 1784977192.160989,
+    "ast_hash": "24c813091f39dfad6219900ad465a9e9",
+    "semantic_hash": ""
+  },
+  "app/src/test/java/com/smartphoneaichat/domain/profile/ProfileRepositoryTest.kt": {
+    "mtime": 1784977693.2906141,
+    "ast_hash": "97f372f266b05f84e057f6c59d3b61f3",
+    "semantic_hash": ""
+  },
+  "app/src/test/java/com/smartphoneaichat/domain/session/ProfileSessionCoordinatorTest.kt": {
+    "mtime": 1784977637.1456184,
+    "ast_hash": "49be6f6873f9121ac0b5bfef75b7ffe8",
+    "semantic_hash": ""
+  },
+  ".github/workflows/signed-release.yml": {
+    "mtime": 1784988499.7062066,
+    "ast_hash": "3d4a3b17702651fc9903b2dcebd10bbb",
     "semantic_hash": ""
   }
 }

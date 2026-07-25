@@ -1,7 +1,7 @@
 # Figma Design Context and Plan Alignment
 
 **Source:** [Personal Health Vault design](https://www.figma.com/design/gWOUuvPHpGjnIhlbFr85FT/Design?node-id=0-1&p=f&t=zwUez6PyvfTmTAK6-0)  
-**Reviewed:** 2026-07-19  
+**Reviewed:** 2026-07-25
 **Scope:** Design reference for the local, single-profile prototype. This document does not change the Figma file.
 
 ## Confirmed visual direction
@@ -13,7 +13,7 @@ The Figma design is aligned with the planned dark Android experience:
 - Manrope for display/headline text and Inter for body, labels, and controls.
 - Compact card-led information hierarchy with readable type, clear iconography, 16 dp-style content gutters, and rounded surfaces.
 - A subtle low-opacity teal radial depth treatment on the access screen. This is acceptable as a background detail; it should not become a bright or decorative gradient system.
-- Bottom navigation: **Home**, **Records**, **Add**, and **Settings**.
+- The prototype reference shows four navigation items. The implemented roadmap shell deliberately uses **Home**, **Records**, **Add**, **Insights**, and **Profile**; Settings is nested under Profile.
 
 ## Screens captured in the design
 
@@ -32,7 +32,7 @@ The avatar represents the one local self profile. It must remain local-only and 
 | Figma concept | Compose implementation target |
 |---|---|
 | 64 dp top app bar | `VaultTopAppBar` |
-| Four-item bottom navigation | `VaultBottomNavigation` with typed routes |
+| Adaptive primary navigation | `VaultShell` with typed Home, Records, Add, Insights, and Profile routes; Settings remains nested |
 | Elevated record cards | `RecordCategoryCard` / `VaultCard` |
 | Active navigation pill | Material 3 navigation item with app color tokens |
 | Teal primary action | `VaultPrimaryButton` and primary FAB/add action |
@@ -50,7 +50,7 @@ The Figma visual language is usable now, but the following copy must change befo
 | Current Figma copy/pattern | Prototype-safe replacement or rule |
 |---|---|
 | “Secure local access to your medical records.” | “Local access to your personal health records.” |
-| “Data is encrypted and stored locally…” | “Stored locally on this device. Security upgrades are planned.” Do not claim encryption until MG-03/04 are complete. |
+| “Data is encrypted and stored locally…” | Accurate after MG-03/04: state that records and documents are encrypted locally, while recovery, rotation, and biometric access remain unavailable. |
 | “Forgot Credentials?” | Remove or hide. The prototype has no password recovery. |
 | “Clinical Data” filter | Prefer “Health records” or a neutral record-type label to avoid an unintended clinical-service claim. |
 | “3 Alerts” for allergies | Use “3 recorded allergies.” Alerts/interactions are a later feature. |
@@ -72,4 +72,3 @@ The Figma visual language is usable now, but the following copy must change befo
 4. Implement Records Hub and its category cards.
 5. Implement medications, reports/import entry, and vitals as independent feature screens.
 6. Return to the Figma file only when the prototype scope adds or changes a screen; maintain this document as the code/design contract.
-
