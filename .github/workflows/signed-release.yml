@@ -24,9 +24,14 @@ jobs:
       - name: Build release APK
         run: ./gradlew assembleRelease
 
+      - name: Install Android build tools
+        run: sdkmanager --install "build-tools;35.0.0"
+
       - name: Sign release APK
         id: sign_release
         uses: r0adkll/sign-android-release@v1
+        env:
+          BUILD_TOOLS_VERSION: 35.0.0
         with:
           releaseDirectory: app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
