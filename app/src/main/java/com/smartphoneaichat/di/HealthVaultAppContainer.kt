@@ -5,6 +5,9 @@ import com.smartphoneaichat.data.persistence.EncryptedHealthRecordRepository
 import com.smartphoneaichat.data.persistence.LocalEncryptedDocumentStore
 import com.smartphoneaichat.data.persistence.PrototypeVaultBackupPolicy
 import com.smartphoneaichat.data.persistence.VaultStorageCoordinator
+import com.smartphoneaichat.data.governance.InMemoryAuditRepository
+import com.smartphoneaichat.data.governance.InMemoryConsentRepository
+import com.smartphoneaichat.data.governance.InMemoryProfileRepository
 import com.smartphoneaichat.data.security.DefaultVaultSession
 import com.smartphoneaichat.data.security.AesGcmVaultCipher
 import com.smartphoneaichat.data.security.AndroidKeystoreVaultKeyEnvelopeCipher
@@ -21,6 +24,12 @@ import com.smartphoneaichat.domain.repository.VaultCipher
 import com.smartphoneaichat.domain.repository.VaultBackupPolicy
 import com.smartphoneaichat.domain.repository.VaultKeyManager
 import com.smartphoneaichat.domain.repository.VaultSession
+import com.smartphoneaichat.domain.repository.AuditRepository
+import com.smartphoneaichat.domain.repository.ConsentRepository
+import com.smartphoneaichat.domain.repository.ProfileRepository
+import com.smartphoneaichat.domain.session.ProfileSessionCoordinator
+import com.smartphoneaichat.domain.usecase.DefaultSelfProfileInitializer
+import com.smartphoneaichat.domain.usecase.SelfProfileInitializer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -31,6 +40,14 @@ class HealthVaultAppContainer(application: Application) {
     private val randomBytes = AndroidSecureRandomBytes()
     private val defaultVaultSession = DefaultVaultSession()
     val vaultSession: VaultSession = defaultVaultSession
+    val profileRepository: ProfileRepository = InMemoryProfileRepository()
+    val consentRepository: ConsentRepository = InMemoryConsentRepository()
+    val auditRepository: AuditRepository = InMemoryAuditRepository()
+    val selfProfileInitializer: SelfProfileInitializer = DefaultSelfProfileInitializer(profileRepository)
+    val profileSessionCoordinator = ProfileSessionCoordinator(
+        initialContext = null,
+        invalidators = emptyList(),
+    )
     val vaultKeyManager: VaultKeyManager = DefaultVaultKeyManager(
         storage = SharedPreferencesVaultSecurityStorage(application),
         authenticationGateway = Pbkdf2AuthenticationGateway(randomBytes),

@@ -6,6 +6,9 @@ import com.smartphoneaichat.data.security.RandomBytes
 import com.smartphoneaichat.domain.model.HealthRecord
 import com.smartphoneaichat.domain.model.HealthRecordProvenance
 import com.smartphoneaichat.domain.model.HealthRecordWrite
+import com.smartphoneaichat.domain.model.AuthorizedSessionContext
+import com.smartphoneaichat.domain.model.ProfileCapability
+import com.smartphoneaichat.domain.model.ProfileRole
 import com.smartphoneaichat.domain.repository.HealthRecordDeleteResult
 import com.smartphoneaichat.domain.repository.HealthRecordRepository
 import com.smartphoneaichat.domain.repository.HealthRecordSaveResult
@@ -33,6 +36,7 @@ class VaultStorageCoordinatorTest {
         )
 
         val result = coordinator.importDocumentWithRecord(
+            context = context(),
             record = HealthRecordWrite(
                 id = "doc-record-1",
                 profileId = "profile-a",
@@ -49,7 +53,7 @@ class VaultStorageCoordinatorTest {
         )
 
         assertEquals(VaultDocumentImportResult.Unavailable, result)
-        assertNull(documentStore.read(profileId = "profile-a", documentId = "document-1"))
+        assertNull(documentStore.read(context(), documentId = "document-1"))
     }
 
     private fun createCipher(): AesGcmVaultCipher {
@@ -61,17 +65,25 @@ class VaultStorageCoordinatorTest {
     }
 
     private object FailingHealthRecordRepository : HealthRecordRepository {
-        override fun save(record: HealthRecordWrite): HealthRecordSaveResult =
+        override fun save(context: AuthorizedSessionContext, record: HealthRecordWrite): HealthRecordSaveResult =
             HealthRecordSaveResult.Unavailable
 
-        override fun get(profileId: String, id: String): HealthRecord? = null
+        override fun get(context: AuthorizedSessionContext, id: String): HealthRecord? = null
 
-        override fun list(profileId: String, limit: Int, offset: Int): List<HealthRecord> =
+        override fun list(context: AuthorizedSessionContext, limit: Int, offset: Int): List<HealthRecord> =
             emptyList()
 
-        override fun delete(profileId: String, id: String): HealthRecordDeleteResult =
+        override fun delete(context: AuthorizedSessionContext, id: String): HealthRecordDeleteResult =
             HealthRecordDeleteResult.NotFound
     }
+
+    private fun context(): AuthorizedSessionContext = AuthorizedSessionContext(
+        actorId = "owner",
+        profileId = "profile-a",
+        sessionId = "session-1",
+        role = ProfileRole.Self,
+        capabilities = ProfileCapability.entries.toSet(),
+    )
 
     private class IncrementingRandomBytes : RandomBytes {
         private var value = 61

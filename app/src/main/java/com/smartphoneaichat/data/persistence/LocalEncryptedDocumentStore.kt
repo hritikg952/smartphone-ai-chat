@@ -3,6 +3,8 @@ package com.smartphoneaichat.data.persistence
 import com.smartphoneaichat.domain.model.VaultAssociatedData
 import com.smartphoneaichat.domain.model.VaultCryptoResult
 import com.smartphoneaichat.domain.model.VaultEncryptedPayload
+import com.smartphoneaichat.domain.model.AuthorizedSessionContext
+import com.smartphoneaichat.domain.model.ProfileCapability
 import com.smartphoneaichat.domain.repository.DocumentImportResult
 import com.smartphoneaichat.domain.repository.EncryptedDocumentStore
 import com.smartphoneaichat.domain.repository.VaultCipher
@@ -22,31 +24,31 @@ class LocalEncryptedDocumentStore(
     private val indexFile = rootDirectory.resolve(INDEX_FILE)
 
     override fun import(
-        profileId: String,
+        context: AuthorizedSessionContext,
         documentId: String,
         mimeType: String,
         bytes: ByteArray,
     ): DocumentImportResult {
-        require(profileId.isNotBlank())
+        context.requireAccess(context.profileId, ProfileCapability.Write)
         require(documentId.isNotBlank())
         if (mimeType !in allowedMimeTypes) return DocumentImportResult.UnsupportedType
         if (bytes.size > maxBytes) return DocumentImportResult.TooLarge
 
-        val encrypted = cipher.encrypt(bytes, associatedData(profileId, documentId))
+        val encrypted = cipher.encrypt(bytes, associatedData(context.profileId, documentId))
         if (encrypted == VaultCryptoResult.Locked) return DocumentImportResult.Locked
         if (encrypted !is VaultCryptoResult.Encrypted) return DocumentImportResult.Unavailable
 
         return runCatching {
             Files.createDirectories(documentDirectory)
-            val opaqueName = opaqueName(profileId, documentId)
+            val opaqueName = opaqueName(context.profileId, documentId)
             val tempBlob = documentDirectory.resolve("$opaqueName.tmp")
             val finalBlob = documentDirectory.resolve("$opaqueName.blob")
             try {
                 Files.write(tempBlob, encrypted.payload.encode().toByteArray(StandardCharsets.UTF_8))
                 replaceFile(tempBlob, finalBlob)
                 val updated = loadIndex()
-                    .filterNot { it.profileId == profileId && it.documentId == documentId }
-                    .plus(DocumentIndexEntry(profileId, documentId, mimeType, finalBlob.fileName.toString()))
+                    .filterNot { it.profileId == context.profileId && it.documentId == documentId }
+                    .plus(DocumentIndexEntry(context.profileId, documentId, mimeType, finalBlob.fileName.toString()))
                 writeIndex(updated)
             } catch (error: Exception) {
                 Files.deleteIfExists(tempBlob)
@@ -57,9 +59,10 @@ class LocalEncryptedDocumentStore(
         }.getOrDefault(DocumentImportResult.Unavailable)
     }
 
-    override fun read(profileId: String, documentId: String): ByteArray? {
+    override fun read(context: AuthorizedSessionContext, documentId: String): ByteArray? {
+        context.requireAccess(context.profileId, ProfileCapability.Read)
         val entry = runCatching { loadIndex() }.getOrDefault(emptyList()).firstOrNull {
-            it.profileId == profileId && it.documentId == documentId
+            it.profileId == context.profileId && it.documentId == documentId
         } ?: return null
         val payload = runCatching {
             decodePayload(
@@ -69,21 +72,24 @@ class LocalEncryptedDocumentStore(
                 ),
             )
         }.getOrNull() ?: return null
-        return when (val decrypted = cipher.decrypt(payload, associatedData(profileId, documentId))) {
+        return when (val decrypted = cipher.decrypt(payload, associatedData(context.profileId, documentId))) {
             is VaultCryptoResult.Plaintext -> decrypted.bytes
             else -> null
         }
     }
 
-    override fun delete(profileId: String, documentId: String): Boolean = runCatching {
+    override fun delete(context: AuthorizedSessionContext, documentId: String): Boolean {
+        context.requireAccess(context.profileId, ProfileCapability.Delete)
+        return runCatching {
         val entries = loadIndex()
         val target = entries.firstOrNull {
-            it.profileId == profileId && it.documentId == documentId
+            it.profileId == context.profileId && it.documentId == documentId
         } ?: return true
         Files.deleteIfExists(documentDirectory.resolve(target.blobName))
-        writeIndex(entries.filterNot { it.profileId == profileId && it.documentId == documentId })
+        writeIndex(entries.filterNot { it.profileId == context.profileId && it.documentId == documentId })
         true
-    }.getOrDefault(false)
+        }.getOrDefault(false)
+    }
 
     private fun loadIndex(): List<DocumentIndexEntry> {
         if (!Files.exists(indexFile)) return emptyList()

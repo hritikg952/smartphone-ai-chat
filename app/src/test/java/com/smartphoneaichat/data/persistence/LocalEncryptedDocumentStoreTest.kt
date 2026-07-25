@@ -4,6 +4,9 @@ import com.smartphoneaichat.data.security.AesGcmVaultCipher
 import com.smartphoneaichat.data.security.DefaultVaultSession
 import com.smartphoneaichat.data.security.RandomBytes
 import com.smartphoneaichat.domain.repository.DocumentImportResult
+import com.smartphoneaichat.domain.model.AuthorizedSessionContext
+import com.smartphoneaichat.domain.model.ProfileCapability
+import com.smartphoneaichat.domain.model.ProfileRole
 import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -27,7 +30,7 @@ class LocalEncryptedDocumentStoreTest {
         assertEquals(
             DocumentImportResult.Locked,
             lockedStore.import(
-                profileId = "profile-a",
+                context = context("profile-a"),
                 documentId = "lab-report-2026",
                 mimeType = "application/pdf",
                 bytes = "cholesterol 190".encodeToByteArray(),
@@ -41,7 +44,7 @@ class LocalEncryptedDocumentStoreTest {
         assertEquals(
             DocumentImportResult.Imported,
             unlockedStore.import(
-                profileId = "profile-a",
+                context = context("profile-a"),
                 documentId = "lab-report-2026",
                 mimeType = "application/pdf",
                 bytes = "cholesterol 190".encodeToByteArray(),
@@ -55,7 +58,7 @@ class LocalEncryptedDocumentStoreTest {
 
         assertArrayEquals(
             "cholesterol 190".encodeToByteArray(),
-            restartedStore.read(profileId = "profile-a", documentId = "lab-report-2026"),
+            restartedStore.read(context("profile-a"), documentId = "lab-report-2026"),
         )
         val publishedFiles = Files.walk(tempDir).use { stream ->
             stream.filter(Files::isRegularFile).toList()
@@ -77,7 +80,7 @@ class LocalEncryptedDocumentStoreTest {
         assertEquals(
             DocumentImportResult.Unavailable,
             store.import(
-                profileId = "profile-a",
+                context = context("profile-a"),
                 documentId = "document-1",
                 mimeType = "application/pdf",
                 bytes = "sensitive pdf body".encodeToByteArray(),
@@ -98,6 +101,14 @@ class LocalEncryptedDocumentStoreTest {
             randomBytes = IncrementingRandomBytes(),
         )
     }
+
+    private fun context(profileId: String): AuthorizedSessionContext = AuthorizedSessionContext(
+        actorId = "owner",
+        profileId = profileId,
+        sessionId = "session-$profileId",
+        role = ProfileRole.Self,
+        capabilities = ProfileCapability.entries.toSet(),
+    )
 
     private class IncrementingRandomBytes : RandomBytes {
         private var value = 31
