@@ -35,6 +35,7 @@ data class HomeUiState(
 fun HomeScreen(
     onNavigate: (AppRoute) -> Unit,
     hasEmergencyCard: Boolean = false,
+    medicationSummary: String? = null,
     state: HomeUiState = HomeUiState(),
     modifier: Modifier = Modifier,
 ) {
@@ -60,7 +61,7 @@ fun HomeScreen(
             onNavigate,
             AppRoute.Emergency,
         )
-        HomeSection("Today", sectionText("Medication schedule", state.medication), onNavigate, AppRoute.Medications)
+        HomeSection("Today", medicationSummary ?: sectionText("Medication schedule", state.medication), onNavigate, AppRoute.Medications)
         HomeSection("Recent records", sectionText("No health records yet", state.recentRecords), onNavigate, AppRoute.Records)
         HomeSection("Latest vitals", sectionText("No measurements yet", state.vitals), onNavigate, AppRoute.Vitals)
         HomeSection("Appointments and permissions", sectionText("No appointments or integration warnings", state.appointments), onNavigate, AppRoute.Profile)

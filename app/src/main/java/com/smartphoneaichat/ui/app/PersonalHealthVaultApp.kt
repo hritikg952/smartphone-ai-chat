@@ -27,6 +27,10 @@ import com.smartphoneaichat.ui.screens.EmergencyCardScreen
 import com.smartphoneaichat.ui.screens.OnboardingScreen
 import com.smartphoneaichat.ui.screens.UnlockScreen
 import com.smartphoneaichat.ui.screens.VaultDestinationScreen
+import com.smartphoneaichat.ui.screens.MedicationScreen
+import com.smartphoneaichat.presentation.medication.MedicationUiState
+import com.smartphoneaichat.domain.model.MedicationRegimen
+import com.smartphoneaichat.domain.model.Provider
 import com.smartphoneaichat.ui.theme.DarkBackground
 import com.smartphoneaichat.ui.theme.SmartphoneAIChatTheme
 
@@ -49,6 +53,9 @@ fun PersonalHealthVaultApp(
     onDismissEmergencyExposureWarning: () -> Unit = {},
     onConfirmEmergencyPublish: () -> Unit = {},
     onRevokeEmergencyCard: () -> Unit = {},
+    medicationState: MedicationUiState = MedicationUiState(),
+    onSaveMedication: (MedicationRegimen) -> Unit = {},
+    onSaveProvider: (Provider) -> Unit = {},
 ) {
     SmartphoneAIChatTheme {
         val navController = rememberNavController()
@@ -118,6 +125,9 @@ fun PersonalHealthVaultApp(
                         HomeScreen(
                             onNavigate = navigateSafely,
                             hasEmergencyCard = emergencyCardState.projection != null,
+                            medicationSummary = medicationState.today.firstOrNull()?.let {
+                                "${it.localTime} · ${it.label} · ${it.dose}"
+                            },
                         )
                     }
                     composable(AppRoute.Emergency.path) {
@@ -132,7 +142,15 @@ fun PersonalHealthVaultApp(
                     }
                     AppRoute.protectedRoutes.filterNot { it == AppRoute.Home }.forEach { route ->
                         composable(route.path) {
-                            VaultDestinationScreen(route, onNavigate = navigateSafely)
+                            if (route == AppRoute.Medications) {
+                                MedicationScreen(
+                                    state = medicationState,
+                                    onSaveMedication = onSaveMedication,
+                                    onSaveProvider = onSaveProvider,
+                                )
+                            } else {
+                                VaultDestinationScreen(route, onNavigate = navigateSafely)
+                            }
                         }
                     }
                 }
