@@ -2,6 +2,7 @@ package com.smartphoneaichat.di
 
 import android.app.Application
 import com.smartphoneaichat.data.persistence.EncryptedHealthRecordRepository
+import com.smartphoneaichat.data.persistence.LocalEmergencyCardRepository
 import com.smartphoneaichat.data.persistence.LocalEncryptedDocumentStore
 import com.smartphoneaichat.data.persistence.PrototypeVaultBackupPolicy
 import com.smartphoneaichat.data.persistence.VaultStorageCoordinator
@@ -9,6 +10,7 @@ import com.smartphoneaichat.data.governance.InMemoryAuditRepository
 import com.smartphoneaichat.data.governance.InMemoryConsentRepository
 import com.smartphoneaichat.data.governance.InMemoryProfileRepository
 import com.smartphoneaichat.data.security.DefaultVaultSession
+import com.smartphoneaichat.data.security.AndroidKeystoreEmergencyCardIntegritySigner
 import com.smartphoneaichat.data.security.AesGcmVaultCipher
 import com.smartphoneaichat.data.security.AndroidKeystoreVaultKeyEnvelopeCipher
 import com.smartphoneaichat.data.security.AndroidSecureRandomBytes
@@ -19,6 +21,7 @@ import com.smartphoneaichat.data.session.DefaultAppSessionStore
 import com.smartphoneaichat.data.session.SharedPreferencesOnboardingStatusStorage
 import com.smartphoneaichat.domain.repository.AppSessionStore
 import com.smartphoneaichat.domain.repository.EncryptedDocumentStore
+import com.smartphoneaichat.domain.repository.EmergencyCardRepository
 import com.smartphoneaichat.domain.repository.HealthRecordRepository
 import com.smartphoneaichat.domain.repository.VaultCipher
 import com.smartphoneaichat.domain.repository.VaultBackupPolicy
@@ -73,6 +76,10 @@ class HealthVaultAppContainer(application: Application) {
         documents = encryptedDocumentStore,
     )
     val vaultBackupPolicy: VaultBackupPolicy = PrototypeVaultBackupPolicy
+    val emergencyCardRepository: EmergencyCardRepository = LocalEmergencyCardRepository(
+        rootDirectory = application.noBackupFilesDir.resolve("emergency-card").toPath(),
+        signer = AndroidKeystoreEmergencyCardIntegritySigner(),
+    )
     val appSessionStore: AppSessionStore = DefaultAppSessionStore(
         onboardingStatusStorage = SharedPreferencesOnboardingStatusStorage(application),
         vaultSession = vaultSession,

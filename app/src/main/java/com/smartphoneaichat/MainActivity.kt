@@ -11,6 +11,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.smartphoneaichat.presentation.onboarding.OnboardingViewModel
 import com.smartphoneaichat.presentation.security.VaultAccessViewModel
 import com.smartphoneaichat.presentation.security.VaultAccessViewModelFactory
+import com.smartphoneaichat.presentation.emergency.EmergencyCardViewModel
+import com.smartphoneaichat.presentation.emergency.EmergencyCardViewModelFactory
+import androidx.compose.runtime.LaunchedEffect
 import com.smartphoneaichat.ui.app.PersonalHealthVaultApp
 
 /** Single Android entry point for the Personal Health Vault application. */
@@ -35,16 +38,28 @@ class MainActivity : ComponentActivity() {
                     auditRepository = container.auditRepository,
                 ),
             )
+            val emergencyCardViewModel: EmergencyCardViewModel = viewModel(
+                factory = EmergencyCardViewModelFactory(
+                    emergencyCards = container.emergencyCardRepository,
+                    profiles = container.profileRepository,
+                    audit = container.auditRepository,
+                    vaultSession = container.vaultSession,
+                ),
+            )
             val onboardingState by onboardingViewModel.state.collectAsStateWithLifecycle()
             val vaultAccessState by vaultAccessViewModel.state.collectAsStateWithLifecycle()
+            val emergencyCardState by emergencyCardViewModel.state.collectAsStateWithLifecycle()
             val sessionState by appSessionStore.state.collectAsStateWithLifecycle()
             val selectedProfileContext by container.profileSessionCoordinator.currentContext
                 .collectAsStateWithLifecycle()
-            val selectedProfileLabel = selectedProfileContext?.let { context ->
+            val selectedProfileLabel = selectedProfileContext?.takeIf { sessionState.isVaultUnlocked }?.let { context ->
                 container.profileRepository.get(context)?.let { profile ->
                     "${profile.displayName} · ${profile.relationship.name.lowercase()}"
                 }
             } ?: "Self profile"
+            LaunchedEffect(sessionState.isVaultUnlocked, selectedProfileContext) {
+                emergencyCardViewModel.refresh(sessionState.isVaultUnlocked, selectedProfileContext)
+            }
             PersonalHealthVaultApp(
                 sessionState = sessionState,
                 onboardingState = onboardingState,
@@ -56,6 +71,11 @@ class MainActivity : ComponentActivity() {
                 onUnlock = vaultAccessViewModel::unlockVault,
                 onLock = vaultAccessViewModel::lockVault,
                 selectedProfileLabel = selectedProfileLabel,
+                emergencyCardState = emergencyCardState,
+                onRequestEmergencyPublish = emergencyCardViewModel::requestPublish,
+                onDismissEmergencyExposureWarning = emergencyCardViewModel::dismissExposureWarning,
+                onConfirmEmergencyPublish = { emergencyCardViewModel.confirmPublish(selectedProfileContext) },
+                onRevokeEmergencyCard = { emergencyCardViewModel.revoke(selectedProfileContext) },
             )
         }
     }

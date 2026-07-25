@@ -18,6 +18,7 @@ enum class ProfileCapability {
     ManageProfile,
     ManageConsent,
     ViewAudit,
+    ManageEmergencyProjection,
 }
 
 /**

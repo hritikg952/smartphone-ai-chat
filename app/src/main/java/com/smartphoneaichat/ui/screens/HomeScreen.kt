@@ -34,6 +34,7 @@ data class HomeUiState(
 @Composable
 fun HomeScreen(
     onNavigate: (AppRoute) -> Unit,
+    hasEmergencyCard: Boolean = false,
     state: HomeUiState = HomeUiState(),
     modifier: Modifier = Modifier,
 ) {
@@ -53,7 +54,12 @@ fun HomeScreen(
             text = "Your health records stay organized here. Each section will become available as its feature is added.",
             style = MaterialTheme.typography.bodyLarge,
         )
-        HomeSection("Emergency information", "No emergency card is configured.", onNavigate, AppRoute.Emergency)
+        HomeSection(
+            "Emergency information",
+            if (hasEmergencyCard) "Emergency card is published for locked access." else "No emergency card is configured.",
+            onNavigate,
+            AppRoute.Emergency,
+        )
         HomeSection("Today", sectionText("Medication schedule", state.medication), onNavigate, AppRoute.Medications)
         HomeSection("Recent records", sectionText("No health records yet", state.recentRecords), onNavigate, AppRoute.Records)
         HomeSection("Latest vitals", sectionText("No measurements yet", state.vitals), onNavigate, AppRoute.Vitals)

@@ -6,7 +6,7 @@ This matrix ensures every requirement in the supplied master development plan ha
 |---|---|---|---|
 | Zero-knowledge client-side encryption | MG-03 | MG-04, MG-15, MG-17 | Threat model; key hierarchy; server cannot decrypt if/when service exists; pen test |
 | Biometric access | MG-03 | MG-02, MG-17 | Instrumented auth/key invalidation/lifecycle suite |
-| Offline emergency information | MG-07 | MG-03 to MG-06 | Offline locked-state E2E and exposure review |
+| Offline emergency information | MG-07 | MG-03 to MG-06 | Name-only projection repository restart/integrity/revoke tests, locked Compose rendering, and pending offline device exposure review |
 | Lock-screen widget / Wallet pass | MG-07 | MG-01, MG-17 | Platform feasibility, issuer approval, privacy/security review |
 | Active/discontinued medication tracking | MG-08 | MG-04, MG-05 | Regimen state-machine and chronology tests |
 | Daily intake schedule | MG-08 | MG-06 | Recurrence/DST fixtures and accessible Today UI |
@@ -30,7 +30,7 @@ This matrix ensures every requirement in the supplied master development plan ha
 | Proxy/dependent profiles | MG-05 | All feature plans | Scoped repository/authorization tests |
 | Granular PDF sharing | MG-15 | MG-05, feature plans | Byte-level disclosure and PDF accessibility tests |
 | Time-limited/password web links | MG-15 | MG-01, MG-03, MG-17 | Separate zero-knowledge service and abuse/deletion review |
-| Home-screen emergency vital card | MG-06, MG-07 | MG-05, MG-10 | Locked/unlocked UI, minimum-data and accessibility tests |
+| Home-screen emergency vital card | MG-06, MG-07 | MG-05, MG-10 | Current Home status and locked/unlocked name-card UI tests; clinical vital content remains MG-10 |
 
 ## Cross-cutting requirement coverage
 
@@ -65,4 +65,5 @@ A master requirement is complete only when its primary plan exit gate is closed,
 | Backup and restore policy | MG-04 | `PrototypeVaultBackupPolicyTest`, manifest backup disabling, and `data_extraction_rules.xml` keep export disabled and restore unavailable in the prototype. | Authenticated backup envelope, restore preview, recovery material, and conflict policy remain open. |
 | Profile authorization and audit boundary | MG-05 | Scoped profile/consent/audit repositories and session-coordinator tests enforce the current self-profile context and clear feature state on a switch. | Dependent authority, durable governance storage, and user-facing activity history remain open. |
 | Adaptive vault shell | MG-06 | Typed primary routes, route-policy tests, Compose navigation semantics, selected-profile indication, and independently empty Home sections keep unfinished features reachable without fabricated clinical data. | Records, emergency projection, appointments, insights, and profile-management content remain owned by later milestones. |
+| Name-only emergency card | MG-07 | `LocalEmergencyCardRepositoryTest`, `EmergencyCardPublisherTest`, `EmergencyCardScreenTest`, and the existing emergency route-policy test cover public projection persistence/integrity, explicit refresh, locked rendering, and vault-route isolation. | Clinical/contact fields, device offline/large-font/key-invalidation verification, calling, external shares, Wallet, widgets, and dependent profiles remain open. |
 | Android connected-test lane | MG-20 | Full `connectedDebugAndroidTest` suite passes ten tests on `Pixel_10(AVD) - 17`; visual onboarding smoke was inspected. | AVD specification, scripts, retained regression artifacts, CI, and physical-device matrix remain open. |
